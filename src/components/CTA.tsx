@@ -29,7 +29,7 @@ export const CTA = () => (
       isExternal
       href="https://github.com/vercel/next.js/blob/canary/examples/with-chakra-ui-typescript"
       variant="solid"
-      colorScheme="green"
+      colorScheme="pink"
       rounded="button"
       flexGrow={3}
       mx={2}
