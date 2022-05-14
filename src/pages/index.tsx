@@ -20,8 +20,8 @@ const Index = () => {
 
 
   useEffect(() => {
-    fetch('/api/users')
-      .then(res => res.json())
+    fetch('/hello')
+      .then(res => res.text())
       .then(data => { console.log(data) })
   }, [])
 
