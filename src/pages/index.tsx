@@ -1,66 +1,58 @@
+import { SettingsIcon } from '@chakra-ui/icons'
 import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
+  Heading,
+  IconButton,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
-
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
-import { useEffect } from 'react'
+import { HiDotsVertical } from 'react-icons/hi'
+import Link from 'next/link'
 
 const Index = () => {
-
-
-  useEffect(() => {
-    fetch('/api/users')
-      .then(res => res.json())
-      .then(data => { console.log(data) })
-  }, [])
-
   return (
-    <Container height="100vh" >
-      <Hero />
-      <Main>
-        <Text color="text">
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-          <Code>TypeScript</Code>.
-        </Text>
+    <>
+      <Heading as="h2" size="md" mt={12} mb={4}>
+        Buttons
+      </Heading>
 
-        <List spacing={3} my={0} color="text">
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="green.500" />
-            <ChakraLink
-              isExternal
-              href="https://chakra-ui.com"
-              flexGrow={1}
-              mr={2}
-            >
-              Chakra UI <LinkIcon />
-            </ChakraLink>
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="green.500" />
-            <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-              Next.js <LinkIcon />
-            </ChakraLink>
-          </ListItem>
-        </List>
-      </Main>
-
-      <DarkModeSwitch />
-      <Footer>
-        <Text>Next ❤️ Chakra</Text>
-      </Footer>
-      <CTA />
-    </Container >
+      <TableContainer borderWidth="1px" rounded={'md'} shadow={'md'}>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th textAlign={'right'}>Actions</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>Bitcode Button</Td>
+              <Td textAlign={'right'}>
+                <Link href={'/settings'}>
+                  <IconButton
+                    isRound={true}
+                    aria-label="Button Setting Page"
+                    colorScheme="gray"
+                    icon={<SettingsIcon />}
+                  />
+                </Link>
+                <IconButton
+                  ml={2}
+                  isRound={true}
+                  aria-label="Button Setting Page"
+                  colorScheme="gray"
+                  icon={<HiDotsVertical />}
+                />
+              </Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   )
 }
 
