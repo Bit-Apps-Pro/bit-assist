@@ -15,11 +15,26 @@ import { DarkModeSwitch } from '../components/DarkModeSwitch'
 import { CTA } from '../components/CTA'
 import { Footer } from '../components/Footer'
 import { useEffect } from 'react'
+import { PrismaClient } from '@prisma/client'
 
-const Index = () => {
+
+export async function getStaticProps() {
+  const prisma = new PrismaClient()
+  const users = await prisma.users.findMany()
+  return {
+    props: {
+      users
+    }
+  }
+}
+
+const Index = ({ users }) => {
 
 
   useEffect(() => {
+    console.log({ users });
+
+
     fetch('/hello')
       .then(res => res.text())
       .then(data => { console.log(data) })
