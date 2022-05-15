@@ -18,7 +18,7 @@ import { useEffect } from 'react'
 import { PrismaClient } from '@prisma/client'
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const prisma = new PrismaClient()
   const users = await prisma.users.findMany()
   return {
@@ -35,7 +35,7 @@ const Index = ({ users }) => {
     console.log({ users });
 
 
-    fetch('/hello')
+    fetch('/hello', { method: 'post', body: JSON.stringify({ name: 'test' }) })
       .then(res => res.text())
       .then(data => { console.log(data) })
   }, [])
