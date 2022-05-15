@@ -18,15 +18,15 @@ import { useEffect } from 'react'
 import { PrismaClient } from '@prisma/client'
 
 
-export async function getServerSideProps() {
-  const prisma = new PrismaClient()
-  const users = await prisma.users.findMany()
-  return {
-    props: {
-      users
-    }
-  }
-}
+// export async function getServerSideProps() {
+//   const prisma = new PrismaClient()
+//   const users = await prisma.users.findMany()
+//   return {
+//     props: {
+//       users
+//     }
+//   }
+// }
 
 const Index = ({ users }) => {
 
