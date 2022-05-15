@@ -8,21 +8,25 @@ import {
   Spacer,
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { DarkModeSwitch } from './DarkModeSwitch'
 
 const Navbar = () => {
   return (
-    <Container maxW={'container.lg'}>
-      <Flex mt={4}>
-        <Box p="2">
-          <Heading size="md">Bit Chaty</Heading>
+    <Container maxW={'container.lg'} >
+      <Flex py="4">
+        <Box py="2">
+        <Heading size="md"><Link href={'/'}>Bit Chaty</Link></Heading>
         </Box>
         <Spacer />
-        <ButtonGroup gap="2">
-          <Button colorScheme="teal" variant="ghost">
-            <Link href={'/'}>Buttons</Link>
-          </Button>
-          <Button colorScheme="teal">Sign Up</Button>
-          <Button colorScheme="teal">Log in</Button>
+        <ButtonGroup>
+          <Link href={'/widgets'}>
+            <Button rounded='full' colorScheme="teal" variant="ghost">
+              Widgets
+            </Button>
+          </Link>
+          <Button rounded='full' colorScheme="teal" variant="ghost">Sign Up</Button>
+          <Button rounded='full' colorScheme="teal" variant="ghost">Log in</Button>
+          <DarkModeSwitch />
         </ButtonGroup>
       </Flex>
     </Container>
