@@ -76,7 +76,7 @@ const Widgets = ({ widgetsFromServer }) => {
                 <Heading as="h2" size="sm" textTransform="none" my="2">Widgets</Heading>
                 <button onClick={addNewWidget}>+</button>
               </Th>
-              <Th/>
+              <Th />
             </Tr>
           </Thead>
           <Tbody>
@@ -94,12 +94,10 @@ const Widgets = ({ widgetsFromServer }) => {
                     />
                     <MenuList shadow="lg">
                       <Link href={`/widgets/${i}`}>
-                        <MenuItem gap="3">
-                          <FiEdit2 />Edit
-                        </MenuItem>
+                        <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
-                      <MenuItem gap="3"><FiCopy />Duplicate</MenuItem>
-                      <MenuItem onClick={openDeleteModal(wid.id)} gap="3" color="red.600"><FiTrash2 />Delete</MenuItem>
+                      <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
+                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(wid.id)}>Delete</MenuItem>
                     </MenuList>
                   </Menu>
                 </Td>
