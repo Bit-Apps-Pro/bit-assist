@@ -5,7 +5,7 @@ export default function useDeleteWidget() {
   const queryClient = useQueryClient()
 
   const { mutateAsync, isLoading } = useMutation(
-    (widgetId) => request('/api/widget/delete', { widgetId }),
+    (widgetId: number) => request('/api/widget/delete', { widgetId }),
     {
       onSuccess: () => { queryClient.invalidateQueries('/api/widget/fetch') }
     }
