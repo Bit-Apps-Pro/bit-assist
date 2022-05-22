@@ -1,9 +1,11 @@
 import { Box, Container } from '@chakra-ui/react'
-import Navbar from './Navbar'
+import NextNProgress from 'nextjs-progressbar'
+import Navbar from '@components/Navbar'
 
 const Layout = ({ children }) => {
   return (
-    <Box minH={'100vh'}>
+    <Box>
+      <NextNProgress color="#ff0084" />
       <Navbar />
       <Container maxW="container.lg" py={12}>
         <main>{children}</main>

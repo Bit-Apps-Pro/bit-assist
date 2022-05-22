@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Icon, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import Customizations from '../../components/Customizations'
 import Installation from '../../components/Installation'
 import Integrations from '../../components/Integrations'
@@ -13,19 +13,11 @@ const Widget = () => {
         <Tab>Settings</Tab>
         <Tab>Customizations</Tab>
       </TabList>
-      <TabPanels borderWidth="1px" rounded="lg" shadow="md" mt="6" p="4">
-        <TabPanel>
-          <Installation />
-        </TabPanel>
-        <TabPanel>
-          <Integrations />
-        </TabPanel>
-        <TabPanel>
-          <Settings />
-        </TabPanel>
-        <TabPanel>
-          <Customizations />
-        </TabPanel>
+      <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
+        <TabPanel><Installation /></TabPanel>
+        <TabPanel><Integrations /></TabPanel>
+        <TabPanel><Settings /></TabPanel>
+        <TabPanel><Customizations /></TabPanel>
       </TabPanels>
     </Tabs>
   )

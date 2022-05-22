@@ -8,7 +8,55 @@ datasource db {
 }
 
 model users {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String
-  name  String
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  email     String         @unique
+  name      String
+  createdAt DateTime       @default(now())
+  widgets   chat_widgets[]
+}
+
+model chat_widgets {
+  id                       String                     @id @default(auto()) @map("_id") @db.ObjectId
+  name                     String
+  userId                   String                     @db.ObjectId
+  users                    users                      @relation(fields: [userId], references: [id])
+  styles                   Json?
+  domains                  String[]
+  business_hours           Json[]
+  exclude_pages            String[]
+  initial_delay            Int                        @default(0)
+  status                   Boolean                    @default(true)
+  widget_message           String?
+  createdAt                DateTime                   @default(now())
+  integartions             Json[]
+  chat_wid_cfrm_response   chat_wid_cfrm_response[]
+  integrations_by_chat_wid integrations_by_chat_wid[]
+}
+
+model chat_wid_integrations {
+  id                       String                     @id @default(auto()) @map("_id") @db.ObjectId
+  name                     String
+  icon                     String
+  default                  Json?
+  status                   Boolean
+  createdAt                DateTime                   @default(now())
+  integrations_by_chat_wid integrations_by_chat_wid[]
+}
+
+model integrations_by_chat_wid {
+  id                       String                @id @default(auto()) @map("_id") @db.ObjectId
+  config                   Json?
+  chat_wid_integrations_id String                @db.ObjectId
+  chat_wid_integrations    chat_wid_integrations @relation(fields: [chat_wid_integrations_id], references: [id])
+  chat_wid_id              String                @db.ObjectId
+  chat_widgets             chat_widgets          @relation(fields: [chat_wid_id], references: [id])
+  createdAt                DateTime              @default(now())
+}
+
+model chat_wid_cfrm_response {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  widget_id    String       @db.ObjectId
+  chat_widgets chat_widgets @relation(fields: [widget_id], references: [id])
+  response     Json
+  createdAt    DateTime     @default(now())
 }
