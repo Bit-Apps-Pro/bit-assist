@@ -1,7 +1,10 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "eslint-config-next"
+    "eslint-config-next",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jsx-a11y/recommended"
   ],
   "rules": {
     "semi": [
@@ -15,6 +18,17 @@
     "jsx-quotes": [
       "error",
       "prefer-double"
+    ],
+    "array-element-newline": [
+      "error",
+      {
+        "multiline": true,
+        "minItems": 6
+      }
+    ],
+    "lines-between-class-members": [
+      "error",
+      "always"
     ]
   }
 }
