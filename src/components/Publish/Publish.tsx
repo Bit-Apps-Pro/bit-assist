@@ -1,15 +1,13 @@
 /* eslint-disable react/no-children-prop */
-import { Badge, Box, Code, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, Code, Text, VStack } from '@chakra-ui/react'
+import Title from '@components/Global/Title'
 import Domains from './Domains'
 
-const Publish = () => {
+const Publish = (props) => {
   return (
     <VStack gap="10" alignItems="flex-start">
       <Box>
-        <HStack mb="4">
-          <Badge fontSize="0.85em" colorScheme="teal">1</Badge>
-          <Text fontWeight="semibold">Add Bit Chaty to your website</Text>
-        </HStack>
+        <Title badge="1">Add Bit Chaty to your website</Title>
         <Text mb="2">
           Bit Chaty can easily be installed using the below code snippet. Paste
           it just above the <Code children="</body>" /> tag.
@@ -18,10 +16,7 @@ const Publish = () => {
       </Box>
 
       <Box>
-        <HStack mb="4">
-          <Badge fontSize="0.85em" colorScheme="teal">2</Badge>
-          <Text fontWeight="semibold">Add Bit Chaty to your website</Text>
-        </HStack>
+        <Title badge="2">Add Domains</Title>
         <Domains />
       </Box>
     </VStack>

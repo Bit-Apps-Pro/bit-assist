@@ -1,4 +1,4 @@
-const Integrations = () => {
+const Integrations = (props) => {
   return (
     <div>Integrations</div>
   )

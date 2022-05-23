@@ -6,7 +6,7 @@ import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/600.css'
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import Layout from '../components/Layout'
+import Layout from '@components/Global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient()

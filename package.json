@@ -21,6 +21,7 @@
     "@fontsource/outfit": "^4.5.8",
     "@prisma/client": "^3.14.0",
     "framer-motion": "^6",
+    "jotai": "^1.6.7",
     "mongoose": "^6.3.3",
     "next": "latest",
     "nextjs-progressbar": "^0.0.14",

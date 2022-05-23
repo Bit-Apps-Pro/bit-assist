@@ -32,27 +32,26 @@ import db from '@db'
 import useDeleteWidget from '@hooks/mutations/useDeleteWidget'
 import useCreateWidget from '@hooks/mutations/useCreateWidget'
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+//   const { widgets } = await db.users.findUnique({
+//     where: { id: '628626c4aeedcb3965aa667b' },
+//     select: { widgets: true },
+//   })
 
-  const { widgets } = await db.users.findUnique({
-    where: { id: '628626c4aeedcb3965aa667b' },
-    select: { widgets: true },
-  })
-
-  return {
-    props: { widgetsFromServer: serializeObj(widgets) },
-  }
-}
+//   return {
+//     props: { widgetsFromServer: serializeObj(widgets) },
+//   }
+// }
 
 const Widgets = ({ widgetsFromServer }) => {
-  const { widgets, isWidgetFetching } = useFetchWidgets(widgetsFromServer)
+  const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
   const { createWidget, isWidgetCreating } = useCreateWidget()
 
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
-  const tempWidgetId = useRef(0)
+  const tempWidgetId = useRef('')
 
-  const openDeleteModal = (widgetId) => () => {
+  const openDeleteModal = (widgetId: string) => () => {
     tempWidgetId.current = widgetId
     openDelModal()
   }
@@ -64,6 +63,11 @@ const Widgets = ({ widgetsFromServer }) => {
 
   const addNewWidget = () => {
     createWidget()
+  }
+
+  interface Widget {
+    id: string,
+    name: string,
   }
 
   return (
@@ -80,9 +84,9 @@ const Widgets = ({ widgetsFromServer }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {widgets?.map((wid, i: number) => (
-              <Tr key={wid.id}>
-                <Td><Link href={`/widgets/${i}`}>{wid.name}</Link></Td>
+            {widgets?.map((widget: Widget) => (
+              <Tr key={widget.id}>
+                <Td><Link href={`/widgets/${widget.id}`}>{widget.name}</Link></Td>
 
                 <Td textAlign="right">
                   <Menu>
@@ -93,11 +97,11 @@ const Widgets = ({ widgetsFromServer }) => {
                       icon={<HiDotsVertical />}
                     />
                     <MenuList shadow="lg">
-                      <Link href={`/widgets/${i}`}>
+                      <Link href={`/widgets/${widget.id}`}>
                         <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
                       <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
-                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(wid.id)}>Delete</MenuItem>
+                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widget.id)}>Delete</MenuItem>
                     </MenuList>
                   </Menu>
                 </Td>

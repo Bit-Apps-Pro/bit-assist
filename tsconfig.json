@@ -21,9 +21,10 @@
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@mutations/*": ["src/mutations/*"],
-      "@db": ["prisma/db"]
+      "@db": ["prisma/db"],
+      "@public/*": ["public/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/atom.js"],
   "exclude": ["node_modules"]
 }

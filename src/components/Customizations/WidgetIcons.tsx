@@ -1,5 +1,5 @@
-import { Box, HStack, Text, useRadioGroup } from '@chakra-ui/react'
-import RadioCard from '../RadioCard'
+import { Box, HStack, useRadioGroup } from '@chakra-ui/react'
+import RadioCard from '@components/Global/RadioCard'
 import {
   IoChatboxEllipsesOutline,
   IoChatboxEllipses,
@@ -9,12 +9,13 @@ import {
   IoChatbubblesSharp,
 } from 'react-icons/io5'
 import { HiChatAlt2, HiOutlineChatAlt2 } from 'react-icons/hi'
+import Title from '@components/Global/Title'
 
-const ButtonIcons = () => {
+const WidgetIcons = () => {
   const iconOptions = ['chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8']
 
   const { getRootProps, getRadioProps } = useRadioGroup({
-    name: 'buttonIcon',
+    name: 'widgetIcon',
     defaultValue: iconOptions[0],
     onChange: console.log,
   })
@@ -23,7 +24,7 @@ const ButtonIcons = () => {
 
   return (
     <Box>
-      <Text mb="2">Button Size</Text>
+      <Title>Button Size</Title>
       <HStack {...group} flexWrap="wrap" gap={2} spacing={0}>
         {iconOptions.map((value) => {
           const radio = getRadioProps({ value })
@@ -45,4 +46,4 @@ const ButtonIcons = () => {
   )
 }
 
-export default ButtonIcons
+export default WidgetIcons

@@ -8,7 +8,12 @@ export default async function handler(req, res) {
 
     const { widgets } = await db.users.findUnique({
       where: { id: '628626c4aeedcb3965aa667b' },
-      select: { widgets: true },
+      select: { widgets: {
+        select: {
+          id: true,
+          name: true,
+        }
+      } },
     })
 
     res.status(200).json({ success: true, data: widgets })
