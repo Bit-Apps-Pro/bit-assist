@@ -20,12 +20,12 @@ const Navbar = () => {
         <Spacer />
         <ButtonGroup>
           <Link href={'/widgets'}>
-            <Button rounded='full' colorScheme="teal" variant="ghost">
+            <Button rounded="full" colorScheme="teal" variant="ghost">
               Widgets
             </Button>
           </Link>
-          <Button rounded='full' colorScheme="teal" variant="ghost">Sign Up</Button>
-          <Button rounded='full' colorScheme="teal" variant="ghost">Log in</Button>
+          <Button rounded="full" colorScheme="teal" variant="ghost">Sign Up</Button>
+          <Button rounded="full" colorScheme="teal" variant="ghost">Log in</Button>
           <DarkModeSwitch />
         </ButtonGroup>
       </Flex>

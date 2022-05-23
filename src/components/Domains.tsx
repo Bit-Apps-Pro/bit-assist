@@ -13,7 +13,7 @@ const Domains = () => {
   return (
     <>
       <Box mb="4" borderWidth={'1px'}>
-        <HStack justifyContent={'space-between'} gap="4" py='2' px='4'>
+        <HStack justifyContent={'space-between'} gap="4" py="2" px="4">
           <Text>bitcode.pro</Text>
           <IconButton
             isRound={true}
@@ -26,7 +26,7 @@ const Domains = () => {
 
         <Divider />
 
-        <HStack justifyContent={'space-between'} gap="4" py='2' px='4'>
+        <HStack justifyContent={'space-between'} gap="4" py="2" px="4">
           <Text>www.bitcode.pro</Text>
           <IconButton
             isRound={true}

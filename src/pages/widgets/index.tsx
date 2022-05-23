@@ -52,7 +52,7 @@ const Widgets = ({ widgetsFromServer }) => {
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const tempWidgetId = useRef(0)
 
-  const openDeleteModal = (widgetId) => () => {
+  const openDeleteModal = (widgetId: number) => () => {
     tempWidgetId.current = widgetId
     openDelModal()
   }
@@ -76,7 +76,7 @@ const Widgets = ({ widgetsFromServer }) => {
                 <Heading as="h2" size="sm" textTransform="none" my="2">Widgets</Heading>
                 <button onClick={addNewWidget}>+</button>
               </Th>
-              <Th/>
+              <Th />
             </Tr>
           </Thead>
           <Tbody>

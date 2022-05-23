@@ -25,9 +25,9 @@ const Customizations = () => {
       <Box>
         <Text mb="2">Button Color</Text>
         <Menu>
-          <MenuButton h='12' w='12' bg={`#${color.hex}`} transition='none' rounded='md'></MenuButton>
-          <MenuList p="0" border="0" maxW='220px'>
-            <Box maxW='100%'>
+          <MenuButton h="12" w="12" bg={`#${color.hex}`} transition="none" rounded="md"></MenuButton>
+          <MenuList p="0" border="0" maxW="220px">
+            <Box maxW="100%">
               <ColorPicker
                 showParams={true}
                 value={color}
