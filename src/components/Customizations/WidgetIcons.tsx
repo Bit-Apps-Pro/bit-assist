@@ -1,4 +1,4 @@
-import { Box, HStack, useRadioGroup } from '@chakra-ui/react'
+import { Box, HStack, useRadioGroup, useToast } from '@chakra-ui/react'
 import RadioCard from '@components/Global/RadioCard'
 import {
   IoChatboxEllipsesOutline,
@@ -10,14 +10,53 @@ import {
 } from 'react-icons/io5'
 import { HiChatAlt2, HiOutlineChatAlt2 } from 'react-icons/hi'
 import Title from '@components/Global/Title'
+import { useAtom } from 'jotai'
+import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import { widgetAtom } from '@globalStates/atoms'
+import { chat_widgets } from '@prisma/client'
 
 const WidgetIcons = () => {
-  const iconOptions = ['chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8']
+  const toast = useToast({ isClosable: true })
+  const [widget, setWidget] = useAtom(widgetAtom)
+  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
+  const handleChange = async (val) => {
+    const response: any = await updateWidget({
+      ...widget,
+      styles: { ...widget.styles, icon: val },
+    })
+
+    setWidget((oldValue: chat_widgets) => ({
+      ...oldValue,
+      styles: { ...oldValue.styles, icon: val },
+    }))
+    showToast(response)
+  }
+
+  const showToast = (response: any) => {
+    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
+    let title = 'Widget icon could not be updated'
+    if (response?.success) {
+      status = 'success'
+      title = 'Widget icon updated'
+    }
+    toast({ status, position: 'top-right', title })
+  }
+
+  const iconOptions = [
+    'chat-icon-1',
+    'chat-icon-2',
+    'chat-icon-3',
+    'chat-icon-4',
+    'chat-icon-5',
+    'chat-icon-6',
+    'chat-icon-7',
+    'chat-icon-8',
+  ]
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'widgetIcon',
-    defaultValue: iconOptions[0],
-    onChange: console.log,
+    defaultValue: widget.styles?.icon ? widget.styles?.icon :  iconOptions[0],
+    onChange: handleChange,
   })
 
   const group = getRootProps()
