@@ -6,7 +6,7 @@ import { str2Color } from '@atomik-color/core'
 import { useEffect, useState } from 'react'
 import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
-import { widgetAtom } from 'src/atom'
+import { widgetAtom } from '@globalStates/atoms'
 
 const WidgetColor = () => {
   const [widget, setWidget] = useAtom(widgetAtom)

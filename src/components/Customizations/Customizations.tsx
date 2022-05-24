@@ -8,9 +8,9 @@ const Customizations = () => {
   return (
     <Stack gap="10">
       <WidgetName />
-      {/* <WidgetColor /> */}
+      {/* <WidgetColor />
       <WidgetIcons />
-      <WidgetPositions />
+      <WidgetPositions /> */}
     </Stack>
   )
 }

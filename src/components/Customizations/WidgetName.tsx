@@ -1,39 +1,53 @@
 import { Box, Input } from '@chakra-ui/react'
-import { useCallback, useState } from 'react'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import Title from '@components/Global/Title'
-import { debounce } from '@utils/utils'
 import { useToast } from '@chakra-ui/react'
 import { useAtom } from 'jotai'
-import { widgetAtom } from 'src/atom'
+import { widgetAtom } from '@globalStates/atoms'
+import { debounce } from 'lodash'
+import { useEffect, useRef } from 'react'
+import { chat_widgets } from '@prisma/client'
 
 const WidgetName = () => {
+  const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
-  const toast = useToast({ isClosable: true })
 
-  const handleUpdateWidget = async () => {
-    await updateWidget(widget)
-    toast({
-      status: 'success',
-      position: 'top-right',
-      title: 'Widget name updated',
-    })
+  const debounceUpdateWidget = useRef(
+    debounce(async (name) => {
+      const newWidget = { ...widget, name }
+      const response: any = await updateWidget(newWidget)
+      showToast(response)
+    }, 1000)
+  ).current
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWidget((oldValue: chat_widgets) => ({ ...oldValue, name: e.target.value }))
+    debounceUpdateWidget(e.target.value)
   }
 
-  const updateData = useCallback(debounce(handleUpdateWidget, 500, false), [])
-
-  const handleChange = async (e) => {
-    setWidget((oldValue: object) => ({ ...oldValue, color: e.target.value }))
-    // updateData()
+  const showToast = (response: any) => {
+    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
+    let title = 'Widget name could not be updated'
+    if (response?.success) {
+      status = 'success'
+      title = 'Widget name updated'
+    }
+    toast({ status, position: 'top-right', title })
   }
+
+  useEffect(() => {
+    return () => {
+      debounceUpdateWidget.cancel()
+    }
+  }, [debounceUpdateWidget])
 
   return (
     <Box>
       <Title>Widget Name</Title>
       <Input
         placeholder="Widget Name"
-        value={widget?.name}
+        value={widget.name}
         onChange={handleChange}
         isRequired={true}
       />

@@ -3,7 +3,7 @@ import { Box, Code, Text, VStack } from '@chakra-ui/react'
 import Title from '@components/Global/Title'
 import Domains from './Domains'
 
-const Publish = (props) => {
+const Publish = () => {
   return (
     <VStack gap="10" alignItems="flex-start">
       <Box>

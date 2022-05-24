@@ -32,17 +32,6 @@ import db from '@db'
 import useDeleteWidget from '@hooks/mutations/useDeleteWidget'
 import useCreateWidget from '@hooks/mutations/useCreateWidget'
 
-// export async function getServerSideProps(context) {
-//   const { widgets } = await db.users.findUnique({
-//     where: { id: '628626c4aeedcb3965aa667b' },
-//     select: { widgets: true },
-//   })
-
-//   return {
-//     props: { widgetsFromServer: serializeObj(widgets) },
-//   }
-// }
-
 const Widgets = ({ widgetsFromServer }) => {
   const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
@@ -141,3 +130,14 @@ const Widgets = ({ widgetsFromServer }) => {
 }
 
 export default Widgets
+
+// export async function getServerSideProps(context) {
+//   const { widgets } = await db.users.findUnique({
+//     where: { id: '628626c4aeedcb3965aa667b' },
+//     select: { widgets: true },
+//   })
+
+//   return {
+//     props: { widgetsFromServer: serializeObj(widgets) },
+//   }
+// }

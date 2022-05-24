@@ -21,6 +21,7 @@
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@mutations/*": ["src/mutations/*"],
+      "@globalStates/*": ["src/globalStates/*"],
       "@db": ["prisma/db"],
       "@public/*": ["public/*"],
     }

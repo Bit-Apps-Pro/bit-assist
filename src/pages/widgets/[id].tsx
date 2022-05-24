@@ -4,27 +4,12 @@ import Publish from '@components/Publish/Publish'
 import Integrations from '@components/Integrations/Integrations'
 import Settings from '@components/Settings/Settings'
 import { serializeObj } from '@utils/utils'
-import { useSetAtom } from 'jotai'
-import { widgetAtom } from 'src/atom'
-import { useEffect } from 'react'
-
-export async function getServerSideProps(context) {
-  const { id } = context.query
-  const widget = await db.chat_widgets.findUnique({
-    where: { id },
-  })
-
-  return {
-    props: { widgetFromServer: serializeObj(widget) },
-  }
-}
+import { widgetAtom } from '@globalStates/atoms'
+import db from '@db'
+import { useHydrateAtoms } from 'jotai/utils'
 
 const Widget = ({ widgetFromServer }) => {
-  const setWidget = useSetAtom(widgetAtom)
-
-  useEffect(() => {
-    setWidget(widgetFromServer)
-  }, [])
+  useHydrateAtoms([[widgetAtom, widgetFromServer]])
 
   return (
     <Tabs variant="solid-rounded" colorScheme="teal">
@@ -53,3 +38,14 @@ const Widget = ({ widgetFromServer }) => {
 }
 
 export default Widget
+
+export async function getServerSideProps(context) {
+  const { id } = context.query
+  const widget = await db.chat_widgets.findUnique({
+    where: { id },
+  })
+
+  return {
+    props: { widgetFromServer: serializeObj(widget) },
+  }
+}

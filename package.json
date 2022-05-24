@@ -22,6 +22,7 @@
     "@prisma/client": "^3.14.0",
     "framer-motion": "^6",
     "jotai": "^1.6.7",
+    "lodash": "^4.17.21",
     "mongoose": "^6.3.3",
     "next": "latest",
     "nextjs-progressbar": "^0.0.14",
