@@ -1,26 +1,51 @@
-import { Box, Menu, MenuButton, MenuList } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuList, useToast } from '@chakra-ui/react'
 import Title from '@components/Global/Title'
 import transparentBg from '@public/transparent_bg.png'
 import ColorPicker from '@atomik-color/component'
-import { str2Color } from '@atomik-color/core'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
+import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import { debounce } from 'lodash'
+import { chat_widgets } from '@prisma/client'
 
 const WidgetColor = () => {
+  const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
+  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
-  useEffect(() => {
-    setWidget((oldValue: object) => ({
-      ...oldValue,
-      color: str2Color('#161616'),
-    }))
-  }, [])
+  const debounceUpdateWidget = useRef(
+    debounce(async (color) => {
+      const newWidget = { ...widget, styles: { color } }
+      const response: any = await updateWidget(newWidget)
+      showToast(response)
+    }, 1000)
+  ).current
+
+  const showToast = (response: any) => {
+    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
+    let title = 'Widget color could not be updated'
+    if (response?.success) {
+      status = 'success'
+      title = 'Widget color updated'
+    }
+    toast({ status, position: 'top-right', title })
+  }
 
   const handleColorChange = (val: TColor) => {
-    setWidget((oldValue: object) => ({ ...oldValue, color: val }))
+    setWidget((oldValue: chat_widgets) => ({
+      ...oldValue,
+      styles: { color: val },
+    }))
+    debounceUpdateWidget(val)
   }
+
+  useEffect(() => {
+    return () => {
+      debounceUpdateWidget.cancel()
+    }
+  }, [debounceUpdateWidget])
 
   return (
     <Box>
@@ -34,7 +59,7 @@ const WidgetColor = () => {
           _focus={{ boxShadow: 'outline' }}
         >
           <Box
-            bgColor={widget?.styles?.color.str}
+            bgColor={widget.styles?.color?.str}
             h="14"
             w="14"
             rounded="md"
@@ -44,7 +69,7 @@ const WidgetColor = () => {
           <Box maxW="100%">
             <ColorPicker
               showParams={true}
-              value={widget?.styles?.color}
+              value={widget.styles?.color}
               onChange={handleColorChange}
             />
           </Box>

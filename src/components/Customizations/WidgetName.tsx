@@ -22,7 +22,10 @@ const WidgetName = () => {
   ).current
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWidget((oldValue: chat_widgets) => ({ ...oldValue, name: e.target.value }))
+    setWidget((oldValue: chat_widgets) => ({
+      ...oldValue,
+      name: e.target.value,
+    }))
     debounceUpdateWidget(e.target.value)
   }
 
