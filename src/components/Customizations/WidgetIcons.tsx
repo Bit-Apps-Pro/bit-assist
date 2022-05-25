@@ -22,19 +22,33 @@ const WidgetIcons = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (icon: string) => {
-    setWidget((oldValue: chat_widgets) => ({
-      ...oldValue,
-      styles: { ...oldValue.styles, icon },
+    setWidget((prev: chat_widgets) => ({
+      ...prev,
+      styles: { ...prev.styles, icon },
     }))
 
     const response: any = await updateWidget({
       ...widget,
       styles: { ...widget.styles, icon },
     })
-    ResponseToast({toast, response, action: 'update', messageFor: 'Widget icon'})
+    ResponseToast({
+      toast,
+      response,
+      action: 'update',
+      messageFor: 'Widget icon',
+    })
   }
 
-  const iconOptions = [ 'chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8' ]
+  const iconOptions = [
+    'chat-icon-1',
+    'chat-icon-2',
+    'chat-icon-3',
+    'chat-icon-4',
+    'chat-icon-5',
+    'chat-icon-6',
+    'chat-icon-7',
+    'chat-icon-8',
+  ]
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'widgetIcon',
     defaultValue: widget.styles?.icon,

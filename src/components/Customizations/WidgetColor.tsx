@@ -16,32 +16,27 @@ const WidgetColor = () => {
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
-  const debounceUpdateWidget = useRef(
-    debounce(async (color) => {
-      const newWidget = { ...widget, styles: { color } }
-      const response: any = await updateWidget(newWidget)
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget color' })
-    }, 1000)
-  ).current
-
-  const handleColorChange = (val: TColor) => {
-    setWidget((oldValue: chat_widgets) => ({
-      ...oldValue,
-      styles: { color: val },
-    }))
-    debounceUpdateWidget(val)
+  const handleChange = async () => {
+    const response: any = await updateWidget(widget)
+    ResponseToast({
+      toast,
+      response,
+      action: 'update',
+      messageFor: 'Widget color',
+    })
   }
-
-  useEffect(() => {
-    return () => {
-      debounceUpdateWidget.cancel()
-    }
-  }, [debounceUpdateWidget])
+  
+  const handleColorChange = (color: TColor) => {
+    setWidget((prev: chat_widgets) => ({
+      ...prev,
+      styles: { ...prev.styles, color },
+    }))
+  }
 
   return (
     <Box>
       <Title>Widget Color</Title>
-      <Menu>
+      <Menu onClose={handleChange}>
         <MenuButton
           bgImage={transparentBg.src}
           transition="none"

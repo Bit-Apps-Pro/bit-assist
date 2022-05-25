@@ -17,16 +17,21 @@ const WidgetPositions = () => {
   const handleChange = async (e) => {
     const position = e.target.getAttribute('data-position')
 
-    setWidget((oldValue: chat_widgets) => ({
-      ...oldValue,
-      styles: { ...oldValue.styles, position },
+    setWidget((prev: chat_widgets) => ({
+      ...prev,
+      styles: { ...prev.styles, position },
     }))
 
     const response: any = await updateWidget({
       ...widget,
       styles: { ...widget.styles, position },
     })
-    ResponseToast({toast, response, action: 'update', messageFor: 'Widget position'})
+    ResponseToast({
+      toast,
+      response,
+      action: 'update',
+      messageFor: 'Widget position',
+    })
   }
 
   return (

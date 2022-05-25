@@ -15,26 +15,27 @@ const WidgetName = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const debounceUpdateWidget = useRef(
-    debounce(async (name) => {
-      const newWidget = { ...widget, name }
+    debounce(async (newWidget) => {
       const response: any = await updateWidget(newWidget)
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget name' })
+      ResponseToast({
+        toast,
+        response,
+        action: 'update',
+        messageFor: 'Widget name',
+      })
     }, 1000)
   ).current
-
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWidget((oldValue: chat_widgets) => ({
-      ...oldValue,
-      name: e.target.value,
-    }))
-    debounceUpdateWidget(e.target.value)
-  }
 
   useEffect(() => {
     return () => {
       debounceUpdateWidget.cancel()
     }
   }, [debounceUpdateWidget])
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWidget((prev: chat_widgets) => ({ ...prev, name: e.target.value }))
+    debounceUpdateWidget({ ...widget, name: e.target.value })
+  }
 
   return (
     <Box>
