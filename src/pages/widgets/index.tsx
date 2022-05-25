@@ -1,6 +1,7 @@
 import {
   Button,
   Heading,
+  HStack,
   IconButton,
   Menu,
   MenuButton,
@@ -22,7 +23,7 @@ import {
   Tr,
   useDisclosure,
 } from '@chakra-ui/react'
-import { HiDotsVertical } from 'react-icons/hi'
+import { HiDotsVertical, HiPlus } from 'react-icons/hi'
 import Link from 'next/link'
 import { serializeObj } from '@utils/utils'
 import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi'
@@ -37,7 +38,11 @@ const Widgets = ({ widgetsFromServer }) => {
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
   const { createWidget, isWidgetCreating } = useCreateWidget()
 
-  const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
+  const {
+    isOpen,
+    onOpen: openDelModal,
+    onClose: closeDelModal,
+  } = useDisclosure()
   const tempWidgetId = useRef('')
 
   const openDeleteModal = (widgetId: string) => () => {
@@ -55,8 +60,8 @@ const Widgets = ({ widgetsFromServer }) => {
   }
 
   interface Widget {
-    id: string,
-    name: string,
+    id: string
+    name: string
   }
 
   return (
@@ -65,18 +70,32 @@ const Widgets = ({ widgetsFromServer }) => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>
-                <Heading as="h2" size="sm" textTransform="none" my="2">Widgets</Heading>
-                <button onClick={addNewWidget}>+</button>
+              <Th colSpan={2}>
+                <HStack justifyContent={'space-between'}>
+                  <Heading as="h2" size="sm" textTransform="none" my="2">
+                    Widgets List
+                  </Heading>
+                  <Button
+                    onClick={addNewWidget}
+                    isLoading={isWidgetCreating}
+                    loadingText="Creating..."
+                    variant="outline"
+                    spinnerPlacement="start"
+                    colorScheme="gray"
+                    leftIcon={<HiPlus />}
+                  >
+                    Add Widget
+                  </Button>
+                </HStack>
               </Th>
-              <Th />
             </Tr>
           </Thead>
           <Tbody>
             {widgets?.map((widget: Widget) => (
               <Tr key={widget.id}>
-                <Td><Link href={`/widgets/${widget.id}`}>{widget.name}</Link></Td>
-
+                <Td>
+                  <Link href={`/widgets/${widget.id}`}>{widget.name}</Link>
+                </Td>
                 <Td textAlign="right">
                   <Menu>
                     <MenuButton
@@ -90,7 +109,13 @@ const Widgets = ({ widgetsFromServer }) => {
                         <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
                       <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
-                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widget.id)}>Delete</MenuItem>
+                      <MenuItem
+                        icon={<FiTrash2 />}
+                        color="red.600"
+                        onClick={openDeleteModal(widget.id)}
+                      >
+                        Delete
+                      </MenuItem>
                     </MenuList>
                   </Menu>
                 </Td>
@@ -105,9 +130,7 @@ const Widgets = ({ widgetsFromServer }) => {
         <ModalContent>
           <ModalHeader>Confirmation</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            Are you sure want to delete this widget?
-          </ModalBody>
+          <ModalBody>Are you sure want to delete this widget?</ModalBody>
 
           <ModalFooter>
             <Button mr={3} onClick={closeDelModal}>
@@ -116,7 +139,7 @@ const Widgets = ({ widgetsFromServer }) => {
             <Button
               onClick={handleDeleteWidget}
               isLoading={isWidgetDeleting}
-              loadingText="Deleting"
+              loadingText="Deleting..."
               colorScheme="red"
               shadow={'md'}
             >

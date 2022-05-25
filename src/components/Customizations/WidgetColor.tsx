@@ -6,7 +6,6 @@ import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
-import { chat_widgets } from '@prisma/client'
 import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetColor = () => {
@@ -26,7 +25,7 @@ const WidgetColor = () => {
   
   const handleColorChange = (color: TColor) => {
     setWidget((prev) => {
-      prev.styles.color = color
+      prev.styles = { ...prev.styles, color }
     })
   }
 

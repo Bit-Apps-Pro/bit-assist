@@ -13,7 +13,6 @@ import Title from '@components/Global/Title'
 import { useAtom } from 'jotai'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
-import { chat_widgets } from '@prisma/client'
 import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetIcons = () => {
@@ -23,7 +22,7 @@ const WidgetIcons = () => {
 
   const handleChange = async (icon: string) => {
     setWidget((prev) => {
-      prev.styles.icon = icon
+      prev.styles = { ...prev.styles, icon }
     })
 
     const response: any = await updateWidget({

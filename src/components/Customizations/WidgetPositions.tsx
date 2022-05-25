@@ -3,7 +3,6 @@ import ResponseToast from '@components/Global/ResponseToast'
 import Title from '@components/Global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
-import { chat_widgets } from '@prisma/client'
 import { useAtom } from 'jotai'
 
 const WidgetPositions = () => {
@@ -18,7 +17,7 @@ const WidgetPositions = () => {
     const position = e.target.getAttribute('data-position')
 
     setWidget((prev) => {
-      prev.styles.position = position
+      prev.styles = { ...prev.styles, position }
     })
 
     const response: any = await updateWidget({

@@ -6,7 +6,6 @@ import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
-import { chat_widgets } from '@prisma/client'
 import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetName = () => {
