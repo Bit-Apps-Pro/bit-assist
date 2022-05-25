@@ -7,6 +7,7 @@ import { widgetAtom } from '@globalStates/atoms'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
 import { chat_widgets } from '@prisma/client'
+import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetName = () => {
   const toast = useToast({ isClosable: true })
@@ -17,7 +18,7 @@ const WidgetName = () => {
     debounce(async (name) => {
       const newWidget = { ...widget, name }
       const response: any = await updateWidget(newWidget)
-      showToast(response)
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget name' })
     }, 1000)
   ).current
 
@@ -27,16 +28,6 @@ const WidgetName = () => {
       name: e.target.value,
     }))
     debounceUpdateWidget(e.target.value)
-  }
-
-  const showToast = (response: any) => {
-    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
-    let title = 'Widget name could not be updated'
-    if (response?.success) {
-      status = 'success'
-      title = 'Widget name updated'
-    }
-    toast({ status, position: 'top-right', title })
   }
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { debounce } from 'lodash'
 import { chat_widgets } from '@prisma/client'
+import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetColor = () => {
   const toast = useToast({ isClosable: true })
@@ -19,19 +20,9 @@ const WidgetColor = () => {
     debounce(async (color) => {
       const newWidget = { ...widget, styles: { color } }
       const response: any = await updateWidget(newWidget)
-      showToast(response)
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget color' })
     }, 1000)
   ).current
-
-  const showToast = (response: any) => {
-    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
-    let title = 'Widget color could not be updated'
-    if (response?.success) {
-      status = 'success'
-      title = 'Widget color updated'
-    }
-    toast({ status, position: 'top-right', title })
-  }
 
   const handleColorChange = (val: TColor) => {
     setWidget((oldValue: chat_widgets) => ({

@@ -14,48 +14,30 @@ import { useAtom } from 'jotai'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
 import { chat_widgets } from '@prisma/client'
+import ResponseToast from '@components/Global/ResponseToast'
 
 const WidgetIcons = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
-  const handleChange = async (val) => {
-    const response: any = await updateWidget({
-      ...widget,
-      styles: { ...widget.styles, icon: val },
-    })
-
+  const handleChange = async (icon: string) => {
     setWidget((oldValue: chat_widgets) => ({
       ...oldValue,
-      styles: { ...oldValue.styles, icon: val },
+      styles: { ...oldValue.styles, icon },
     }))
-    showToast(response)
+
+    const response: any = await updateWidget({
+      ...widget,
+      styles: { ...widget.styles, icon },
+    })
+    ResponseToast({toast, response, action: 'update', messageFor: 'Widget icon'})
   }
 
-  const showToast = (response: any) => {
-    let status: 'success' | 'info' | 'warning' | 'error' | 'loading' = 'error'
-    let title = 'Widget icon could not be updated'
-    if (response?.success) {
-      status = 'success'
-      title = 'Widget icon updated'
-    }
-    toast({ status, position: 'top-right', title })
-  }
-
-  const iconOptions = [
-    'chat-icon-1',
-    'chat-icon-2',
-    'chat-icon-3',
-    'chat-icon-4',
-    'chat-icon-5',
-    'chat-icon-6',
-    'chat-icon-7',
-    'chat-icon-8',
-  ]
+  const iconOptions = [ 'chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8' ]
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'widgetIcon',
-    defaultValue: widget.styles?.icon ? widget.styles?.icon :  iconOptions[0],
+    defaultValue: widget.styles?.icon,
     onChange: handleChange,
   })
 
