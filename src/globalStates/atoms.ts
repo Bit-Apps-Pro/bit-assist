@@ -1,4 +1,4 @@
 import { chat_widgets } from '@prisma/client'
-import { atom } from 'jotai'
+import { atomWithImmer } from 'jotai/immer'
 
-export const widgetAtom = atom<chat_widgets>()
+export const widgetAtom = atomWithImmer<chat_widgets>()

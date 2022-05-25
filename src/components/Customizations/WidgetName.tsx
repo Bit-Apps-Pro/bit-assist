@@ -33,7 +33,9 @@ const WidgetName = () => {
   }, [debounceUpdateWidget])
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWidget((prev: chat_widgets) => ({ ...prev, name: e.target.value }))
+    setWidget((draft) => {
+      draft.name = e.target.value
+    })
     debounceUpdateWidget({ ...widget, name: e.target.value })
   }
 

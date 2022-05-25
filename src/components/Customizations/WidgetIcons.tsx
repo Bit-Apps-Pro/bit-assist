@@ -22,10 +22,9 @@ const WidgetIcons = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (icon: string) => {
-    setWidget((prev: chat_widgets) => ({
-      ...prev,
-      styles: { ...prev.styles, icon },
-    }))
+    setWidget((prev) => {
+      prev.styles.icon = icon
+    })
 
     const response: any = await updateWidget({
       ...widget,

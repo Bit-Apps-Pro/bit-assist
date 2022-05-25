@@ -17,10 +17,9 @@ const WidgetPositions = () => {
   const handleChange = async (e) => {
     const position = e.target.getAttribute('data-position')
 
-    setWidget((prev: chat_widgets) => ({
-      ...prev,
-      styles: { ...prev.styles, position },
-    }))
+    setWidget((prev) => {
+      prev.styles.position = position
+    })
 
     const response: any = await updateWidget({
       ...widget,

@@ -2,12 +2,10 @@ import { Box, Menu, MenuButton, MenuList, useToast } from '@chakra-ui/react'
 import Title from '@components/Global/Title'
 import transparentBg from '@public/transparent_bg.png'
 import ColorPicker from '@atomik-color/component'
-import { useEffect, useRef } from 'react'
 import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
-import { debounce } from 'lodash'
 import { chat_widgets } from '@prisma/client'
 import ResponseToast from '@components/Global/ResponseToast'
 
@@ -27,10 +25,9 @@ const WidgetColor = () => {
   }
   
   const handleColorChange = (color: TColor) => {
-    setWidget((prev: chat_widgets) => ({
-      ...prev,
-      styles: { ...prev.styles, color },
-    }))
+    setWidget((prev) => {
+      prev.styles.color = color
+    })
   }
 
   return (
