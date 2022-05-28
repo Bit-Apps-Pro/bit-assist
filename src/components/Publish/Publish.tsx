@@ -2,14 +2,12 @@
 import { Badge, Box, Code, HStack, Text, VStack } from '@chakra-ui/react'
 import Domains from './Domains'
 
-const Installation = () => {
+const Publish = () => {
   return (
     <VStack gap="10" alignItems="flex-start">
       <Box>
         <HStack mb="4">
-          <Badge fontSize="0.85em" colorScheme="teal">
-            1
-          </Badge>
+          <Badge fontSize="0.85em" colorScheme="teal">1</Badge>
           <Text fontWeight="semibold">Add Bit Chaty to your website</Text>
         </HStack>
         <Text mb="2">
@@ -21,9 +19,7 @@ const Installation = () => {
 
       <Box>
         <HStack mb="4">
-          <Badge fontSize="0.85em" colorScheme="teal">
-            2
-          </Badge>
+          <Badge fontSize="0.85em" colorScheme="teal">2</Badge>
           <Text fontWeight="semibold">Add Bit Chaty to your website</Text>
         </HStack>
         <Domains />
@@ -32,4 +28,4 @@ const Installation = () => {
   )
 }
 
-export default Installation
+export default Publish
