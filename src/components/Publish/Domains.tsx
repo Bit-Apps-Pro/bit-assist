@@ -5,27 +5,17 @@ import {
   HStack,
   IconButton,
   Input,
-  Text,
   useToast,
   Tooltip,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  Center,
-  useDisclosure,
 } from '@chakra-ui/react'
 import ResponseToast from '@components/Global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { useAtom } from 'jotai'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { HiCheck, HiOutlineTrash, HiPlus } from 'react-icons/hi'
 import { Kbd } from '@chakra-ui/react'
+import Domain from '@components/Publish/Domain'
 
 const Domains = () => {
   const toast = useToast({ isClosable: true })
@@ -87,33 +77,10 @@ const Domains = () => {
     })
   }
 
-  const handleRemoveDomain = async (domainIndex: number, onClose: Function) => {
-    const newDomains = [...widget.domains]
-    newDomains.splice(domainIndex, 1)
-    
-    onClose()
-    const response = await updateWidget({
-      ...widget,
-      domains: [...newDomains],
-    })
-    ResponseToast({
-      toast,
-      response,
-      action: 'delete',
-      messageFor: 'Widget domain',
-    })
-
-    setWidget((prev) => {
-      prev.domains.splice(domainIndex, 1)
-    })
-  }
-
   const resetStates = () => {
     setDomainName('')
     setIsAdding(false)
   }
-
-  const initRef = useRef()
 
   return (
     <Box width={'sm'}>
@@ -123,52 +90,13 @@ const Domains = () => {
         borderWidth={`${widget.domains.length && '1px'}`}
       >
         {widget.domains.map((domain, index) => (
-          <HStack
-            key={index}
-            justifyContent={'space-between'}
-            gap="4"
-            py="2"
-            px="4"
-            borderBottomWidth={`${index < widget.domains.length - 1 && '1px'}`}
-          >
-            <Text>{domain}</Text>
-            <Popover closeOnBlur={false} initialFocusRef={initRef}>
-              {({ isOpen, onClose }) => (
-                <>
-                  <PopoverTrigger>
-                    <Box>
-                      <Tooltip label="Remove domain" placement="right">
-                        <IconButton
-                          isRound={true}
-                          aria-label="Remove Domain"
-                          variant="ghost"
-                          colorScheme="red"
-                          icon={<HiOutlineTrash />}
-                          disabled={isWidgetUpdating}
-                        />
-                      </Tooltip>
-                    </Box>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <PopoverArrow />
-                    <PopoverCloseButton />
-                    <PopoverBody>
-                      <Text>Are you sure you want to remove this domain?</Text>
-                      <Button
-                        mt={4}
-                        colorScheme={'red'}
-                        ref={initRef}
-                        onClick={() => handleRemoveDomain(index, onClose)}
-                        disabled={isWidgetUpdating}
-                      >
-                        Confirm
-                      </Button>
-                    </PopoverBody>
-                  </PopoverContent>
-                </>
-              )}
-            </Popover>
-          </HStack>
+          <Domain
+            key={domain}
+            index={index}
+            domain={domain}
+            updateWidget={updateWidget}
+            isWidgetUpdating={isWidgetUpdating}
+          />
         ))}
       </Box>
 

@@ -1,7 +1,23 @@
+import { Stack } from '@chakra-ui/react'
+import BusinessHours from '@components/Settings/BusinessHours'
+import PageFilters from '@components/Settings/PageFilters'
+import Trigger from '@components/Settings/Trigger'
+import OpenWidget from '@components/Settings/OpenWidget'
+import StoreResponses from '@components/Settings/StoreResponses'
+import DeleteResponses from '@components/Settings/DeleteResponses'
+import FontFamily from '@components/Settings/FontFamily'
 
 const Settings = () => {
   return (
-    <div>Settings</div>
+    <Stack gap="10">
+      <BusinessHours />
+      <PageFilters />
+      <Trigger />
+      <OpenWidget />
+      <FontFamily />
+      <StoreResponses />
+      <DeleteResponses />
+    </Stack>
   )
 }
 
