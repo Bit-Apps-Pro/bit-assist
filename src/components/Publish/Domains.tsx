@@ -141,7 +141,7 @@ const Domains = () => {
       {!isAdding && (
         <Button
           leftIcon={<HiPlus />}
-          colorScheme="teal"
+          colorScheme="purple"
           variant="outline"
           rounded={'full'}
           onClick={() => setIsAdding(true)}

@@ -1,7 +1,11 @@
+import { Box } from '@chakra-ui/react'
+import Title from '@components/Global/Title'
 
 const DeleteResponses = () => {
   return (
-    <div>DeleteResponses</div>
+    <Box>
+      <Title>DeleteResponses</Title>
+    </Box>
   )
 }
 

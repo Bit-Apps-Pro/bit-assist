@@ -1,7 +1,11 @@
+import { Box } from '@chakra-ui/react'
+import Title from '@components/Global/Title'
 
 const PageScroll = () => {
   return (
-    <div>PageScroll</div>
+    <Box>
+      <Title>PageScroll</Title>
+    </Box>
   )
 }
 

@@ -12,7 +12,7 @@ const Widget = ({ widgetFromServer }) => {
   useHydrateAtoms([[widgetAtom, widgetFromServer]])
 
   return (
-    <Tabs variant="solid-rounded" colorScheme="teal">
+    <Tabs variant="solid-rounded" colorScheme="purple">
       <TabList gap="2" justifyContent="center">
         <Tab>Integrations</Tab>
         <Tab>Customizations</Tab>

@@ -1,7 +1,11 @@
+import { Box } from '@chakra-ui/react'
+import Title from '@components/Global/Title'
 
 const FontFamily = () => {
   return (
-    <div>FontFamily</div>
+    <Box>
+      <Title>FontFamily</Title>
+    </Box>
   )
 }
 

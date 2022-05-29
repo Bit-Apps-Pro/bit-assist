@@ -1,6 +1,11 @@
+import { Box } from '@chakra-ui/react'
+import Title from '@components/Global/Title'
+
 const OpenWidget = () => {
   return (
-    <div>OpenWidget</div>
+    <Box>
+      <Title>OpenWidget</Title>
+    </Box>
   )
 }
 

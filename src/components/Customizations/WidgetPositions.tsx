@@ -7,7 +7,7 @@ import { useAtom } from 'jotai'
 
 const WidgetPositions = () => {
   const grayColorToggle = useColorModeValue('gray.200', 'gray.700')
-  const brandColorToggle = useColorModeValue('teal.500', 'teal.200')
+  const brandColorToggle = useColorModeValue('purple.500', 'purple.200')
 
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)

@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <Box>
       <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
-      <NextNProgress color="#ff0084" />
+      <NextNProgress color="#B794F4" />
       <Navbar />
       <Container maxW="container.lg" py={12}>
         <main>{children}</main>
