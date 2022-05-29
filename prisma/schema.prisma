@@ -28,7 +28,7 @@ model chat_widgets {
   status                   Boolean                    @default(true)
   widget_message           String?
   createdAt                DateTime                   @default(now())
-  integartions             Json[]
+  integrations             Json[]
   chat_wid_cfrm_response   chat_wid_cfrm_response[]
   integrations_by_chat_wid integrations_by_chat_wid[]
 }

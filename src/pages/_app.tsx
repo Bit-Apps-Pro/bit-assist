@@ -6,18 +6,21 @@ import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/600.css'
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import Layout from '../components/Layout'
+import Layout from '@components/Global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { Provider } from 'jotai'
 
 const queryClient = new QueryClient()
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ChakraProvider>
-    </QueryClientProvider>
+    <Provider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme} >
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ChakraProvider>
+      </QueryClientProvider>
+    </Provider>
   )
 }
