@@ -9,6 +9,7 @@ import { AppProps } from 'next/app'
 import Layout from '@components/Global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'jotai'
+import '@pages/timezone.css'
 
 const queryClient = new QueryClient()
 export default function MyApp({ Component, pageProps }: AppProps) {
