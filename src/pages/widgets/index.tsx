@@ -153,7 +153,7 @@ const Widgets = ({ widgetsFromServer }) => {
 }
 
 export default Widgets
-
+Widgets.auth = true
 // export async function getServerSideProps(context) {
 //   const { widgets } = await db.users.findUnique({
 //     where: { id: '628626c4aeedcb3965aa667b' },

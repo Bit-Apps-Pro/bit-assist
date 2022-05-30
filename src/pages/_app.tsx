@@ -8,19 +8,41 @@ import theme from '../theme'
 import { AppProps } from 'next/app'
 import Layout from '@components/Global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Provider } from 'jotai'
+import { SessionProvider, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const queryClient = new QueryClient()
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <Provider>
+    <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme} >
+        <ChakraProvider theme={theme}>
           <Layout>
-            <Component {...pageProps} />
+            {Component.auth ? (
+              <Auth>
+                <Component {...pageProps} />
+              </Auth>
+            ) : (
+              <Component {...pageProps} />
+            )}
           </Layout>
         </ChakraProvider>
       </QueryClientProvider>
-    </Provider>
+    </SessionProvider>
   )
+}
+
+function Auth({ children }) {
+  // const 
+  const router = useRouter()
+  const { status, data: session } = useSession()
+  const isUser = !!session?.user
+  useEffect(() => {
+    if (!isUser && status !== 'loading') router.push('/signin')
+  }, [isUser, status])
+
+  if (isUser) return children
+
+  return <div>Loading...</div>
 }
