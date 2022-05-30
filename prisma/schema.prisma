@@ -23,7 +23,7 @@ model chat_widgets {
   styles                   Json?
   domains                  String[]
   business_hours           Json[]
-  exclude_pages            Json[]
+  exclude_pages            String[]
   initial_delay            Int                        @default(0)
   status                   Boolean                    @default(true)
   widget_message           String?

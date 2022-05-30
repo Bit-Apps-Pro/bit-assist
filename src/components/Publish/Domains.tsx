@@ -1,5 +1,13 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Button, HStack, IconButton, Input, useToast, Tooltip } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  HStack,
+  IconButton,
+  Input,
+  useToast,
+  Tooltip,
+} from '@chakra-ui/react'
 import ResponseToast from '@components/Global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
@@ -29,15 +37,26 @@ const Domains = () => {
   }
 
   const addNewDomain = async () => {
-    const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
+    const pattern =
+      /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
     if (domainName === '' || pattern.test(domainName) === false) {
-      toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
+      toast({
+        status: 'error',
+        position: 'top-right',
+        description: 'Please enter a valid domain name',
+      })
       return
     }
 
-    const domainExists = widget.domains.find((domain: string) => domain === domainName)
+    const domainExists = widget.domains.find(
+      (domain: string) => domain === domainName
+    )
     if (domainExists) {
-      toast({ status: 'warning', position: 'top-right', description: 'Domain already exists' })
+      toast({
+        status: 'warning',
+        position: 'top-right',
+        description: 'Domain already exists',
+      })
       return
     }
 
@@ -46,8 +65,16 @@ const Domains = () => {
     })
     resetStates()
 
-    const response = await updateWidget({ ...widget, domains: [...widget.domains, domainName] })
-    ResponseToast({ toast, response, action: 'create', messageFor: 'Widget domain' })
+    const response = await updateWidget({
+      ...widget,
+      domains: [...widget.domains, domainName],
+    })
+    ResponseToast({
+      toast,
+      response,
+      action: 'create',
+      messageFor: 'Widget domain',
+    })
   }
 
   const resetStates = () => {
@@ -57,18 +84,41 @@ const Domains = () => {
 
   return (
     <Box width={'sm'}>
-      <Box mb="4" rounded={'md'} borderWidth={`${widget.domains.length && '1px'}`}>
+      <Box
+        mb="4"
+        rounded={'md'}
+        borderWidth={`${widget.domains.length && '1px'}`}
+      >
         {widget.domains.map((domain, index) => (
-          <Domain key={domain} index={index} domain={domain} updateWidget={updateWidget} isWidgetUpdating={isWidgetUpdating} />
+          <Domain
+            key={domain}
+            index={index}
+            domain={domain}
+            updateWidget={updateWidget}
+            isWidgetUpdating={isWidgetUpdating}
+          />
         ))}
       </Box>
 
       {isAdding && (
         <Box mb={4}>
           <HStack mb={2}>
-            <Input placeholder="Domain Name" value={domainName} onChange={(e) => setDomainName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
+            <Input
+              placeholder="Domain Name"
+              value={domainName}
+              onChange={(e) => setDomainName(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoFocus
+            />
             <Tooltip label="Cancel">
-              <IconButton isRound={true} aria-label="Remove Domain" variant="ghost" colorScheme="red" icon={<HiOutlineTrash />} onClick={resetStates} />
+              <IconButton
+                isRound={true}
+                aria-label="Remove Domain"
+                variant="ghost"
+                colorScheme="red"
+                icon={<HiOutlineTrash />}
+                onClick={resetStates}
+              />
             </Tooltip>
             <Tooltip label="Save">
               <IconButton
@@ -83,13 +133,20 @@ const Domains = () => {
             </Tooltip>
           </HStack>
           <span>
-            Press <Kbd>enter</Kbd> to add, &nbsp; <Kbd>esc</Kbd> to cancel
+            <Kbd>enter</Kbd> to add, &nbsp; <Kbd>esc</Kbd> to cancel
           </span>
         </Box>
       )}
 
       {!isAdding && (
-        <Button leftIcon={<HiPlus />} colorScheme="purple" variant="outline" rounded={'full'} onClick={() => setIsAdding(true)} isLoading={isWidgetUpdating}>
+        <Button
+          leftIcon={<HiPlus />}
+          colorScheme="purple"
+          variant="outline"
+          rounded={'full'}
+          onClick={() => setIsAdding(true)}
+          isLoading={isWidgetUpdating}
+        >
           Add Domain
         </Button>
       )}

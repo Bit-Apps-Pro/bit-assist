@@ -4,15 +4,20 @@ import {
   Button,
   HStack,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftAddon,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
   PopoverTrigger,
+  Select,
   Text,
   Tooltip,
   useToast,
+  VStack,
 } from '@chakra-ui/react'
 import ResponseToast from '@components/Global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
@@ -20,7 +25,7 @@ import { useAtom } from 'jotai'
 import React, { useRef } from 'react'
 import { HiOutlineTrash } from 'react-icons/hi'
 
-const Page = ({ pageDomain, page, index, updateWidget, isWidgetUpdating }) => {
+const Page = ({ page, index, updateWidget, isWidgetUpdating }) => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
 
@@ -63,28 +68,13 @@ const Page = ({ pageDomain, page, index, updateWidget, isWidgetUpdating }) => {
     }
   }
 
-  const makeUrl = (url: string, condition: string) => {
-    switch (condition) {
-      case 'contains':
-        return `${pageDomain}/*${url}*`
-      case 'equal':
-        return `${pageDomain}/${url}`
-      case 'startWith':
-        return `${pageDomain}/${url}*`
-      case 'endWith':
-        return `${pageDomain}/*${url}`
-      default:
-        return 'None'
-    }
-  }
-
   const initRef = useRef()
 
   return (
     <HStack justifyContent={'space-between'} gap="2" py="2" px="4" borderTopWidth={`${index > 0 && '1px'}`}>
       <Text>{showPageVisibility(page?.visibility)}</Text>
       <Text>{showPageCondition(page?.condition)}</Text>
-      <Text>{makeUrl(page?.url, page?.condition)}</Text>
+      <Text>http://{page}</Text>
 
       <Popover closeOnBlur={false} initialFocusRef={initRef}>
         {({ isOpen, onClose }) => (

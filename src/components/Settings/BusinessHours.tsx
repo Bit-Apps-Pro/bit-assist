@@ -1,181 +1,92 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Box, Checkbox, HStack, Input, Text, useToast, VStack } from '@chakra-ui/react'
+import { Box, Checkbox, FormControl, FormLabel, HStack, Input, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 import Title from '@components/Global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
-import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'
-import { Timezones } from '@components/Settings/Timezones'
-import ResponseToast from '@components/Global/ResponseToast'
-import produce from 'immer'
-
-// import '/node_modules/react-select-search/style.css'
-// import '@components/Settings/Timezone.module.css'
+import { useState } from 'react'
+import TimezoneSelect, { ITimezone } from 'react-timezone-select'
 
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
-  const [selectedTimezone, setSelectedTimezone] = useState<string | string[]>()
-  const [isChanged, setIsChanged] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true)
+  const [selectedTimezone, setSelectedTimezone] = useState<ITimezone>('')
+  const [days, setDays] = useState({
+    monday: {
+      start: '09:00',
+      end: '18:00',
+    },
+    tuesday: {
+      start: '09:00',
+      end: '18:00',
+    },
+    wednesday: {
+      start: '09:00',
+      end: '18:00',
+    },
+    thursday: {
+      start: '09:00',
+      end: '18:00',
+    },
+    friday: {
+      start: '09:00',
+      end: '18:00',
+    },
+    saturday: null,
+    sunday: null,
+  })
 
-  useEffect(() => {
-    if (widget.business_hours.length > 0) {
-      return
-    }
-    setWidget((prev) => {
-      prev.business_hours = [
-        {
-          day: 'monday',
-          start: '09:00',
-          end: '18:00',
-        },
-        {
-          day: 'tuesday',
-          start: '09:00',
-          end: '18:00',
-        },
-        {
-          day: 'wednesday',
-          start: '09:00',
-          end: '18:00',
-        },
-        {
-          day: 'thursday',
-          start: '09:00',
-          end: '18:00',
-        },
-        {
-          day: 'friday',
-          start: '09:00',
-          end: '18:00',
-        },
-        {
-          day: 'saturday',
-        },
-        {
-          day: 'sunday',
-        },
-      ]
-    })
-  }, [])
-
-  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    setIsChanged(true)
-
-    setWidget((prev) => {
-      prev.business_hours[index][e.target.name] = e.target.value
-    })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, day: string) => {
+    setDays((prev) => ({ ...prev, [day]: { ...prev[day], [e.target.name]: e.target.value } }))
   }
 
-  const updateChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    if (!isChanged) {
-      return
-    }
-    const response = await updateWidget(
-      produce(widget, (draft) => {
-        draft.business_hours[index][e.target.name] = e.target.value
-      })
-    )
-    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-    setIsChanged(false)
-  }
-
-  const handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, day: string) => {
     if (e.target.checked) {
-      setWidget((prev) => {
-        prev.business_hours[index].start = '09:00'
-        prev.business_hours[index].end = '18:00'
-      })
-
-      const response = await updateWidget(
-        produce(widget, (draft) => {
-          draft.business_hours[index].start = '09:00'
-          draft.business_hours[index].end = '18:00'
-        })
-      )
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
+      setDays((prev) => ({ ...prev, [day]: { start: '09:00', end: '18:00' } }))
     } else {
-      setWidget((prev) => {
-        delete prev.business_hours[index].start
-        delete prev.business_hours[index].end
-      })
-
-      const response = await updateWidget(
-        produce(widget, (draft) => {
-          delete draft.business_hours[index].start
-          delete draft.business_hours[index].end
-        })
-      )
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-    }
-  }
-
-  const handleTimezoneChange = (selectedOption: SelectedOptionValue) => {
-    setSelectedTimezone(selectedOption.toString())
-  }
-
-  const fuzzySearch = (options: SelectSearchOption[]) => {
-    return (searchTerm: string) => {
-      return options.filter((option) => {
-        return option.name.toLowerCase().includes(searchTerm.toLowerCase())
-      })
+      setDays((prev) => ({ ...prev, [day]: null }))
     }
   }
 
   return (
     <Box>
       <Title>Business Hours</Title>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="businessHours" mb="0">
+          Enable Business Hours
+        </FormLabel>
+        <Switch isChecked={isEnabled} colorScheme={'purple'} onChange={() => setIsEnabled((prev) => !prev)} id="businessHours" />
+      </FormControl>
 
-      <Box mt={4}>
-        <VStack alignItems={'flex-start'}>
-          <VStack alignItems={'flex-start'} mb="2">
-            <Text>TimeZone</Text>
-            <Box w="22rem">
-              <SelectSearch
-                search
-                filterOptions={fuzzySearch}
-                options={Timezones}
-                onChange={handleTimezoneChange}
-                value={selectedTimezone}
-                placeholder="Choose your timezone"
-              />
-            </Box>
-          </VStack>
+      {isEnabled && (
+        <Box mt={4}>
+          <VStack alignItems={'flex-start'}>
+            <VStack alignItems={'flex-start'} mb="2">
+              <Text>TimeZone</Text>
+              <Box w="22rem">
+                <TimezoneSelect value={selectedTimezone} onChange={setSelectedTimezone} />
+              </Box>
+            </VStack>
 
-          {widget.business_hours.map((item, index) => (
-            <HStack key={index} minH="10">
-              <Checkbox size="lg" colorScheme="purple" isChecked={item?.start !== undefined} onChange={(e) => handleCheckboxChange(e, index)}>
-                <Text w="24" fontSize={'md'}>
-                  {item?.day && item.day.charAt(0).toUpperCase() + item.day.slice(1)}
+            {Object.keys(days).map((day) => (
+              <HStack key={day} minH="10">
+                <Checkbox size="lg" colorScheme="purple" isChecked={days[day] !== null} onChange={(e) => handleCheckboxChange(e, day)} />
+                <Text w="24" verticalAlign={'center'}>
+                  {day.charAt(0).toUpperCase() + day.slice(1)}
                 </Text>
-              </Checkbox>
-              {item?.start !== undefined && (
-                <>
-                  <Input
-                    w="24"
-                    name="start"
-                    placeholder="09:00"
-                    value={item?.start}
-                    onChange={(e) => handleInputChange(e, index)}
-                    onBlur={(e) => updateChange(e, index)}
-                  />
-                  <Text>-</Text>
-                  <Input
-                    w="24"
-                    name="end"
-                    placeholder="18:00"
-                    value={item?.end}
-                    onChange={(e) => handleInputChange(e, index)}
-                    onBlur={(e) => updateChange(e, index)}
-                  />
-                </>
-              )}
-            </HStack>
-          ))}
-        </VStack>
-      </Box>
+                {days[day] !== null && (
+                  <>
+                    <Input w="24" name="start" placeholder="09:00" value={days[day]?.start} onChange={(e) => handleChange(e, day)} />
+                    <Text>-</Text>
+                    <Input w="24" name="end" placeholder="18:00" value={days[day]?.end} onChange={(e) => handleChange(e, day)} />
+                  </>
+                )}
+              </HStack>
+            ))}
+          </VStack>
+        </Box>
+      )}
     </Box>
   )
 }
