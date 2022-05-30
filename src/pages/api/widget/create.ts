@@ -1,6 +1,5 @@
 import db from '@db'
 
-// import db from '@db/db'
 export default async function handler(req, res) {
 
   if (req.method === 'POST') {
