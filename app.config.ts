@@ -1,0 +1,1 @@
+export const SUBSCRIPTION_CLIENT_URL = 'http://localhost:3001/wp'
