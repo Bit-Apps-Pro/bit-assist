@@ -3,6 +3,7 @@ import ResponseToast from '@components/Global/ResponseToast'
 import Title from '@components/Global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import produce from 'immer'
 import { useAtom } from 'jotai'
 
 const WidgetPositions = () => {
@@ -17,19 +18,15 @@ const WidgetPositions = () => {
     const position = e.target.getAttribute('data-position')
 
     setWidget((prev) => {
-      prev.styles = { ...prev.styles, position }
+      prev.styles.position = position
     })
 
-    const response: any = await updateWidget({
-      ...widget,
-      styles: { ...widget.styles, position },
-    })
-    ResponseToast({
-      toast,
-      response,
-      action: 'update',
-      messageFor: 'Widget position',
-    })
+    const response: any = await updateWidget(
+      produce(widget, (draft) => {
+        draft.styles.position = position
+      })
+    )
+    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget position' })
   }
 
   return (
@@ -43,9 +40,7 @@ const WidgetPositions = () => {
           data-position="top-left"
           onClick={handleChange}
           bg={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
-          borderColor={`${
-            widget.styles?.position === 'top-left' && brandColorToggle
-          }`}
+          borderColor={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
           _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
         />
         <Box bg={grayColorToggle} height="6" />
@@ -56,9 +51,7 @@ const WidgetPositions = () => {
           data-position="top-right"
           onClick={handleChange}
           bg={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
-          borderColor={`${
-            widget.styles?.position === 'top-right' && brandColorToggle
-          }`}
+          borderColor={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
           _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
         />
         <Box bg={grayColorToggle} height="6" />
@@ -70,12 +63,8 @@ const WidgetPositions = () => {
           borderWidth="2px"
           data-position="bottom-left"
           onClick={handleChange}
-          bg={`${
-            widget.styles?.position === 'bottom-left' && brandColorToggle
-          }`}
-          borderColor={`${
-            widget.styles?.position === 'bottom-left' && brandColorToggle
-          }`}
+          bg={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
+          borderColor={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
           _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
         />
         <Box bg={grayColorToggle} height="6" />
@@ -85,12 +74,8 @@ const WidgetPositions = () => {
           borderWidth="2px"
           data-position="bottom-right"
           onClick={handleChange}
-          bg={`${
-            widget.styles?.position === 'bottom-right' && brandColorToggle
-          }`}
-          borderColor={`${
-            widget.styles?.position === 'bottom-right' && brandColorToggle
-          }`}
+          bg={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
+          borderColor={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
           _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
         />
       </SimpleGrid>

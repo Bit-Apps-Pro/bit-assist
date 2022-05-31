@@ -7,9 +7,16 @@ import { serializeObj } from '@utils/utils'
 import { widgetAtom } from '@globalStates/atoms'
 import db from '@db'
 import { useHydrateAtoms } from 'jotai/utils'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
 
 const Widget = ({ widgetFromServer }) => {
   useHydrateAtoms([[widgetAtom, widgetFromServer]])
+  const [, setWidget] = useAtom(widgetAtom)
+
+  useEffect(() => {
+    setWidget(widgetFromServer)
+  }, [])
 
   return (
     <Tabs variant="solid-rounded" colorScheme="purple">
