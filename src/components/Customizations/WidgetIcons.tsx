@@ -22,12 +22,19 @@ const WidgetIcons = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (icon: string) => {
+    console.log('widget.styles', widget.styles)
     setWidget((prev) => {
+      if (prev.styles === null) {
+        prev.styles = {}
+      }
       prev.styles.icon = icon
     })
 
     const response: any = await updateWidget(
       produce(widget, (draft) => {
+        if (draft.styles === null) {
+          draft.styles = {}
+        }
         draft.styles.icon = icon
       })
     )

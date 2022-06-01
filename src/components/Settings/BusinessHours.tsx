@@ -175,7 +175,7 @@ const BusinessHours = () => {
           <VStack alignItems={'flex-start'}>
             <VStack alignItems={'flex-start'} mb="2">
               <Text>TimeZone</Text>
-              <Box w="22rem">
+              <Box>
                 <SelectSearch
                   search
                   filterOptions={fuzzySearch}
@@ -188,7 +188,7 @@ const BusinessHours = () => {
             </VStack>
 
             {widget.business_hours.map((item, index) => (
-              <HStack key={index} minH="10">
+              <HStack key={index} minH="10"  maxW="full">
                 <Checkbox size="lg" colorScheme="purple" isChecked={item?.start !== undefined} onChange={(e) => handleCheckboxChange(e, index)}>
                   <Text w="24" fontSize={'md'}>
                     {item?.day && item.day.charAt(0).toUpperCase() + item.day.slice(1)}

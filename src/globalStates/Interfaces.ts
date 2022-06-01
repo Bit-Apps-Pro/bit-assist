@@ -1,5 +1,4 @@
 import { TColor } from '@atomik-color/core/dist/types'
-import { Prisma } from '@prisma/client'
 
 // chat widget interface
 interface Settings {
@@ -25,6 +24,16 @@ interface Integrations {
   name: string
 }
 
+interface CallToAction {
+  text?: string
+  delay?: number
+}
+
+interface DeleteResponses {
+  is_enabled: boolean
+  delete_after?: number
+}
+
 export interface ChatWidget {
   id: string
   name: string
@@ -34,8 +43,11 @@ export interface ChatWidget {
   business_hours: BusinessHours[]
   exclude_pages: ExcludePages[]
   initial_delay: number
+  page_scroll: number
+  call_to_action: CallToAction | null
+  store_responses: boolean
+  delete_responses: DeleteResponses
   status: boolean
-  widget_message: string | null
   createdAt: Date
   integrations: Integrations[]
 }

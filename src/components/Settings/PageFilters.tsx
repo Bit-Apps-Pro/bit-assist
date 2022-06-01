@@ -81,7 +81,7 @@ const PageFilters = () => {
 
       {isAdding && (
         <Box mb={4}>
-          <HStack mb={2}>
+          <HStack mb={2} spacing="0" gap="2">
             <Select w="15rem" maxW="full" onChange={(e) => setPageVisibility(e.target.value)}>
               <option value="showOn">Show On</option>
               <option value="hideOn">Hide On</option>

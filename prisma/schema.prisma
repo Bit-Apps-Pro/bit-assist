@@ -25,8 +25,11 @@ model chat_widgets {
   business_hours           Json[]
   exclude_pages            Json[]
   initial_delay            Int                        @default(0)
+  page_scroll              Int                        @default(0)
+  call_to_action           Json?
+  store_responses          Boolean                    @default(true)
+  delete_responses         Json?
   status                   Boolean                    @default(true)
-  widget_message           String?
   createdAt                DateTime                   @default(now())
   integrations             Json[]
   chat_wid_cfrm_response   chat_wid_cfrm_response[]

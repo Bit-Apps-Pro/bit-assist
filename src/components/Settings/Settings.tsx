@@ -6,6 +6,7 @@ import OpenWidget from '@components/Settings/OpenWidget'
 import StoreResponses from '@components/Settings/StoreResponses'
 import DeleteResponses from '@components/Settings/DeleteResponses'
 import FontFamily from '@components/Settings/FontFamily'
+import CallToAction from '@components/Settings/CallToAction'
 
 const Settings = () => {
   return (
@@ -13,6 +14,7 @@ const Settings = () => {
       <BusinessHours />
       <PageFilters />
       <Trigger />
+      <CallToAction />
       <OpenWidget />
       <FontFamily />
       <StoreResponses />

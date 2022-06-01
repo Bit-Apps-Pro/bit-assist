@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         ...widgetCopy,
       },
     })
-    console.log({ updateWidget })
+    console.log(updateWidget)
     res.status(200).json({ success: true, data: widget.id })
   }
 }

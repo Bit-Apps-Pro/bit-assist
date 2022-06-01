@@ -7,7 +7,7 @@ import { useAtom } from 'jotai'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
 
-const PageScroll = () => {
+const InitialDelay = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
@@ -15,11 +15,11 @@ const PageScroll = () => {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value ? parseInt(e.target.value) : 0
     setWidget((draft) => {
-      draft.page_scroll = val
+      draft.initial_delay = val
     })
     debounceUpdateWidget(
       produce(widget, (draft) => {
-        draft.page_scroll = val
+        draft.initial_delay = val
       })
     )
   }
@@ -27,7 +27,7 @@ const PageScroll = () => {
   const debounceUpdateWidget = useRef(
     debounce(async (widget) => {
       const response: any = await updateWidget(widget)
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget page scroll' })
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget initial delay' })
     }, 1000)
   ).current
 
@@ -40,10 +40,10 @@ const PageScroll = () => {
   return (
     <HStack mb="2">
       <Text>After</Text>
-      <Input w="28" type="number" placeholder="Page Scroll in %" value={widget.page_scroll} onChange={handleChange} />
-      <Text>% page scroll</Text>
+      <Input w="28" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay} onChange={handleChange} />
+      <Text>sec delay</Text>
     </HStack>
   )
 }
 
-export default PageScroll
+export default InitialDelay

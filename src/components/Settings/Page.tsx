@@ -81,7 +81,7 @@ const Page = ({ pageDomain, page, index, updateWidget, isWidgetUpdating }) => {
   const initRef = useRef()
 
   return (
-    <HStack justifyContent={'space-between'} gap="2" py="2" px="4" borderTopWidth={`${index > 0 && '1px'}`}>
+    <HStack flexWrap="wrap" justifyContent={'space-between'} spacing="0" gap="2" py="2" px="4" borderTopWidth={`${index > 0 && '1px'}`}>
       <Text>{showPageVisibility(page?.visibility)}</Text>
       <Text>{showPageCondition(page?.condition)}</Text>
       <Text>{makeUrl(page?.url, page?.condition)}</Text>

@@ -18,11 +18,17 @@ const WidgetPositions = () => {
     const position = e.target.getAttribute('data-position')
 
     setWidget((prev) => {
+      if (prev.styles === null) {
+        prev.styles = {}
+      }
       prev.styles.position = position
     })
 
     const response: any = await updateWidget(
       produce(widget, (draft) => {
+        if (draft.styles === null) {
+          draft.styles = {}
+        }
         draft.styles.position = position
       })
     )

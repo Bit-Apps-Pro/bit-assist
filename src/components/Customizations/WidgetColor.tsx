@@ -20,6 +20,9 @@ const WidgetColor = () => {
 
   const handleColorChange = (color: TColor) => {
     setWidget((prev) => {
+      if (prev.styles === null) {
+        prev.styles = {}
+      }
       prev.styles.color = color
     })
   }
