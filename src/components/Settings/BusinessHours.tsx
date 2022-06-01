@@ -10,9 +10,6 @@ import { Timezones } from '@components/Settings/Timezones'
 import ResponseToast from '@components/Global/ResponseToast'
 import produce from 'immer'
 
-// import '/node_modules/react-select-search/style.css'
-// import '@components/Settings/Timezone.module.css'
-
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
@@ -57,8 +54,11 @@ const BusinessHours = () => {
   useEffect(() => {
     if (widget.business_hours.length > 0) {
       setIsEnabled(true)
+    } else {
+      setIsEnabled(false)
     }
-  }, [])
+  }, [widget.business_hours])
+
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setIsChanged(true)

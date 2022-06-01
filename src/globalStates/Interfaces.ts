@@ -3,10 +3,10 @@ import { Prisma } from '@prisma/client'
 
 // chat widget interface
 interface Settings {
-  color: TColor
-  position: string
-  icon: string
-  shape: string
+  color?: TColor
+  position?: string
+  icon?: string
+  shape?: string
 }
 
 interface BusinessHours {
@@ -21,6 +21,10 @@ interface ExcludePages {
   condition: string
 }
 
+interface Integrations {
+  name: string
+}
+
 export interface ChatWidget {
   id: string
   name: string
@@ -33,5 +37,5 @@ export interface ChatWidget {
   status: boolean
   widget_message: string | null
   createdAt: Date
-  integrations: Prisma.JsonValue[]
+  integrations: Integrations[]
 }

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "scripts": {
+  "scripts": { 
     "dev": "next",
     "build": "next build",
     "start_next": "next start",
