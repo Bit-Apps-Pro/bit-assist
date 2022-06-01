@@ -59,7 +59,6 @@ const BusinessHours = () => {
     }
   }, [widget.business_hours])
 
-
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     setIsChanged(true)
 
@@ -188,7 +187,7 @@ const BusinessHours = () => {
             </VStack>
 
             {widget.business_hours.map((item, index) => (
-              <HStack key={index} minH="10"  maxW="full">
+              <HStack key={index} minH="10" maxW="full">
                 <Checkbox size="lg" colorScheme="purple" isChecked={item?.start !== undefined} onChange={(e) => handleCheckboxChange(e, index)}>
                   <Text w="24" fontSize={'md'}>
                     {item?.day && item.day.charAt(0).toUpperCase() + item.day.slice(1)}

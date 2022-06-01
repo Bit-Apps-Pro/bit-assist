@@ -38,7 +38,7 @@ const PageScroll = () => {
   }, [debounceUpdateWidget])
 
   return (
-    <HStack mb="2">
+    <HStack>
       <Text>After</Text>
       <Input w="28" type="number" placeholder="Page Scroll in %" value={widget.page_scroll} onChange={handleChange} />
       <Text>% page scroll</Text>

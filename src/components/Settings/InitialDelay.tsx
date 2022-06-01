@@ -38,7 +38,7 @@ const InitialDelay = () => {
   }, [debounceUpdateWidget])
 
   return (
-    <HStack mb="2">
+    <HStack>
       <Text>After</Text>
       <Input w="28" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay} onChange={handleChange} />
       <Text>sec delay</Text>
