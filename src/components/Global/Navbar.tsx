@@ -1,6 +1,5 @@
-import { ChevronDownIcon, EditIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -14,26 +13,25 @@ import {
   MenuList,
   Spacer,
 } from '@chakra-ui/react'
-import { SUBSCRIPTION_CLIENT_URL } from 'app.config'
-import { signOut, useSession } from 'next-auth/react'
+import { userState } from '@globalStates/atoms'
+import { deleteCookie } from '@utils/helper'
+import { CURRENT_DOMAIN, SUBSCRIPTION_CLIENT_URL } from 'app.config'
+import { useAtom } from 'jotai'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { DarkModeSwitch } from './DarkModeSwitch'
 
-
-// export async function getServerSideProps(ctx) {
-//   return {
-//     props: {
-//       env: {
-//         SUBSCRIPTION_CLIENT_URL: process.env.SUBSCRIPTION_CLIENT_URL
-//       }
-//     }
-//   }
-// }
-
 const Navbar = () => {
-  const { data: session } = useSession()
+  const [user, setUser] = useAtom(userState)
   const router = useRouter()
+  const signInUrl = encodeURI(`${SUBSCRIPTION_CLIENT_URL}/login?product=chaty&redirect=${CURRENT_DOMAIN + router.asPath}`)
+
+  const signOut = () => () => {
+    deleteCookie('bit-usr')
+    deleteCookie('bit')
+    setUser({})
+    router.push('/')
+  }
 
   return (
     <Container maxW={'container.lg'} >
@@ -43,37 +41,49 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <ButtonGroup>
-          <Link href={'/widgets'}>
-            <Button rounded="full" colorScheme="teal" variant="ghost">
-              Widgets
-            </Button>
-          </Link>
-          <Link href={'/signup'}>
-            <Button rounded="full" colorScheme="teal" variant="ghost">
-              Sign Up
-            </Button>
-          </Link>
-          <Link href={'/signin'}>
-            <Button rounded="full" colorScheme="teal" variant="ghost">
-              Sign In
-            </Button>
-          </Link>
-          {session?.user && <Menu>
-            <MenuButton rounded="full" colorScheme="teal" variant="ghost" as={Button} rightIcon={<ChevronDownIcon />}>
-              {session?.user.name}
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<Avatar size="xs" name={session?.user.name} />} onClick={() => router.push('/profile')}>Profile</MenuItem>
-              <MenuDivider />
-              <Link href={SUBSCRIPTION_CLIENT_URL}>
-                <a target="_blank" href={SUBSCRIPTION_CLIENT_URL} rel="noopener noreferrer">
-                  <MenuItem>Go to Subscription</MenuItem>
-                </a>
+          {
+            Boolean(Object.keys(user).length) && (
+              <Link href={'/widgets'}>
+                <Button rounded="full" colorScheme="teal" variant="ghost">
+                  Widgets
+                </Button>
               </Link>
-              {/* <MenuItem onClick={()=> router.push('/profile')}>Go to Subscription</MenuItem> */}
-              <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
-            </MenuList>
-          </Menu>}
+            )
+          }
+
+          {
+            !Boolean(Object.keys(user).length) && (
+              <Link href={signInUrl}>
+                <Button rounded="full" colorScheme="teal" variant="ghost">
+                  Sign In
+                </Button>
+              </Link>
+            )
+          }
+          {
+            Boolean(Object.keys(user).length) && (
+              <Menu>
+                <MenuButton rounded="full" colorScheme="teal" variant="ghost" as={Button} rightIcon={<ChevronDownIcon />}>
+                  {user?.name}
+                </MenuButton>
+                <MenuList boxShadow="md">
+                  <Link href={`${SUBSCRIPTION_CLIENT_URL}/Profile`}>
+                    <a target="_blank" href={`${SUBSCRIPTION_CLIENT_URL}/Profile`} rel="noopener noreferrer">
+                      <MenuItem>Profile</MenuItem>
+                    </a>
+                  </Link>
+                  <MenuDivider />
+                  <Link href={SUBSCRIPTION_CLIENT_URL}>
+                    <a target="_blank" href={SUBSCRIPTION_CLIENT_URL} rel="noopener noreferrer">
+                      <MenuItem>Go to Subscription</MenuItem>
+                    </a>
+                  </Link>
+                  {/* <MenuItem onClick={()=> router.push('/profile')}>Go to Subscription</MenuItem> */}
+                  <MenuItem onClick={signOut()}>Sign out</MenuItem>
+                </MenuList>
+              </Menu>
+            )
+          }
           <DarkModeSwitch />
         </ButtonGroup>
       </Flex>
