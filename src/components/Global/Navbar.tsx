@@ -14,7 +14,7 @@ import {
   Spacer,
 } from '@chakra-ui/react'
 import { userState } from '@globalStates/atoms'
-import { deleteCookie } from '@utils/helper'
+import { deleteCookie } from '@utils/cookies'
 import { CURRENT_DOMAIN, SUBSCRIPTION_CLIENT_URL } from 'app.config'
 import { useAtom } from 'jotai'
 import Link from 'next/link'
