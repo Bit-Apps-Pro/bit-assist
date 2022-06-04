@@ -30,7 +30,7 @@ interface CallToAction {
 }
 
 interface DeleteResponses {
-  is_enabled: boolean
+  is_enabled?: boolean
   delete_after?: number
 }
 
