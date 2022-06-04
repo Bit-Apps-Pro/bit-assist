@@ -4,11 +4,12 @@ import Title from '@components/Global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'
 import { Timezones } from '@components/Settings/Timezones'
 import ResponseToast from '@components/Global/ResponseToast'
 import produce from 'immer'
+import { debounce } from 'lodash'
 
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
@@ -71,12 +72,11 @@ const BusinessHours = () => {
     if (!isChanged) {
       return
     }
-    const response = await updateWidget(
+    debounceUpdateWidget(
       produce(widget, (draft) => {
         draft.business_hours[index][e.target.name] = e.target.value
       })
     )
-    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
     setIsChanged(false)
   }
 
@@ -87,26 +87,24 @@ const BusinessHours = () => {
         prev.business_hours[index].end = '18:00'
       })
 
-      const response = await updateWidget(
+      debounceUpdateWidget(
         produce(widget, (draft) => {
           draft.business_hours[index].start = '09:00'
           draft.business_hours[index].end = '18:00'
         })
       )
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
     } else {
       setWidget((prev) => {
         delete prev.business_hours[index].start
         delete prev.business_hours[index].end
       })
 
-      const response = await updateWidget(
+      debounceUpdateWidget(
         produce(widget, (draft) => {
           delete draft.business_hours[index].start
           delete draft.business_hours[index].end
         })
       )
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
     }
   }
 
@@ -124,39 +122,31 @@ const BusinessHours = () => {
 
   const handleSwitchEnable = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsEnabled((prev) => !prev)
+    const val = !isEnabled ? defaultBusinessHours : []
 
-    if (!isEnabled) {
-      enabledBusinessHours()
-    } else {
-      disabledBusinessHours()
+    setWidget((prev) => {
+      prev.business_hours = val
+    })
+
+    debounceUpdateWidget(
+      produce(widget, (draft) => {
+        draft.business_hours = val
+      })
+    )
+  }
+
+  const debounceUpdateWidget = useRef(
+    debounce(async (widget) => {
+      const response: any = await updateWidget(widget)
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
+    }, 1000)
+  ).current
+
+  useEffect(() => {
+    return () => {
+      debounceUpdateWidget.cancel()
     }
-  }
-
-  const enabledBusinessHours = async () => {
-    setWidget((prev) => {
-      prev.business_hours = defaultBusinessHours
-    })
-
-    const response = await updateWidget(
-      produce(widget, (draft) => {
-        draft.business_hours = defaultBusinessHours
-      })
-    )
-    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-  }
-
-  const disabledBusinessHours = async () => {
-    setWidget((prev) => {
-      prev.business_hours = []
-    })
-
-    const response = await updateWidget(
-      produce(widget, (draft) => {
-        draft.business_hours = []
-      })
-    )
-    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-  }
+  }, [debounceUpdateWidget])
 
   return (
     <Box>
