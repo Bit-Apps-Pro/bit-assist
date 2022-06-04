@@ -14,3 +14,9 @@ export function getCookie(cname: string) {
   return ''
 }
 
+export function deleteCookie(keyName:string) {
+  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+  document.cookie = `${keyName}=; Max-Age=0`
+  document.cookie = `${keyName}=; Max-Age=0; path=/`
+}
+
