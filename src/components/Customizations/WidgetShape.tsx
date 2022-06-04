@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react'
 import Title from '@components/Global/Title'
 
-const OpenWidget = () => {
+const WidgetShape = () => {
   return (
     <Box>
-      <Title>OpenWidget</Title>
+      <Title>Widget Shape</Title>
     </Box>
   )
 }
 
-export default OpenWidget
+export default WidgetShape

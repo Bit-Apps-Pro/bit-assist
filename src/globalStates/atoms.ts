@@ -16,6 +16,8 @@ export const widgetAtom = atomWithImmer<ChatWidget>({
   exclude_pages: [],
   initial_delay: 0,
   page_scroll: 0,
+  widget_behavior: 1,
+  custom_css: null,
   call_to_action: {
     text: null,
     delay: 0,

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "scripts": { 
+  "scripts": {
     "dev": "next",
     "build": "next build",
     "start_next": "next start",
@@ -19,6 +19,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fontsource/outfit": "^4.5.8",
+    "@monaco-editor/react": "^4.4.5",
     "@prisma/client": "^3.14.0",
     "framer-motion": "^6",
     "immer": "^9.0.14",

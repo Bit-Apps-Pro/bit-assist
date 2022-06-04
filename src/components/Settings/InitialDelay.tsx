@@ -1,4 +1,5 @@
-import { HStack, Input, Text, useToast } from '@chakra-ui/react'
+/* eslint-disable react/no-children-prop */
+import { HStack, Input, InputGroup, InputRightAddon, Text, useToast } from '@chakra-ui/react'
 import ResponseToast from '@components/Global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
@@ -39,9 +40,11 @@ const InitialDelay = () => {
 
   return (
     <HStack>
-      <Text>After</Text>
-      <Input w="28" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay} onChange={handleChange} />
-      <Text>sec delay</Text>
+      <Text>Delay</Text>
+      <InputGroup>
+        <Input w="28" min="0" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay} onChange={handleChange} />
+        <InputRightAddon children="Sec" />
+      </InputGroup>
     </HStack>
   )
 }

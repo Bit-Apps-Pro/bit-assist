@@ -6,6 +6,7 @@ interface Settings {
   position?: string
   icon?: string
   shape?: string
+  size?: number
 }
 
 interface BusinessHours {
@@ -44,6 +45,8 @@ export interface ChatWidget {
   exclude_pages: ExcludePages[]
   initial_delay: number
   page_scroll: number
+  widget_behavior: number
+  custom_css?: string
   call_to_action: CallToAction | null
   store_responses: boolean
   delete_responses: DeleteResponses
