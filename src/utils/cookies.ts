@@ -1,10 +1,3 @@
-export function setCookie(name: string, value: string, exdays = 1) {
-  let d = new Date()
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
-  let expires = 'expires=' + d.toUTCString()
-  document.cookie = name + '=' + value + ';' + expires
-}
-
 export function getCookie(cname: string) {
   let name = cname + '='
   let decodedCookie = decodeURIComponent(document.cookie)
@@ -21,9 +14,3 @@ export function getCookie(cname: string) {
   return ''
 }
 
-export function deleteCookie(keyName:string) {
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;`
-  document.cookie = `${keyName}=; Max-Age=0`
-  document.cookie = `${keyName}=; Max-Age=0; path=/login`
-}
