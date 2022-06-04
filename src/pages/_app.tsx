@@ -8,41 +8,61 @@ import theme from '../theme'
 import { AppProps } from 'next/app'
 import Layout from '@components/Global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { SessionProvider, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { userState } from '@globalStates/atoms'
+import { useAtom } from 'jotai'
+import { getUserData } from '@utils/helper'
+
+interface MyAppProps extends AppProps {
+  cookies: string
+}
 
 const queryClient = new QueryClient()
-export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+
+MyApp.getInitialProps = async (appContext) => {
+  const request = appContext?.ctx?.req
+  return {
+    cookies: request?.cookies?.['bit-usr']
+  }
+}
+
+export default function MyApp({ cookies, Component, pageProps }: MyAppProps) {
+  const [, setUser] = useAtom(userState)
+
+  useEffect(() => {
+    if (cookies) {
+      const getUserDataByCookies = getUserData(cookies)
+      setUser(getUserDataByCookies)
+    }
+  }, [cookies])
+
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme}>
-          <Layout>
-            {Component.auth ? (
-              <Auth>
-                <Component {...pageProps} />
-              </Auth>
-            ) : (
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Layout>
+          {Component?.auth ? (
+            <Auth>
               <Component {...pageProps} />
-            )}
-          </Layout>
-        </ChakraProvider>
-      </QueryClientProvider>
-    </SessionProvider>
+            </Auth>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </Layout>
+      </ChakraProvider>
+    </QueryClientProvider>
   )
 }
 
 function Auth({ children }) {
-  // const 
   const router = useRouter()
-  const { status, data: session } = useSession()
-  const isUser = !!session?.user
+  const [user] = useAtom(userState)
+  
   useEffect(() => {
-    if (!isUser && status !== 'loading') router.push('/signin')
-  }, [isUser, status])
+    if (!Boolean(Object.keys(user).length)) router.push('/')
+  }, [user])
 
-  if (isUser) return children
+  if (Boolean(Object.keys(user).length)) return children
 
   return <div>Loading...</div>
 }
