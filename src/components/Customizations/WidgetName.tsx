@@ -43,7 +43,7 @@ const WidgetName = () => {
       <Title>Widget Name</Title>
       <Input
         placeholder="Widget Name"
-        value={widget.name}
+        value={widget.name ?? ''}
         onChange={handleChange}
         isRequired={true}
       />

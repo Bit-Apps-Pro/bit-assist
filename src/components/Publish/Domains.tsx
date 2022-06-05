@@ -66,7 +66,7 @@ const Domains = () => {
       {isAdding && (
         <Box mb={4}>
           <HStack mb={2}>
-            <Input placeholder="Domain Name" value={domainName} onChange={(e) => setDomainName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
+            <Input placeholder="Domain Name" value={domainName ?? ''} onChange={(e) => setDomainName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
             <Tooltip label="Cancel">
               <IconButton isRound={true} aria-label="Remove Domain" variant="ghost" colorScheme="red" icon={<HiOutlineTrash />} onClick={resetStates} />
             </Tooltip>

@@ -40,7 +40,7 @@ const CustomCSS = () => {
     <Box>
       <Title>Custom CSS</Title>
       <Box onClick={onOpen} position="relative" filter="auto" blur="1.1px" w="80" h="32">
-        <Editor height="100%" width="100%" theme="vs-dark" defaultLanguage="css" defaultValue="/*write your custom css here*/" value={widget.custom_css} />
+        <Editor height="100%" width="100%" theme="vs-dark" defaultLanguage="css" defaultValue="/*write your custom css here*/" value={widget.custom_css ?? ''} />
         <Box position="absolute" top="0" w="full" h="full" zIndex={1}></Box>
       </Box>
 
@@ -58,7 +58,7 @@ const CustomCSS = () => {
                 onChange={handleChangeCustomCSS}
                 defaultLanguage="css"
                 defaultValue="/*write your custom css here*/"
-                value={widget.custom_css}
+                value={widget.custom_css ?? ''}
               />
             </Box>
           </ModalBody>

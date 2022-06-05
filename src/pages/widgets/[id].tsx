@@ -3,20 +3,21 @@ import Customizations from '@components/Customizations/Customizations'
 import Publish from '@components/Publish/Publish'
 import Integrations from '@components/Integrations/Integrations'
 import Settings from '@components/Settings/Settings'
-import { serializeObj } from '@utils/utils'
 import { widgetAtom } from '@globalStates/atoms'
-import db from '@db'
-import { useHydrateAtoms } from 'jotai/utils'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
+import { useRouter } from 'next/router'
+import useFetchWidget from '@hooks/queries/useFetchWidget'
 
-const Widget = ({ widgetFromServer }) => {
-  useHydrateAtoms([[widgetAtom, widgetFromServer]])
+const Widget = () => {
+  const router = useRouter()
+  const { id } = router.query
   const [, setWidget] = useAtom(widgetAtom)
-
+  const { widget } = useFetchWidget(id?.toString())
+  
   useEffect(() => {
-    setWidget(widgetFromServer)
-  }, [])
+    setWidget(widget)
+  }, [widget, setWidget])
 
   return (
     <Tabs variant="solid-rounded" colorScheme="purple">
@@ -45,14 +46,3 @@ const Widget = ({ widgetFromServer }) => {
 }
 
 export default Widget
-
-export async function getServerSideProps(context) {
-  const { id } = context.query
-  const widget = await db.chat_widgets.findUnique({
-    where: { id },
-  })
-
-  return {
-    props: { widgetFromServer: serializeObj(widget) },
-  }
-}

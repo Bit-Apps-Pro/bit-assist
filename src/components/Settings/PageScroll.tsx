@@ -42,7 +42,7 @@ const PageScroll = () => {
     <HStack>
       <Text whiteSpace={'nowrap'}>Page scroll</Text>
       <InputGroup>
-        <Input w="28" min="0" type="number" placeholder="Page Scroll in %" value={widget.page_scroll} onChange={handleChange} />
+        <Input w="28" min="0" type="number" placeholder="Page Scroll in %" value={widget.page_scroll ?? ''} onChange={handleChange} />
         <InputRightAddon children="%" />
       </InputGroup>
     </HStack>

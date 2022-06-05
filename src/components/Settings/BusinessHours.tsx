@@ -170,7 +170,7 @@ const BusinessHours = () => {
                   filterOptions={fuzzySearch}
                   options={Timezones}
                   onChange={handleTimezoneChange}
-                  value={selectedTimezone}
+                  value={selectedTimezone ?? ''}
                   placeholder="Choose your timezone"
                 />
               </Box>
@@ -189,7 +189,7 @@ const BusinessHours = () => {
                       w="24"
                       name="start"
                       placeholder="09:00"
-                      value={item?.start}
+                      value={item?.start ?? ''}
                       onChange={(e) => handleInputChange(e, index)}
                       onBlur={(e) => updateChange(e, index)}
                     />
@@ -198,7 +198,7 @@ const BusinessHours = () => {
                       w="24"
                       name="end"
                       placeholder="18:00"
-                      value={item?.end}
+                      value={item?.end ?? ''}
                       onChange={(e) => handleInputChange(e, index)}
                       onBlur={(e) => updateChange(e, index)}
                     />

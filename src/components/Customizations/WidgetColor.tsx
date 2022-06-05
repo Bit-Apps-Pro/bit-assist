@@ -36,7 +36,7 @@ const WidgetColor = () => {
         </MenuButton>
         <MenuList p="0" border="0" maxW="220px">
           <Box maxW="100%">
-            <ColorPicker showParams={true} value={widget.styles?.color} onChange={handleColorChange} />
+            <ColorPicker showParams={true} value={widget.styles?.color ?? ''} onChange={handleColorChange} />
           </Box>
         </MenuList>
       </Menu>

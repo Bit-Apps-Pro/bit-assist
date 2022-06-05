@@ -75,7 +75,7 @@ const CallToAction = () => {
             <SliderThumb />
           </Tooltip>
         </Slider>
-        <Input placeholder="Message" value={widget.call_to_action?.text} onChange={handleChange} />
+        <Input placeholder="Message" value={widget.call_to_action?.text ?? ''} onChange={handleChange} />
       </VStack>
     </Box>
   )

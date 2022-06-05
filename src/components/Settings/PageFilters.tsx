@@ -94,7 +94,7 @@ const PageFilters = () => {
             </Select>
             <InputGroup>
               <InputLeftAddon children={`${pageDomain}/`} />
-              <Input placeholder="Page url" value={pageUrl} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
+              <Input placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
             </InputGroup>
 
             <Tooltip label="Cancel">

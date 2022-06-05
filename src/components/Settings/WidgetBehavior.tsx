@@ -28,7 +28,7 @@ const WidgetBehavior = () => {
   return (
     <Box w="lg" maxW="full">
       <Title>Widget Behavior</Title>
-      <Select value={widget.widget_behavior} onChange={handleChange}>
+      <Select value={widget.widget_behavior ?? ''} onChange={handleChange}>
         <option value={1}>Click to open</option>
         <option value={2}>Hover to open</option>
         <option value={3}>Opened by default</option>
