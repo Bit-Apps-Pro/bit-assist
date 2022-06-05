@@ -4,7 +4,7 @@ import { ChatWidget } from './Interfaces'
 export const widgetAtom = atomWithImmer<ChatWidget>({
   id: '',
   name: '',
-  userId: '',
+  user_id: '',
   styles: {
     color: null,
     position: null,

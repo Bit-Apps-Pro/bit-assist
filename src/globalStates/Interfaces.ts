@@ -38,7 +38,7 @@ interface DeleteResponses {
 export interface ChatWidget {
   id: string
   name: string
-  userId: string
+  user_id: string
   styles: Settings | null
   domains: string[]
   business_hours: BusinessHours[]

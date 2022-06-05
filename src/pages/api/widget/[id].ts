@@ -4,7 +4,7 @@ import { serializeObj } from '@utils/utils'
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { id } = req.query
-    const widget = await db.chat_widgets.findUnique({
+    const widget = await db.widgets.findUnique({
       where: { id },
     })
 

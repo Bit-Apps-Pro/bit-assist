@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const widgetCopy = { ...widget }
     delete widgetCopy['id']
 
-    const updateWidget = await db.chat_widgets.update({
+    const updateWidget = await db.widgets.update({
       where: { id: widget.id },
       data: {
         ...widgetCopy,

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     const { widgetId } = JSON.parse(req.body || '{}')
     if (!widgetId) res.status(422).json({ success: false })
 
-    const deleteWidget = await db.chat_widgets.delete({
+    const deleteWidget = await db.widgets.delete({
       where: { id: widgetId },
     })
     res.status(200).json({ success: true, data: 'widgetIndex' })

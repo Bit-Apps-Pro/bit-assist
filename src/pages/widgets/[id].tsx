@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import Customizations from '@components/Customizations/Customizations'
 import Publish from '@components/Publish/Publish'
-import Integrations from '@components/Integrations/Integrations'
+import Channels from '@components/Channels/Channels'
 import Settings from '@components/Settings/Settings'
 import { widgetAtom } from '@globalStates/atoms'
 import { useEffect } from 'react'
@@ -22,14 +22,14 @@ const Widget = () => {
   return (
     <Tabs variant="solid-rounded" colorScheme="purple">
       <TabList gap="2" justifyContent="center">
-        <Tab>Integrations</Tab>
+        <Tab>Channels</Tab>
         <Tab>Customizations</Tab>
         <Tab>Settings</Tab>
         <Tab>Publish</Tab>
       </TabList>
       <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
         <TabPanel>
-          <Integrations />
+          <Channels />
         </TabPanel>
         <TabPanel>
           <Customizations />
