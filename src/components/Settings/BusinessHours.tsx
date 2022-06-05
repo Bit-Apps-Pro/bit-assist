@@ -15,7 +15,6 @@ const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
-  const [selectedTimezone, setSelectedTimezone] = useState<string | string[]>()
   const [isChanged, setIsChanged] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
   const [defaultBusinessHours] = useState([
@@ -108,8 +107,17 @@ const BusinessHours = () => {
     }
   }
 
-  const handleTimezoneChange = (selectedOption: SelectedOptionValue) => {
-    setSelectedTimezone(selectedOption.toString())
+  const handleTimezoneChange = async (selectedOption: SelectedOptionValue) => {
+    setWidget((prev) => {
+      prev.timezone = selectedOption.toString()
+    })
+
+    const response = await updateWidget(
+      produce(widget, (draft) => {
+        draft.timezone = selectedOption.toString()
+      })
+    )
+    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
   }
 
   const fuzzySearch = (options: SelectSearchOption[]) => {
@@ -170,7 +178,7 @@ const BusinessHours = () => {
                   filterOptions={fuzzySearch}
                   options={Timezones}
                   onChange={handleTimezoneChange}
-                  value={selectedTimezone ?? ''}
+                  value={widget.timezone ?? ''}
                   placeholder="Choose your timezone"
                 />
               </Box>

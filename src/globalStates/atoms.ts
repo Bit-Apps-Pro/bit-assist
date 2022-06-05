@@ -13,6 +13,7 @@ export const widgetAtom = atomWithImmer<ChatWidget>({
   },
   domains: [],
   business_hours: [],
+  timezone: '',
   exclude_pages: [],
   initial_delay: 0,
   page_scroll: 0,

@@ -42,6 +42,7 @@ export interface ChatWidget {
   styles: Settings | null
   domains: string[]
   business_hours: BusinessHours[]
+  timezone: string
   exclude_pages: ExcludePages[]
   initial_delay: number
   page_scroll: number
