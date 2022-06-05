@@ -26,6 +26,6 @@
       "@public/*": ["public/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/atom.js", "src/components/Settings/BusinessHours.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/atom.js", "src/components/settings/BusinessHours.tsx"],
   "exclude": ["node_modules"]
 }

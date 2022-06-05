@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { Box, Code, Text, VStack } from '@chakra-ui/react'
-import Title from '@components/Global/Title'
+import Title from '@components/global/Title'
 import Domains from './Domains'
 
 const Publish = () => {

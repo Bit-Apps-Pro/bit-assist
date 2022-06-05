@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftAddon, Kbd, Select, Tooltip, useToast } from '@chakra-ui/react'
-import Title from '@components/Global/Title'
+import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import Page from '@components/Settings/Page'
+import Page from '@components/settings/Page'
 import { HiCheck, HiOutlineTrash, HiPlus } from 'react-icons/hi'
-import ResponseToast from '@components/Global/ResponseToast'
+import ResponseToast from '@components/global/ResponseToast'
 import produce from 'immer'
 
 const PageFilters = () => {

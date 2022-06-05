@@ -1,7 +1,7 @@
 import { Box, VStack } from '@chakra-ui/react'
-import Title from '@components/Global/Title'
-import DeleteResponses from '@components/Settings/DeleteResponses'
-import StoreResponses from '@components/Settings/StoreResponses'
+import Title from '@components/global/Title'
+import DeleteResponses from '@components/settings/DeleteResponses'
+import StoreResponses from '@components/settings/StoreResponses'
 
 const Responses = () => {
   return (

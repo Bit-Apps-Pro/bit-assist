@@ -1,5 +1,5 @@
 import { Box, HStack, useRadioGroup, useToast } from '@chakra-ui/react'
-import RadioCard from '@components/Global/RadioCard'
+import RadioCard from '@components/global/RadioCard'
 import {
   IoChatboxEllipsesOutline,
   IoChatboxEllipses,
@@ -9,11 +9,11 @@ import {
   IoChatbubblesSharp,
 } from 'react-icons/io5'
 import { HiChatAlt2, HiOutlineChatAlt2 } from 'react-icons/hi'
-import Title from '@components/Global/Title'
+import Title from '@components/global/Title'
 import { useAtom } from 'jotai'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
-import ResponseToast from '@components/Global/ResponseToast'
+import ResponseToast from '@components/global/ResponseToast'
 import produce from 'immer'
 import { useEffect } from 'react'
 

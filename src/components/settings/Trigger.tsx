@@ -1,6 +1,6 @@
-import InitialDelay from '@components/Settings/InitialDelay'
-import PageScroll from '@components/Settings/PageScroll'
-import Title from '@components/Global/Title'
+import InitialDelay from '@components/settings/InitialDelay'
+import PageScroll from '@components/settings/PageScroll'
+import Title from '@components/global/Title'
 import { Box, VStack } from '@chakra-ui/react'
 
 const Trigger = () => {

@@ -1,7 +1,6 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Input, InputGroup, InputRightAddon, Text, useToast } from '@chakra-ui/react'
-import ResponseToast from '@components/Global/ResponseToast'
-import Title from '@components/Global/Title'
+import { HStack, Input, InputGroup, InputRightAddon, Text, useToast } from '@chakra-ui/react'
+import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import produce from 'immer'
@@ -9,25 +8,19 @@ import { useAtom } from 'jotai'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
 
-const WidgetSize = () => {
+const PageScroll = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value ? parseInt(e.target.value) : null
-    setWidget((prev) => {
-      if (prev.styles === null) {
-        prev.styles = {}
-      }
-      prev.styles.size = val
+    const val = e.target.value ? parseInt(e.target.value) : 0
+    setWidget((draft) => {
+      draft.page_scroll = val
     })
     debounceUpdateWidget(
       produce(widget, (draft) => {
-        if (draft.styles === null) {
-          draft.styles = {}
-        }
-        draft.styles.size = val
+        draft.page_scroll = val
       })
     )
   }
@@ -35,7 +28,7 @@ const WidgetSize = () => {
   const debounceUpdateWidget = useRef(
     debounce(async (widget) => {
       const response: any = await updateWidget(widget)
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget size' })
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget page scroll' })
     }, 1000)
   ).current
 
@@ -46,15 +39,14 @@ const WidgetSize = () => {
   }, [debounceUpdateWidget])
 
   return (
-    <Box>
-      <Title>Widget Size</Title>
-      <Text fontSize="sm" color="gray.500" mb="2">Default widget size 54px</Text>
+    <HStack>
+      <Text whiteSpace={'nowrap'}>Page scroll</Text>
       <InputGroup>
-        <Input min="0" w="28" type="number" placeholder="Size" value={widget.styles?.size ?? ''} onChange={handleChange} />
-        <InputRightAddon children="px" />
+        <Input w="28" min="0" type="number" placeholder="Page Scroll in %" value={widget.page_scroll ?? ''} onChange={handleChange} />
+        <InputRightAddon children="%" />
       </InputGroup>
-    </Box>
+    </HStack>
   )
 }
 
-export default WidgetSize
+export default PageScroll

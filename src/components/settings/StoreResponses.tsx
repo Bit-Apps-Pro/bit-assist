@@ -1,5 +1,5 @@
 import { Box, FormControl, FormLabel, Switch, useToast } from '@chakra-ui/react'
-import ResponseToast from '@components/Global/ResponseToast'
+import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import produce from 'immer'

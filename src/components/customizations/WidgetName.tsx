@@ -1,12 +1,12 @@
 import { Box, Input } from '@chakra-ui/react'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
-import Title from '@components/Global/Title'
+import Title from '@components/global/Title'
 import { useToast } from '@chakra-ui/react'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
-import ResponseToast from '@components/Global/ResponseToast'
+import ResponseToast from '@components/global/ResponseToast'
 
 const WidgetName = () => {
   const toast = useToast({ isClosable: true })

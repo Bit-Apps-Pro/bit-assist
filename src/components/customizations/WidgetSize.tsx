@@ -1,6 +1,7 @@
 /* eslint-disable react/no-children-prop */
-import { HStack, Input, InputGroup, InputRightAddon, Text, useToast } from '@chakra-ui/react'
-import ResponseToast from '@components/Global/ResponseToast'
+import { Box, Input, InputGroup, InputRightAddon, Text, useToast } from '@chakra-ui/react'
+import ResponseToast from '@components/global/ResponseToast'
+import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import produce from 'immer'
@@ -8,19 +9,25 @@ import { useAtom } from 'jotai'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'
 
-const InitialDelay = () => {
+const WidgetSize = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value ? parseInt(e.target.value) : 0
-    setWidget((draft) => {
-      draft.initial_delay = val
+    const val = e.target.value ? parseInt(e.target.value) : null
+    setWidget((prev) => {
+      if (prev.styles === null) {
+        prev.styles = {}
+      }
+      prev.styles.size = val
     })
     debounceUpdateWidget(
       produce(widget, (draft) => {
-        draft.initial_delay = val
+        if (draft.styles === null) {
+          draft.styles = {}
+        }
+        draft.styles.size = val
       })
     )
   }
@@ -28,7 +35,7 @@ const InitialDelay = () => {
   const debounceUpdateWidget = useRef(
     debounce(async (widget) => {
       const response: any = await updateWidget(widget)
-      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget initial delay' })
+      ResponseToast({ toast, response, action: 'update', messageFor: 'Widget size' })
     }, 1000)
   ).current
 
@@ -39,14 +46,15 @@ const InitialDelay = () => {
   }, [debounceUpdateWidget])
 
   return (
-    <HStack>
-      <Text>Delay</Text>
+    <Box>
+      <Title>Widget Size</Title>
+      <Text fontSize="sm" color="gray.500" mb="2">Default widget size 54px</Text>
       <InputGroup>
-        <Input w="28" min="0" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay ?? ''} onChange={handleChange} />
-        <InputRightAddon children="Sec" />
+        <Input min="0" w="28" type="number" placeholder="Size" value={widget.styles?.size ?? ''} onChange={handleChange} />
+        <InputRightAddon children="px" />
       </InputGroup>
-    </HStack>
+    </Box>
   )
 }
 
-export default InitialDelay
+export default WidgetSize

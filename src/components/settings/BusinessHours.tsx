@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Box, Checkbox, FormControl, FormLabel, HStack, Input, Switch, Text, useToast, VStack } from '@chakra-ui/react'
-import Title from '@components/Global/Title'
+import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { useAtom } from 'jotai'
 import { useEffect, useRef, useState } from 'react'
 import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'
-import { Timezones } from '@components/Settings/Timezones'
-import ResponseToast from '@components/Global/ResponseToast'
+import { Timezones } from '@components/settings/Timezones'
+import ResponseToast from '@components/global/ResponseToast'
 import produce from 'immer'
 import { debounce } from 'lodash'
 
