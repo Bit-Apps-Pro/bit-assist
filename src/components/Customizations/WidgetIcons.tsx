@@ -56,7 +56,7 @@ const WidgetIcons = () => {
 
   return (
     <Box>
-      <Title>Button Size</Title>
+      <Title>Widget Icon</Title>
       <HStack {...group} flexWrap="wrap" gap={2} spacing={0}>
         {iconOptions.map((value) => {
           const radio = getRadioProps({ value })

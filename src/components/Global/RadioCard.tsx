@@ -18,7 +18,7 @@ const RadioCard = (props) => {
         boxShadow="md"
         fontSize="xl"
         _checked={{
-          bg: formBackground,
+          bg: props?.design != 'border' && formBackground,
           color: 'white',
           borderColor: formBackground,
         }}

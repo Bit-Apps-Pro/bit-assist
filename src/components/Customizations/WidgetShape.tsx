@@ -1,10 +1,66 @@
-import { Box } from '@chakra-ui/react'
+import { Box, HStack, useRadioGroup, useToast, useColorModeValue } from '@chakra-ui/react'
+import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import ResponseToast from '@components/Global/ResponseToast'
+import RadioCard from '@components/Global/RadioCard'
+import { widgetAtom } from '@globalStates/atoms'
 import Title from '@components/Global/Title'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import produce from 'immer'
 
 const WidgetShape = () => {
+  const toast = useToast({ isClosable: true })
+  const [widget, setWidget] = useAtom(widgetAtom)
+  const { updateWidget } = useUpdateWidget()
+  const formBackground = useColorModeValue('purple.500', 'purple.200')
+
+  const handleChange = async (shape: string) => {
+    setWidget((prev) => {
+      if (prev.styles === null) {
+        prev.styles = {}
+      }
+      prev.styles.shape = shape
+    })
+
+    const response: any = await updateWidget(
+      produce(widget, (draft) => {
+        if (draft.styles === null) {
+          draft.styles = {}
+        }
+        draft.styles.shape = shape
+      })
+    )
+    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget shape' })
+  }
+
+  const shapeOptions = ['circle', 'rounded', 'square']
+  const { getRootProps, getRadioProps, setValue } = useRadioGroup({
+    name: 'widgetShape',
+    defaultValue: widget.styles?.shape,
+    onChange: handleChange,
+  })
+
+  const group = getRootProps()
+
+  useEffect(() => {
+    setValue(widget.styles?.shape)
+  }, [widget.styles?.shape, setValue])
+
   return (
     <Box>
       <Title>Widget Shape</Title>
+      <HStack {...group} flexWrap="wrap" gap={2} spacing={0}>
+        {shapeOptions.map((value) => {
+          const radio = getRadioProps({ value })
+          return (
+            <RadioCard design="border" key={value} {...radio}>
+              {value === shapeOptions[0] && <Box h="40px" w="40px" rounded="full" bg={formBackground} />}
+              {value === shapeOptions[1] && <Box h="40px" w="40px" rounded="md" bg={formBackground} />}
+              {value === shapeOptions[2] && <Box h="40px" w="40px" rounded="none" bg={formBackground} />}
+            </RadioCard>
+          )
+        })}
+      </HStack>
     </Box>
   )
 }
