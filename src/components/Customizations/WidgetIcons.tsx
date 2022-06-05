@@ -15,6 +15,7 @@ import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
 import ResponseToast from '@components/Global/ResponseToast'
 import produce from 'immer'
+import { useEffect } from 'react'
 
 const WidgetIcons = () => {
   const toast = useToast({ isClosable: true })
@@ -22,7 +23,6 @@ const WidgetIcons = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (icon: string) => {
-    console.log('widget.styles', widget.styles)
     setWidget((prev) => {
       if (prev.styles === null) {
         prev.styles = {}
@@ -42,13 +42,17 @@ const WidgetIcons = () => {
   }
 
   const iconOptions = ['chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8']
-  const { getRootProps, getRadioProps } = useRadioGroup({
+  const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: 'widgetIcon',
     defaultValue: widget.styles?.icon,
     onChange: handleChange,
   })
 
   const group = getRootProps()
+
+  useEffect(() => {
+    setValue(widget.styles?.icon)
+  }, [widget.styles?.icon, setValue])
 
   return (
     <Box>

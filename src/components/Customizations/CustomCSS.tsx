@@ -39,7 +39,7 @@ const CustomCSS = () => {
   return (
     <Box>
       <Title>Custom CSS</Title>
-      <Box onClick={onOpen} position="relative" filter="auto" blur="1.1px" w="80" h="32">
+      <Box onClick={onOpen} position="relative" filter="auto" blur="1.1px" w="80" h="32" cursor="pointer">
         <Editor height="100%" width="100%" theme="vs-dark" defaultLanguage="css" defaultValue="/*write your custom css here*/" value={widget.custom_css ?? ''} />
         <Box position="absolute" top="0" w="full" h="full" zIndex={1}></Box>
       </Box>
