@@ -24,7 +24,8 @@ import { DarkModeSwitch } from './DarkModeSwitch'
 const Navbar = () => {
   const [user, setUser] = useAtom(userState)
   const router = useRouter()
-  const signInUrl = encodeURI(`${SUBSCRIPTION_CLIENT_URL}/login?product=chaty&redirect=${CURRENT_DOMAIN + router.asPath}`)
+  const signInUrl = encodeURI(`${SUBSCRIPTION_CLIENT_URL}/login?product=assist&redirect=${CURRENT_DOMAIN + router.asPath}`)
+  const signUpUrl = encodeURI(`${SUBSCRIPTION_CLIENT_URL}/login/bit-assist/?product=assist&redirect=${CURRENT_DOMAIN + router.asPath}`)
 
   const signOut = () => () => {
     deleteCookie('bit-usr')
@@ -37,7 +38,7 @@ const Navbar = () => {
     <Container maxW={'container.lg'} >
       <Flex py="4">
         <Box py="2">
-          <Heading size="md"><Link href={'/'}>Bit Chaty</Link></Heading>
+          <Heading size="md"><Link href={'/'}>Bit Assist</Link></Heading>
         </Box>
         <Spacer />
         <ButtonGroup>
@@ -53,11 +54,18 @@ const Navbar = () => {
 
           {
             !Boolean(Object.keys(user).length) && (
-              <Link href={signInUrl}>
-                <Button rounded="full" colorScheme="teal" variant="ghost">
-                  Sign In
-                </Button>
-              </Link>
+              <>
+                <Link href={signInUrl}>
+                  <Button rounded="full" colorScheme="teal" variant="ghost">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href={signUpUrl}>
+                  <Button rounded="full" colorScheme="teal" variant="ghost">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
             )
           }
           {
