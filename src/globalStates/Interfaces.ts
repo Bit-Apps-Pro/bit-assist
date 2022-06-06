@@ -1,6 +1,6 @@
 import { TColor } from '@atomik-color/core/dist/types'
 
-// chat widget interface
+// widget interfaces
 interface Settings {
   color?: TColor
   position?: string
@@ -8,34 +8,28 @@ interface Settings {
   shape?: string
   size?: number
 }
-
 interface BusinessHours {
   day: string
   start?: string
   end?: string
 }
-
 interface ExcludePages {
   url: string
   visibility: string
   condition: string
 }
-
 interface Integrations {
   name: string
 }
-
 interface CallToAction {
   text?: string
   delay?: number
 }
-
 interface DeleteResponses {
   is_enabled?: boolean
   delete_after?: number
 }
-
-export interface ChatWidget {
+export interface Widget {
   id: string
   name: string
   user_id: string
@@ -54,4 +48,35 @@ export interface ChatWidget {
   status: boolean
   createdAt: Date
   integrations: Integrations[]
+}
+
+// channel interfaces
+export interface Channel {
+  id: string
+  name: string
+  icon: string
+}
+
+// flow interfaces
+interface WidgetChannelConfig {
+  title: string
+  icon?: string
+  url?: string
+  open_window_action?: string
+  hide_after_office?: boolean
+  store_responses?: boolean
+  delete_responses?: DeleteResponses
+}
+export interface WidgetChannel {
+  id: string
+  widget_id: string
+  channel_id: string
+  config: WidgetChannelConfig
+  status?: boolean
+}
+export interface Flow {
+  step: number
+  widget_id: string
+  channel_id: string
+  config: WidgetChannelConfig
 }

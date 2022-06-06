@@ -25,24 +25,18 @@ import {
 } from '@chakra-ui/react'
 import { HiDotsVertical, HiPlus } from 'react-icons/hi'
 import Link from 'next/link'
-import { serializeObj } from '@utils/utils'
 import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useRef } from 'react'
 import useFetchWidgets from '@hooks/queries/useFetchWidgets'
-import db from '@db'
 import useDeleteWidget from '@hooks/mutations/useDeleteWidget'
 import useCreateWidget from '@hooks/mutations/useCreateWidget'
 
-const Widgets = ({ widgetsFromServer }) => {
+const Widgets = () => {
   const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
   const { createWidget, isWidgetCreating } = useCreateWidget()
 
-  const {
-    isOpen,
-    onOpen: openDelModal,
-    onClose: closeDelModal,
-  } = useDisclosure()
+  const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const tempWidgetId = useRef('')
 
   const openDeleteModal = (widgetId: string) => () => {
@@ -98,22 +92,13 @@ const Widgets = ({ widgetsFromServer }) => {
                 </Td>
                 <Td textAlign="right">
                   <Menu>
-                    <MenuButton
-                      isRound={true}
-                      as={IconButton}
-                      aria-label="Options"
-                      icon={<HiDotsVertical />}
-                    />
+                    <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
                     <MenuList shadow="lg">
                       <Link href={`/widgets/${widget.id}`}>
                         <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
                       <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
-                      <MenuItem
-                        icon={<FiTrash2 />}
-                        color="red.600"
-                        onClick={openDeleteModal(widget.id)}
-                      >
+                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widget.id)}>
                         Delete
                       </MenuItem>
                     </MenuList>
@@ -136,13 +121,7 @@ const Widgets = ({ widgetsFromServer }) => {
             <Button mr={3} onClick={closeDelModal}>
               Cancel
             </Button>
-            <Button
-              onClick={handleDeleteWidget}
-              isLoading={isWidgetDeleting}
-              loadingText="Deleting..."
-              colorScheme="red"
-              shadow={'md'}
-            >
+            <Button onClick={handleDeleteWidget} isLoading={isWidgetDeleting} loadingText="Deleting..." colorScheme="red" shadow={'md'}>
               Delete
             </Button>
           </ModalFooter>
@@ -153,14 +132,3 @@ const Widgets = ({ widgetsFromServer }) => {
 }
 
 export default Widgets
-
-// export async function getServerSideProps(context) {
-//   const { widgets } = await db.users.findUnique({
-//     where: { id: '628626c4aeedcb3965aa667b' },
-//     select: { widgets: true },
-//   })
-
-//   return {
-//     props: { widgetsFromServer: serializeObj(widgets) },
-//   }
-// }

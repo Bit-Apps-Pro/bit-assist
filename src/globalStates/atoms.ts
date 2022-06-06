@@ -1,7 +1,9 @@
 import { atomWithImmer } from 'jotai/immer'
-import { ChatWidget } from './Interfaces'
+import { Widget, Flow } from './Interfaces'
 
-export const widgetAtom = atomWithImmer<ChatWidget>({
+export const flowAtom = atomWithImmer<Flow>({ step: 1, widget_id: '', channel_id: '', config: { title: '' } })
+
+export const widgetAtom = atomWithImmer<Widget>({
   id: '',
   name: '',
   user_id: '',
