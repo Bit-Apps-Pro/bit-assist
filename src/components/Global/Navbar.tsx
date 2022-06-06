@@ -55,14 +55,14 @@ const Navbar = () => {
           {
             !Boolean(Object.keys(user).length) && (
               <>
-                <Link href={signInUrl}>
-                  <Button rounded="full" colorScheme="teal" variant="ghost">
-                    Sign In
-                  </Button>
-                </Link>
                 <Link href={signUpUrl}>
                   <Button rounded="full" colorScheme="teal" variant="ghost">
                     Sign Up
+                  </Button>
+                </Link>
+                <Link href={signInUrl}>
+                  <Button rounded="full" colorScheme="teal" variant="ghost">
+                    Sign In
                   </Button>
                 </Link>
               </>
