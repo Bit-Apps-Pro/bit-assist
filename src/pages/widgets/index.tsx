@@ -114,11 +114,11 @@ const Widgets = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Confirmation</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton disabled={isWidgetDeleting} />
           <ModalBody>Are you sure want to delete this widget?</ModalBody>
 
           <ModalFooter>
-            <Button mr={3} onClick={closeDelModal}>
+            <Button disabled={isWidgetDeleting} mr={3} onClick={closeDelModal}>
               Cancel
             </Button>
             <Button onClick={handleDeleteWidget} isLoading={isWidgetDeleting} loadingText="Deleting..." colorScheme="red" shadow={'md'}>
