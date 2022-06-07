@@ -2,7 +2,7 @@
 import { Box, Checkbox, FormControl, FormLabel, HStack, Input, Switch, Text, useToast, VStack } from '@chakra-ui/react'
 import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import { useAtom } from 'jotai'
 import { useEffect, useRef, useState } from 'react'
 import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'

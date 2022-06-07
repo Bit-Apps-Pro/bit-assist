@@ -1,7 +1,7 @@
 import { Box, FormControl, FormLabel, HStack, Input, Switch, Text, useToast, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import produce from 'immer'
 import { useAtom } from 'jotai'
 import { debounce } from 'lodash'

@@ -4,7 +4,7 @@ import useCreateWidgetChannel from '@hooks/mutations/widgetChannel/useCreateWidg
 import { useAtom } from 'jotai'
 
 const SaveButton = () => {
-  const [flow, setFlow] = useAtom(flowAtom)
+  const [flow] = useAtom(flowAtom)
   const { createWidgetChannel, isWidgetChannelCreating } = useCreateWidgetChannel()
 
   const addNewWidgetChannel = () => {

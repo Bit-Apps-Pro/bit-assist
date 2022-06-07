@@ -14,7 +14,7 @@ import {
 import ResponseToast from '@components/global/ResponseToast'
 import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import Editor from '@monaco-editor/react'
 import { useAtom } from 'jotai'
 
@@ -44,7 +44,7 @@ const CustomCSS = () => {
         <Box position="absolute" top="0" w="full" h="full" zIndex={1}></Box>
       </Box>
 
-      <Modal id="custom_css" size={'2xl'} isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal id="custom_css" size="2xl" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Custom CSS</ModalHeader>

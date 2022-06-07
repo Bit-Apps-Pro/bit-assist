@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -27,9 +28,10 @@ import { HiDotsVertical, HiPlus } from 'react-icons/hi'
 import Link from 'next/link'
 import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useRef } from 'react'
-import useFetchWidgets from '@hooks/queries/useFetchWidgets'
-import useDeleteWidget from '@hooks/mutations/useDeleteWidget'
-import useCreateWidget from '@hooks/mutations/useCreateWidget'
+import useFetchWidgets from '@hooks/queries/widget/useFetchWidgets'
+import useDeleteWidget from '@hooks/mutations/widget/useDeleteWidget'
+import useCreateWidget from '@hooks/mutations/widget/useCreateWidget'
+import Head from 'next/head'
 
 const Widgets = () => {
   const { widgets, isWidgetFetching } = useFetchWidgets()
@@ -60,15 +62,23 @@ const Widgets = () => {
 
   return (
     <>
+      <Head>
+        <title>Widgets</title>
+        <meta name="description" content="Bit Assist" />
+        <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
+      </Head>
       <TableContainer borderWidth="1px" rounded="lg" shadow="md">
         <Table variant="simple">
           <Thead>
             <Tr>
               <Th colSpan={2}>
                 <HStack justifyContent={'space-between'}>
-                  <Heading as="h2" size="sm" textTransform="none" my="2">
-                    Widgets List
-                  </Heading>
+                  <HStack>
+                    <Heading as="h2" size="sm" textTransform="none" my="2">
+                      Widgets List
+                    </Heading>
+                    {isWidgetFetching && <Spinner />}
+                  </HStack>
                   <Button
                     onClick={addNewWidget}
                     isLoading={isWidgetCreating}

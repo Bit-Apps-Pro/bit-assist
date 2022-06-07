@@ -1,5 +1,5 @@
-import { VStack, Input, Text, HStack } from '@chakra-ui/react'
-import useFetchChannels from '@hooks/queries/useFetchChannels'
+import { VStack, Input, Text, HStack, Spinner } from '@chakra-ui/react'
+import useFetchChannels from '@hooks/queries/channel/useFetchChannels'
 import { useCallback, useMemo, useState } from 'react'
 import { Channel } from '@globalStates/Interfaces'
 import Image from 'next/image'
@@ -34,10 +34,10 @@ const ChannelSelect = () => {
       <Input value={filter} placeholder="Search channels" onChange={handleFilterChange} />
 
       {isChannelFetching ? (
-        <Text color="gray.500">Loading...</Text>
+        <Spinner />
       ) : (
         <HStack flexWrap="wrap" spacing="0" gap="3">
-          {filteredChannels?.length ? (
+          {filteredChannels?.length > 0 ? (
             filteredChannels.map((channel: Channel) => (
               <VStack
                 key={channel.id}
@@ -58,7 +58,9 @@ const ChannelSelect = () => {
               </VStack>
             ))
           ) : (
-            <Text color="gray.500">Channel not found</Text>
+            <Text color="gray.500" fontSize="lg">
+              Channel not found
+            </Text>
           )}
         </HStack>
       )}

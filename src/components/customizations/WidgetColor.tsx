@@ -5,7 +5,7 @@ import ColorPicker from '@atomik-color/component'
 import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import ResponseToast from '@components/global/ResponseToast'
 
 const WidgetColor = () => {
@@ -36,7 +36,7 @@ const WidgetColor = () => {
         </MenuButton>
         <MenuList p="0" border="0" maxW="220px">
           <Box maxW="100%">
-            <ColorPicker showParams={true} value={widget.styles?.color ?? ''} onChange={handleColorChange} />
+            <ColorPicker showParams={true} value={widget.styles?.color} onChange={handleColorChange} />
           </Box>
         </MenuList>
       </Menu>

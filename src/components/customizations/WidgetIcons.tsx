@@ -11,7 +11,7 @@ import {
 import { HiChatAlt2, HiOutlineChatAlt2 } from 'react-icons/hi'
 import Title from '@components/global/Title'
 import { useAtom } from 'jotai'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
 import ResponseToast from '@components/global/ResponseToast'
 import produce from 'immer'

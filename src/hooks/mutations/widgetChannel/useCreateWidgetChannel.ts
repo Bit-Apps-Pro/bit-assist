@@ -3,14 +3,23 @@ import { Flow } from '@globalStates/Interfaces'
 import request from '@utils/request'
 import produce from 'immer'
 import { useRouter } from 'next/router'
+import { useAtom } from 'jotai'
+import { flowAtom } from '@globalStates/atoms'
+import { FlowDefault } from '@globalStates/DefaultStates'
+import { useToast } from '@chakra-ui/react'
 
 export default function useCreateWidgetChannel() {
+  const [, setFlow] = useAtom(flowAtom)
   const queryClient = useQueryClient()
   const router = useRouter()
   const { id } = router.query
+  const toast = useToast({ isClosable: true })
 
   const { mutate, isLoading } = useMutation((flow: Flow) => request('/api/widgetChannel/create', { flow }), {
     onSuccess: (data) => {
+      setFlow({ ...FlowDefault })
+      toast({ status: 'success', position: 'top-right', title: 'Widget Channel Created' })
+
       queryClient.setQueryData(['/api/widgetChannel/fetch', id?.toString()], (oldData: any) => {
         return produce(oldData, (draft) => {
           draft.data.push(data.data)

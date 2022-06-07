@@ -1,5 +1,5 @@
 import { Box, HStack, useRadioGroup, useToast, useColorModeValue } from '@chakra-ui/react'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import ResponseToast from '@components/global/ResponseToast'
 import RadioCard from '@components/global/RadioCard'
 import { widgetAtom } from '@globalStates/atoms'

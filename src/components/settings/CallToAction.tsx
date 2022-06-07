@@ -2,7 +2,7 @@ import { Box, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text, 
 import ResponseToast from '@components/global/ResponseToast'
 import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import produce from 'immer'
 import { useAtom } from 'jotai'
 import { debounce } from 'lodash'

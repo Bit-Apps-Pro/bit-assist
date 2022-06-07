@@ -1,5 +1,5 @@
 import { Box, Input } from '@chakra-ui/react'
-import useUpdateWidget from '@hooks/mutations/useUpdateWidget'
+import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import Title from '@components/global/Title'
 import { useToast } from '@chakra-ui/react'
 import { useAtom } from 'jotai'

@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -31,68 +32,74 @@ const ChannelsList = () => {
   const { widgetChannels, isWidgetChannelFetching } = useFetchWidgetChannels()
   const { deleteWidgetChannel, isWidgetChannelDeleting } = useDeleteWidgetChannel()
 
-  const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const tempWidgetChannelId = useRef('')
 
   const openDeleteModal = (widgetChannelId: string) => () => {
     tempWidgetChannelId.current = widgetChannelId
-    openDelModal()
+    onOpen()
   }
 
   const handleDeleteWidgetChannel = async () => {
     await deleteWidgetChannel(tempWidgetChannelId.current)
-    closeDelModal()
-  }
-
-  if (widgetChannels?.length === 0) {
-    return <Text>Create new channel from here.</Text>
+    onClose()
   }
 
   return (
     <>
-      <TableContainer borderWidth="1px" rounded="lg">
-        <Table variant="simple">
-          <Tbody>
-            {widgetChannels?.map((widgetChannel: WidgetChannel) => (
-              <Tr key={widgetChannel.id}>
-                <Td>{widgetChannel.config?.title}</Td>
-                <Td textAlign="right">
-                  <Menu>
-                    <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
-                    <MenuList shadow="lg">
-                      {/* <Link href={`/widgetChannels/${widgetChannel.id}`}>
-                        <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
-                      </Link> */}
-                      <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
-                      <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
-                        Delete
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      {isWidgetChannelFetching && <Spinner />}
+      {widgetChannels?.length < 1 && <Text>Create new channel from here.</Text>}
+      {widgetChannels?.length > 0 && (
+        <>
+          <TableContainer borderWidth="1px" rounded="lg">
+            <Table variant="simple">
+              <Tbody>
+                {widgetChannels?.map((widgetChannel: WidgetChannel) => (
+                  <Tr key={widgetChannel.id}>
+                    <Td>{widgetChannel.config?.title}</Td>
+                    <Td textAlign="right">
+                      <Menu>
+                        <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
+                        <MenuList shadow="lg">
+                          <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
+                          <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
+                          <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
+                            Delete
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
 
-      <Modal isOpen={isOpen} onClose={closeDelModal} isCentered closeOnOverlayClick={false}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Confirmation</ModalHeader>
-          <ModalCloseButton disabled={isWidgetChannelDeleting} />
-          <ModalBody>Are you sure want to delete this channel?</ModalBody>
+          <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Confirmation</ModalHeader>
+              <ModalCloseButton disabled={isWidgetChannelDeleting} />
+              <ModalBody>Are you sure want to delete this channel?</ModalBody>
 
-          <ModalFooter>
-            <Button disabled={isWidgetChannelDeleting} mr={3} onClick={closeDelModal}>
-              Cancel
-            </Button>
-            <Button onClick={handleDeleteWidgetChannel} isLoading={isWidgetChannelDeleting} loadingText="Deleting..." colorScheme="red" shadow={'md'}>
-              Delete
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+              <ModalFooter>
+                <Button disabled={isWidgetChannelDeleting} mr={3} onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleDeleteWidgetChannel}
+                  isLoading={isWidgetChannelDeleting}
+                  loadingText="Deleting..."
+                  colorScheme="red"
+                  shadow={'md'}
+                >
+                  Delete
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
     </>
   )
 }

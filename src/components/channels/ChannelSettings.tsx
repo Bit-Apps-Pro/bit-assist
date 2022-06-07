@@ -4,15 +4,13 @@ import { flowAtom } from '@globalStates/atoms'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import SaveButton from '@components/channels/SaveButton'
 import React from 'react'
+import { FlowDefault } from '@globalStates/DefaultStates'
 
 const ChannelSettings = () => {
   const [flow, setFlow] = useAtom(flowAtom)
 
   const goBack = () => {
-    setFlow((prev) => {
-      prev.step = 1
-      prev.channel_id = ''
-    })
+    setFlow({ ...FlowDefault })
   }
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

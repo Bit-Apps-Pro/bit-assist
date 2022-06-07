@@ -6,40 +6,47 @@ import Settings from '@components/settings/Settings'
 import { widgetAtom } from '@globalStates/atoms'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { useRouter } from 'next/router'
-import useFetchWidget from '@hooks/queries/useFetchWidget'
+import useFetchWidget from '@hooks/queries/widget/useFetchWidget'
+import Head from 'next/head'
 
 const Widget = () => {
   const [, setWidget] = useAtom(widgetAtom)
   const { widget } = useFetchWidget()
-  
+
   useEffect(() => {
     setWidget(widget)
   }, [widget, setWidget])
 
   return (
-    <Tabs variant="solid-rounded" colorScheme="purple">
-      <TabList gap="2" justifyContent="center">
-        <Tab>Channels</Tab>
-        <Tab>Customizations</Tab>
-        <Tab>Settings</Tab>
-        <Tab>Publish</Tab>
-      </TabList>
-      <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
-        <TabPanel>
-          <Channels />
-        </TabPanel>
-        <TabPanel>
-          <Customizations />
-        </TabPanel>
-        <TabPanel>
-          <Settings />
-        </TabPanel>
-        <TabPanel>
-          <Publish />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <>
+      <Head>
+        <title>Widget</title>
+        <meta name="description" content="Bit Assist" />
+        <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
+      </Head>
+      <Tabs variant="solid-rounded" colorScheme="purple">
+        <TabList gap="2" justifyContent="center">
+          <Tab>Channels</Tab>
+          <Tab>Customizations</Tab>
+          <Tab>Settings</Tab>
+          <Tab>Publish</Tab>
+        </TabList>
+        <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
+          <TabPanel>
+            <Channels />
+          </TabPanel>
+          <TabPanel>
+            <Customizations />
+          </TabPanel>
+          <TabPanel>
+            <Settings />
+          </TabPanel>
+          <TabPanel>
+            <Publish />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </>
   )
 }
 
