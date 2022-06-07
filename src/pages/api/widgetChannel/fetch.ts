@@ -2,8 +2,11 @@ import db from '@db'
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    const { widgetId } = JSON.parse(req.body || '{}')
+    if (!widgetId) res.status(422).json({ success: false })
+
     const widgetChannels = await db.widget_channels.findMany({
-      where: { status: true },
+      where: { widget_id: widgetId, status: true },
       select: {
         id: true,
         config: true,

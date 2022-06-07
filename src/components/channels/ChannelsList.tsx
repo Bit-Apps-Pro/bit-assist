@@ -16,6 +16,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Tr,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -43,6 +44,10 @@ const ChannelsList = () => {
     closeDelModal()
   }
 
+  if (widgetChannels?.length === 0) {
+    return <Text>Create new channel from here.</Text>
+  }
+
   return (
     <>
       <TableContainer borderWidth="1px" rounded="lg">
@@ -50,9 +55,7 @@ const ChannelsList = () => {
           <Tbody>
             {widgetChannels?.map((widgetChannel: WidgetChannel) => (
               <Tr key={widgetChannel.id}>
-                <Td>
-                  {widgetChannel.config?.title}
-                </Td>
+                <Td>{widgetChannel.config?.title}</Td>
                 <Td textAlign="right">
                   <Menu>
                     <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />

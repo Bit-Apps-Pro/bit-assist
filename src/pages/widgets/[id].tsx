@@ -10,10 +10,8 @@ import { useRouter } from 'next/router'
 import useFetchWidget from '@hooks/queries/useFetchWidget'
 
 const Widget = () => {
-  const router = useRouter()
-  const { id } = router.query
   const [, setWidget] = useAtom(widgetAtom)
-  const { widget } = useFetchWidget(id?.toString())
+  const { widget } = useFetchWidget()
   
   useEffect(() => {
     setWidget(widget)
