@@ -2,17 +2,17 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, Moda
 import ChannelSelect from '@components/channels/ChannelSelect'
 import ChannelSettings from '@components/channels/ChannelSettings'
 import { useAtom } from 'jotai'
-import { flowAtom } from '@globalStates/atoms'
+import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
 import { HiPlus } from 'react-icons/hi'
-import { FlowDefault } from '@globalStates/DefaultStates'
 
 const AddChannel = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [flow, setFlow] = useAtom(flowAtom)
+  const [flow] = useAtom(flowAtom)
+  const [, resetFlow] = useAtom(resetFlowAtom)
 
   const onModalClose = () => {
     onClose()
-    setFlow({ ...FlowDefault })
+    resetFlow()
   }
 
   return (

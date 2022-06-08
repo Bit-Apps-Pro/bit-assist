@@ -1,16 +1,16 @@
 import { VStack, Input, Button } from '@chakra-ui/react'
 import { useAtom } from 'jotai'
-import { flowAtom } from '@globalStates/atoms'
+import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import SaveButton from '@components/channels/SaveButton'
 import React from 'react'
-import { FlowDefault } from '@globalStates/DefaultStates'
 
 const ChannelSettings = () => {
   const [flow, setFlow] = useAtom(flowAtom)
+  const [, resetFlow] = useAtom(resetFlowAtom)
 
   const goBack = () => {
-    setFlow({ ...FlowDefault })
+    resetFlow()
   }
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
