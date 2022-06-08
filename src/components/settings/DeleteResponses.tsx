@@ -58,13 +58,13 @@ const DeleteResponses = () => {
           <FormLabel htmlFor="deleteResponses" mb="0">
             Delete Responses
           </FormLabel>
-          <Switch isChecked={widget.delete_responses?.is_enabled} colorScheme={'purple'} onChange={handleSwitchEnable} id="deleteResponses" />
+          <Switch isChecked={!!widget.delete_responses?.is_enabled} colorScheme={'purple'} onChange={handleSwitchEnable} id="deleteResponses" />
         </FormControl>
       </WrapItem>
       <WrapItem alignSelf={'center'}>
         <HStack>
           <Text>After</Text>
-          <Input disabled={!widget.delete_responses?.is_enabled} min="0" value={widget.delete_responses?.delete_after ?? 0} onChange={handleInput} type="number" w="28" />
+          <Input disabled={!! !widget.delete_responses?.is_enabled} min="0" value={widget.delete_responses?.delete_after ?? 0} onChange={handleInput} type="number" w="28" />
           <Text>Days</Text>
         </HStack>
       </WrapItem>

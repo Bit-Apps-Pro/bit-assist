@@ -1,6 +1,6 @@
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
-import ChannelSelect from '@components/channels/ChannelSelect'
-import ChannelSettings from '@components/channels/ChannelSettings'
+import ChannelSelect from '@components/widgetChannels/ChannelSelect'
+import ChannelSettings from '@components/widgetChannels/ChannelSettings'
 import { useAtom } from 'jotai'
 import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
 import { HiPlus } from 'react-icons/hi'

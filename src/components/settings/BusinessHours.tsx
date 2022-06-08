@@ -164,7 +164,7 @@ const BusinessHours = () => {
         <FormLabel htmlFor="businessHours" mb="0">
           Enable Business Hours
         </FormLabel>
-        <Switch isChecked={isEnabled} colorScheme={'purple'} onChange={handleSwitchEnable} id="businessHours" />
+        <Switch isChecked={!!isEnabled} colorScheme={'purple'} onChange={handleSwitchEnable} id="businessHours" />
       </FormControl>
 
       {isEnabled && (
@@ -186,12 +186,12 @@ const BusinessHours = () => {
 
             {widget.business_hours.map((item, index) => (
               <HStack key={index} minH="10" maxW="full">
-                <Checkbox size="lg" colorScheme="purple" isChecked={item?.start !== undefined} onChange={(e) => handleCheckboxChange(e, index)}>
+                <Checkbox size="lg" colorScheme="purple" isChecked={!!item?.start} onChange={(e) => handleCheckboxChange(e, index)}>
                   <Text w="24" fontSize={'md'}>
                     {item?.day && item.day.charAt(0).toUpperCase() + item.day.slice(1)}
                   </Text>
                 </Checkbox>
-                {item?.start !== undefined && (
+                {!!item?.start && (
                   <>
                     <Input
                       w="24"

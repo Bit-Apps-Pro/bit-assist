@@ -43,7 +43,7 @@ const StoreResponses = () => {
         <FormLabel htmlFor="storeResponses" mb="0">
           Store Responses
         </FormLabel>
-        <Switch isChecked={widget.store_responses} colorScheme={'purple'} onChange={handleSwitchEnable} id="storeResponses" />
+        <Switch isChecked={!!widget.store_responses} colorScheme={'purple'} onChange={handleSwitchEnable} id="storeResponses" />
       </FormControl>
     </Box>
   )
