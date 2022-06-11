@@ -13,5 +13,5 @@ export default function useFetchWidgetChannels() {
       enabled: !!id?.toString(),
     }
   )
-  return { widgetChannels: data?.data, isWidgetChannelFetching: isLoading }
+  return { widgetChannels: data?.data, isWidgetChannelsFetching: isLoading }
 }

@@ -8,7 +8,10 @@ const SaveButton = () => {
   const { createWidgetChannel, isWidgetChannelCreating } = useCreateWidgetChannel()
 
   const addNewWidgetChannel = () => {
-    createWidgetChannel({ ...flow })
+    const newFlow = { ...flow }
+    delete newFlow['step']
+    delete newFlow['channel_name']
+    createWidgetChannel(newFlow)
   }
 
   return (

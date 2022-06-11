@@ -9,6 +9,8 @@ export default async function handler(req, res) {
       where: { widget_id: widgetId, status: true },
       select: {
         id: true,
+        widget_id: true,
+        channel_id: true,
         config: true,
       },
     })

@@ -15,8 +15,7 @@ const Instagram = () => {
     <>
       <FormControl>
         <FormLabel htmlFor="unique_id">Username</FormLabel>
-        <Input id="unique_id" value={flow.config.unique_id} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
-        <FormHelperText>Your instagram username. Example: john_smith.238746</FormHelperText>
+        <Input id="unique_id" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
       </FormControl>
     </>
   )

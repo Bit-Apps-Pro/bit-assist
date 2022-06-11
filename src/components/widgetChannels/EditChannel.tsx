@@ -4,10 +4,8 @@ import ChannelSettings from '@components/widgetChannels/ChannelSettings'
 import { useAtom } from 'jotai'
 import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
 import { HiPlus } from 'react-icons/hi'
-import { MdArrowBackIosNew } from 'react-icons/md'
 
-const AddChannel = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const EditChannel = ({ isOpen, onOpen, onClose }) => {
   const [flow] = useAtom(flowAtom)
   const [, resetFlow] = useAtom(resetFlowAtom)
 
@@ -18,25 +16,13 @@ const AddChannel = () => {
 
   return (
     <>
-      <Button mb="4" mr="2" variant="outline" colorScheme="gray" leftIcon={<HiPlus />} onClick={onOpen}>
-        Add Channel
-      </Button>
-
       <Modal scrollBehavior="inside" size="2xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onModalClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {flow.step > 1 && (
-              <Button p="1" size="sm" mr="2" variant="ghost" onClick={resetFlow}>
-                <MdArrowBackIosNew size="1rem" />
-              </Button>
-            )}
-            Create New Channel
-          </ModalHeader>
+          <ModalHeader>Edit Channel</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb="4">
-            {flow.step === 1 && <ChannelSelect />}
-            {flow.step === 2 && <ChannelSettings />}
+            <ChannelSettings />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -44,4 +30,4 @@ const AddChannel = () => {
   )
 }
 
-export default AddChannel
+export default EditChannel

@@ -27,13 +27,34 @@ import { useRef } from 'react'
 import useFetchWidgetChannels from '@hooks/queries/widgetChannel/useFetchWidgetChannels'
 import useDeleteWidgetChannel from '@hooks/mutations/widgetChannel/useDeleteWidgetChannel'
 import { WidgetChannel } from '@globalStates/Interfaces'
+import EditChannel from '@components/widgetChannels/EditChannel'
+import { useQueryClient } from 'react-query'
+import { useRouter } from 'next/router'
+import { useAtom } from 'jotai'
+import { flowAtom } from '@globalStates/atoms'
 
 const ChannelsList = () => {
-  const { widgetChannels, isWidgetChannelFetching } = useFetchWidgetChannels()
+  const { widgetChannels, isWidgetChannelsFetching } = useFetchWidgetChannels()
   const { deleteWidgetChannel, isWidgetChannelDeleting } = useDeleteWidgetChannel()
+  const queryClient = useQueryClient()
+  const [flow, setFlow] = useAtom(flowAtom)
+
+  const router = useRouter()
+  const { id } = router.query
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: isOpenEditModal, onOpen: openEditModal, onClose: closeEditModal } = useDisclosure()
   const tempWidgetChannelId = useRef('')
+
+  const onOpenEditModal = (channelId: string) => () => {
+    const widgetChannelCache = queryClient.getQueryData(['/api/widgetChannel/fetch', id?.toString()])
+    if (widgetChannelCache?.success) {
+      const editFlow = widgetChannelCache?.data.find((channel: WidgetChannel) => channel.channel_id === channelId)
+      editFlow.channel_name = 'whatsapp'
+      setFlow(editFlow)
+      openEditModal()
+    }
+  }
 
   const openDeleteModal = (widgetChannelId: string) => () => {
     tempWidgetChannelId.current = widgetChannelId
@@ -47,7 +68,7 @@ const ChannelsList = () => {
 
   return (
     <>
-      {isWidgetChannelFetching && <Spinner />}
+      {isWidgetChannelsFetching && <Spinner />}
       {widgetChannels?.length < 1 && <Text>Create new channel from here.</Text>}
       {widgetChannels?.length > 0 && (
         <>
@@ -61,8 +82,9 @@ const ChannelsList = () => {
                       <Menu>
                         <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
                         <MenuList shadow="lg">
-                          <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
-                          <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
+                          <MenuItem icon={<FiEdit2 />} onClick={onOpenEditModal(widgetChannel.channel_id)}>
+                            Edit
+                          </MenuItem>
                           <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
                             Delete
                           </MenuItem>
@@ -74,6 +96,8 @@ const ChannelsList = () => {
               </Tbody>
             </Table>
           </TableContainer>
+
+          <EditChannel isOpen={isOpenEditModal} onOpen={openEditModal} onClose={closeEditModal} />
 
           <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
             <ModalOverlay />
