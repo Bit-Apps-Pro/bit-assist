@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
+  Switch,
   Table,
   TableContainer,
   Tbody,
@@ -23,6 +24,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react'
 import { HiDotsVertical, HiPlus } from 'react-icons/hi'
 import Link from 'next/link'
@@ -32,11 +34,17 @@ import useFetchWidgets from '@hooks/queries/widget/useFetchWidgets'
 import useDeleteWidget from '@hooks/mutations/widget/useDeleteWidget'
 import useCreateWidget from '@hooks/mutations/widget/useCreateWidget'
 import Head from 'next/head'
+import { Widget } from '@globalStates/Interfaces'
+import produce from 'immer'
+import ResponseToast from '@components/global/ResponseToast'
+import useUpdateWidgetStatus from '@hooks/mutations/widget/useUpdateWidgetStatus'
 
 const Widgets = () => {
   const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
   const { createWidget, isWidgetCreating } = useCreateWidget()
+  const { updateWidgetStatus, isWidgetStatusUpdating } = useUpdateWidgetStatus()
+  const toast = useToast({ isClosable: true })
 
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const tempWidgetId = useRef('')
@@ -55,9 +63,9 @@ const Widgets = () => {
     createWidget()
   }
 
-  interface Widget {
-    id: string
-    name: string
+  const handleStatusChange = async (isChecked: boolean, widgetId: string) => {
+    const response: any = await updateWidgetStatus(widgetId, isChecked)
+    ResponseToast({ toast, response, action: 'update', messageFor: 'Widget status updated.' })
   }
 
   return (
@@ -77,7 +85,7 @@ const Widgets = () => {
                     <Heading as="h2" size="sm" textTransform="none" my="2">
                       Widgets List
                     </Heading>
-                    {isWidgetFetching && <Spinner />}
+                    {(isWidgetFetching || isWidgetStatusUpdating) && <Spinner />}
                   </HStack>
                   <Button
                     onClick={addNewWidget}
@@ -101,6 +109,13 @@ const Widgets = () => {
                   <Link href={`/widgets/${widget.id}`}>{widget.name}</Link>
                 </Td>
                 <Td textAlign="right">
+                  <Switch
+                    disabled={isWidgetStatusUpdating}
+                    isChecked={widget.status}
+                    colorScheme="purple"
+                    mr="2"
+                    onChange={(e) => handleStatusChange(e.target.checked, widget.id)}
+                  />
                   <Menu>
                     <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
                     <MenuList shadow="lg">
