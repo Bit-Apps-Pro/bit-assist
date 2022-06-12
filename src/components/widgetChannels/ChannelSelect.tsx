@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const ChannelSelect = () => {
   const [filter, setFilter] = useState('')
-  const { channels, isChannelFetching } = useFetchChannels()
+  const { channels, isChannelsFetching } = useFetchChannels()
   const [filteredChannels, setFilteredChannels] = useState<Channel[]>([])
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,14 +18,14 @@ const ChannelSelect = () => {
     <VStack spacing="4">
       <Input value={filter} placeholder="Search channels" onChange={handleFilterChange} />
 
-      {isChannelFetching && <Spinner />}
+      {isChannelsFetching && <Spinner />}
 
       <HStack flexWrap="wrap" spacing="0" gap="3">
         {filter.length
           ? filteredChannels?.map((channel: Channel) => <SingleChannel key={channel.id} channel={channel} />)
           : channels?.map((channel: Channel) => <SingleChannel key={channel.id} channel={channel} />)}
 
-        {!isChannelFetching && (channels?.length === 0 || (filter.length && filteredChannels?.length === 0)) && (
+        {!isChannelsFetching && (channels?.length === 0 || (filter.length && filteredChannels?.length === 0)) && (
           <Text color="gray.500" fontSize="md">
             No channels found
           </Text>

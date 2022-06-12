@@ -1,18 +1,36 @@
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
-import ChannelSelect from '@components/widgetChannels/ChannelSelect'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Spinner, Center } from '@chakra-ui/react'
 import ChannelSettings from '@components/widgetChannels/ChannelSettings'
+import { editWidgetChannelIdAtom, flowAtom, resetFlowAtom } from '@globalStates/atoms'
+import useFetchChannel from '@hooks/queries/channel/useFetchChannel'
+import useFetchWidgetChannel from '@hooks/queries/widgetChannel/useFetchWidgetChannel'
 import { useAtom } from 'jotai'
-import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
-import { HiPlus } from 'react-icons/hi'
+import { useResetAtom } from 'jotai/utils'
+import { useEffect } from 'react'
 
-const EditChannel = ({ isOpen, onOpen, onClose }) => {
-  const [flow] = useAtom(flowAtom)
+const EditChannel = ({ isOpen, onClose }) => {
+  const [, setFlow] = useAtom(flowAtom)
   const [, resetFlow] = useAtom(resetFlowAtom)
+  const resetEditWidgetChannelId = useResetAtom(editWidgetChannelIdAtom)
+  const { widgetChannel, isWidgetChannelFetching } = useFetchWidgetChannel()
+  const { channel, isChannelFetching } = useFetchChannel(widgetChannel?.channel_id)
 
   const onModalClose = () => {
     onClose()
     resetFlow()
+    resetEditWidgetChannelId()
   }
+
+  useEffect(() => {
+    if (!widgetChannel || !channel) return
+
+    setFlow({
+      step: 1,
+      widget_id: widgetChannel.widget_id,
+      channel_id: widgetChannel.channel_id,
+      channel_name: channel?.name,
+      config: widgetChannel.config,
+    })
+  }, [widgetChannel, channel])
 
   return (
     <>
@@ -22,7 +40,12 @@ const EditChannel = ({ isOpen, onOpen, onClose }) => {
           <ModalHeader>Edit Channel</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb="4">
-            <ChannelSettings />
+            {(isWidgetChannelFetching || isChannelFetching) && (
+              <Center>
+                <Spinner />
+              </Center>
+            )}
+            {!isWidgetChannelFetching && !isChannelFetching && <ChannelSettings edit={true} />}
           </ModalBody>
         </ModalContent>
       </Modal>

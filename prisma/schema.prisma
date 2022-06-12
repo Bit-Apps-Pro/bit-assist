@@ -17,7 +17,7 @@ model users {
 
 model widgets {
   id               String             @id @default(auto()) @map("_id") @db.ObjectId
-  users            users              @relation(fields: [user_id], references: [id])
+  users            users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id          String             @db.ObjectId
   name             String
   styles           Json?
@@ -51,9 +51,9 @@ model channels {
 
 model widget_channels {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  widgets    widgets  @relation(fields: [widget_id], references: [id])
+  widgets    widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
   widget_id  String   @db.ObjectId
-  channels   channels @relation(fields: [channel_id], references: [id])
+  channels   channels @relation(fields: [channel_id], references: [id], onDelete: Cascade)
   channel_id String   @db.ObjectId
   config     Json?
   status     Boolean  @default(true)
@@ -62,7 +62,7 @@ model widget_channels {
 
 model widget_responses {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  widgets   widgets  @relation(fields: [widget_id], references: [id])
+  widgets   widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
   widget_id String   @db.ObjectId
   response  Json
   createdAt DateTime @default(now())

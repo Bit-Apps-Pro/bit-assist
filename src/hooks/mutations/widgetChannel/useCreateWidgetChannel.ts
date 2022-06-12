@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { Flow } from '@globalStates/Interfaces'
 import request from '@utils/request'
-import produce from 'immer'
 import { useRouter } from 'next/router'
 import { useAtom } from 'jotai'
 import { resetFlowAtom } from '@globalStates/atoms'
@@ -15,15 +14,11 @@ export default function useCreateWidgetChannel() {
   const toast = useToast({ isClosable: true })
 
   const { mutate, isLoading } = useMutation((flow: Flow) => request('/api/widgetChannel/create', { flow }), {
-    onSuccess: (data) => {
+    onSuccess: () => {
       resetFlow()
-      toast({ status: 'success', position: 'top-right', title: 'Widget Channel Created' })
+      toast({ status: 'success', position: 'top-right', title: 'Widget channel created' })
 
-      queryClient.setQueryData(['/api/widgetChannel/fetch', id?.toString()], (oldData: any) => {
-        return produce(oldData, (draft) => {
-          draft.data.push(data.data)
-        })
-      })
+      queryClient.invalidateQueries(['/api/widgetChannel/fetch', id?.toString()])
     },
   })
   return {

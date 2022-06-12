@@ -1,6 +1,5 @@
-import { VStack, Input, Button, FormControl, FormLabel, Switch, FormHelperText } from '@chakra-ui/react'
-import { flowAtom, resetFlowAtom } from '@globalStates/atoms'
-import { MdArrowBackIosNew } from 'react-icons/md'
+import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText } from '@chakra-ui/react'
+import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 
 import SaveButton from '@components/widgetChannels/SaveButton'
@@ -22,10 +21,10 @@ import GoogleMap from '@components/widgetChannels/channels/GoogleMap'
 import Slack from '@components/widgetChannels/channels/Slack'
 import Youtube from '@components/widgetChannels/channels/Youtube'
 import Call from '@components/widgetChannels/channels/Call'
+import UpdateButton from '@components/widgetChannels/UpdateButton'
 
-const ChannelSettings = () => {
+const ChannelSettings = ({ edit = false }) => {
   const [flow, setFlow] = useAtom(flowAtom)
-  const [, resetFlow] = useAtom(resetFlowAtom)
 
   const handleChanges = (value: string | number | boolean, key: string) => {
     setFlow((prev) => {
@@ -38,32 +37,32 @@ const ChannelSettings = () => {
       <VStack alignItems="flex-start">
         <FormControl isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} />
+          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} autoFocus />
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
-        {flow.channel_name.toLowerCase() === 'discord' && <Discord />}
-        {flow.channel_name.toLowerCase() === 'line' && <Line />}
-        {flow.channel_name.toLowerCase() === 'snapchat' && <Snapchat />}
-        {flow.channel_name.toLowerCase() === 'viber' && <Viber />}
-        {flow.channel_name.toLowerCase() === 'wechat' && <WeChat />}
-        {flow.channel_name.toLowerCase() === 'sms' && <SMS />}
-        {flow.channel_name.toLowerCase() === 'linkedin' && <Linkedin />}
-        {flow.channel_name.toLowerCase() === 'tiktok' && <TikTok />}
-        {flow.channel_name.toLowerCase() === 'googlemap' && <GoogleMap />}
-        {flow.channel_name.toLowerCase() === 'slack' && <Slack />}
-        {flow.channel_name.toLowerCase() === 'youtube' && <Youtube />}
-        {flow.channel_name.toLowerCase() === 'call' && <Call />}
-        {flow.channel_name.toLowerCase() === 'skype' && <Skype />}
-        {flow.channel_name.toLowerCase() === 'whatsapp' && <Whatsapp />}
-        {flow.channel_name.toLowerCase() === 'facebook' && <Facebook />}
-        {flow.channel_name.toLowerCase() === 'twitter' && <Twitter />}
-        {flow.channel_name.toLowerCase() === 'instagram' && <Instagram />}
-        {flow.channel_name.toLowerCase() === 'telegram' && <Telegram />}
+        {flow.channel_name?.toLowerCase() === 'discord' && <Discord />}
+        {flow.channel_name?.toLowerCase() === 'line' && <Line />}
+        {flow.channel_name?.toLowerCase() === 'snapchat' && <Snapchat />}
+        {flow.channel_name?.toLowerCase() === 'viber' && <Viber />}
+        {flow.channel_name?.toLowerCase() === 'wechat' && <WeChat />}
+        {flow.channel_name?.toLowerCase() === 'sms' && <SMS />}
+        {flow.channel_name?.toLowerCase() === 'linkedin' && <Linkedin />}
+        {flow.channel_name?.toLowerCase() === 'tiktok' && <TikTok />}
+        {flow.channel_name?.toLowerCase() === 'googlemap' && <GoogleMap />}
+        {flow.channel_name?.toLowerCase() === 'slack' && <Slack />}
+        {flow.channel_name?.toLowerCase() === 'youtube' && <Youtube />}
+        {flow.channel_name?.toLowerCase() === 'call' && <Call />}
+        {flow.channel_name?.toLowerCase() === 'skype' && <Skype />}
+        {flow.channel_name?.toLowerCase() === 'whatsapp' && <Whatsapp />}
+        {flow.channel_name?.toLowerCase() === 'facebook' && <Facebook />}
+        {flow.channel_name?.toLowerCase() === 'twitter' && <Twitter />}
+        {flow.channel_name?.toLowerCase() === 'instagram' && <Instagram />}
+        {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
         <FormControl>
           <FormLabel htmlFor="hide_after_office">
-            Hide After Office
+            Hide After Office Hours
             <Switch
               ml="2"
               id="hide_after_office"
@@ -76,7 +75,7 @@ const ChannelSettings = () => {
         </FormControl>
       </VStack>
 
-      <SaveButton />
+      {edit ? <UpdateButton /> : <SaveButton />}
     </>
   )
 }

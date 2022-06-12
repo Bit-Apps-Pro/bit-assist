@@ -8,6 +8,6 @@ export default async function handler(req, res) {
     const deleteWidget = await db.widgets.delete({
       where: { id: widgetId },
     })
-    res.status(200).json({ success: true, data: 'widgetIndex' })
+    res.status(200).json({ success: true, data: deleteWidget })
   }
 }

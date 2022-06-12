@@ -8,6 +8,6 @@ export default async function handler(req, res) {
     const deleteWidgetChannel = await db.widget_channels.delete({
       where: { id: widgetChannelId },
     })
-    res.status(200).json({ success: true, data: 'widgetChannelIndex' })
+    res.status(200).json({ success: true, data: deleteWidgetChannel })
   }
 }
