@@ -77,6 +77,12 @@ export interface WidgetChannel {
   config: WidgetChannelConfig
   status?: boolean
 }
+export interface WidgetResponse {
+  id: string
+  widget_id: string
+  response: JSON
+  createdAt: string
+}
 export interface Flow {
   step: number
   widget_id: string

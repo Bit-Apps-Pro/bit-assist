@@ -28,14 +28,13 @@ import {
 } from '@chakra-ui/react'
 import { HiDotsVertical, HiPlus } from 'react-icons/hi'
 import Link from 'next/link'
-import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi'
+import { FiCopy, FiEdit2, FiList, FiTrash2 } from 'react-icons/fi'
 import { useRef } from 'react'
 import useFetchWidgets from '@hooks/queries/widget/useFetchWidgets'
 import useDeleteWidget from '@hooks/mutations/widget/useDeleteWidget'
 import useCreateWidget from '@hooks/mutations/widget/useCreateWidget'
 import Head from 'next/head'
 import { Widget } from '@globalStates/Interfaces'
-import produce from 'immer'
 import ResponseToast from '@components/global/ResponseToast'
 import useUpdateWidgetStatus from '@hooks/mutations/widget/useUpdateWidgetStatus'
 
@@ -75,6 +74,7 @@ const Widgets = () => {
         <meta name="description" content="Bit Assist" />
         <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
       </Head>
+
       <TableContainer borderWidth="1px" rounded="lg" shadow="md">
         <Table variant="simple">
           <Thead>
@@ -122,7 +122,10 @@ const Widgets = () => {
                       <Link href={`/widgets/${widget.id}`}>
                         <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
-                      <MenuItem icon={<FiCopy />}>Duplicate</MenuItem>
+                      {/* <MenuItem icon={<FiCopy />}>Duplicate</MenuItem> */}
+                      <Link href={`/responses/${widget.id}`}>
+                        <MenuItem icon={<FiList />}>Responses</MenuItem>
+                      </Link>
                       <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widget.id)}>
                         Delete
                       </MenuItem>
