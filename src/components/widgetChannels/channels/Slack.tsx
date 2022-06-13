@@ -1,6 +1,7 @@
-import { FormControl, FormHelperText, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
+import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
 
 const Slack = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -17,6 +18,7 @@ const Slack = () => {
         <FormLabel htmlFor="unique_id">Workspace url</FormLabel>
         <Input id="unique_id" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
       </FormControl>
+      <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>
   )
 }

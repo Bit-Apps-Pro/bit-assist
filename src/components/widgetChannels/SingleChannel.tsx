@@ -17,6 +17,8 @@ const SingleChannel = ({ channel }) => {
       channel_name: channel_name,
       config: {
         title: channel_name,
+        open_window_action: '_blank',
+        channel_show_on: ['desktop', 'mobile'],
       },
     })
   }

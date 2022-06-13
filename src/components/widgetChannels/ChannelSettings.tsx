@@ -1,4 +1,4 @@
-import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText } from '@chakra-ui/react'
+import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText, CheckboxGroup, Stack, Checkbox } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 
@@ -26,7 +26,7 @@ import UpdateButton from '@components/widgetChannels/UpdateButton'
 const ChannelSettings = ({ edit = false }) => {
   const [flow, setFlow] = useAtom(flowAtom)
 
-  const handleChanges = (value: string | number | boolean, key: string) => {
+  const handleChanges = (value: string | number | boolean | (string | number)[], key: string) => {
     setFlow((prev) => {
       prev.config[key] = value
     })
@@ -34,10 +34,10 @@ const ChannelSettings = ({ edit = false }) => {
 
   return (
     <>
-      <VStack alignItems="flex-start">
+      <VStack alignItems="flex-start" spacing="4">
         <FormControl isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} autoFocus />
+          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} />
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
@@ -61,17 +61,31 @@ const ChannelSettings = ({ edit = false }) => {
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
         <FormControl>
-          <FormLabel htmlFor="hide_after_office">
-            Hide After Office Hours
+          <FormLabel htmlFor="hide_after_office_hours">
+            Hide after office hours
             <Switch
               ml="2"
-              id="hide_after_office"
+              id="hide_after_office_hours"
               colorScheme="purple"
-              isChecked={!!flow.config?.hide_after_office}
-              onChange={(e) => handleChanges(e.target.checked, 'hide_after_office')}
+              isChecked={!!flow.config?.hide_after_office_hours}
+              onChange={(e) => handleChanges(e.target.checked, 'hide_after_office_hours')}
             />
           </FormLabel>
           <FormHelperText>Hide this channel after office time.</FormHelperText>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Channel show on</FormLabel>
+          <CheckboxGroup onChange={(val) => handleChanges(val, 'channel_show_on')} colorScheme="purple" value={flow.config?.channel_show_on ?? []}>
+            <Stack spacing={[1, 5]} direction={['column', 'row']}>
+              <Checkbox size="lg" value="desktop">
+                Desktop
+              </Checkbox>
+              <Checkbox size="lg" value="mobile">
+                Mobile
+              </Checkbox>
+            </Stack>
+          </CheckboxGroup>
         </FormControl>
       </VStack>
 

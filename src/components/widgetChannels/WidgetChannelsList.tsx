@@ -58,14 +58,18 @@ const ChannelsList = () => {
     <>
       {isWidgetChannelsFetching && <Spinner />}
       {widgetChannels?.length < 1 && <Text>Create new channel from here.</Text>}
-      {widgetChannels?.length > 0 && (
+      {!!widgetChannels?.length && (
         <>
           <TableContainer borderWidth="1px" rounded="lg">
             <Table variant="simple">
               <Tbody>
                 {widgetChannels?.map((widgetChannel: WidgetChannel) => (
                   <Tr key={widgetChannel.id}>
-                    <Td>{widgetChannel.config?.title}</Td>
+                    <Td>
+                      <Text cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>
+                        {widgetChannel.config?.title}
+                      </Text>
+                    </Td>
                     <Td textAlign="right">
                       <Menu>
                         <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />

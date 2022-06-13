@@ -12,6 +12,5 @@ export default async function handler(req, res) {
       },
     })
     res.status(200).json({ success: true, data: widgetId })
-    res.status(200).json({ success: true, data: widgetId })
   }
 }

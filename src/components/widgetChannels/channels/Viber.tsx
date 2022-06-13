@@ -1,6 +1,7 @@
-import { FormControl, FormHelperText, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
+import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
 
 const Viber = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -17,6 +18,7 @@ const Viber = () => {
         <FormLabel htmlFor="unique_id">Phone number</FormLabel>
         <Input id="unique_id" type="tel" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
       </FormControl>
+      <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>
   )
 }

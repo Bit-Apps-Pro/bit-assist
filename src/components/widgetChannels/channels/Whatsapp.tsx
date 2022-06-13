@@ -1,6 +1,7 @@
-import { FormControl, FormHelperText, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
+import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
 
 const Whatsapp = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -21,6 +22,7 @@ const Whatsapp = () => {
         <FormLabel htmlFor="message">Message</FormLabel>
         <Textarea id="message" value={flow.config.message} onChange={(e) => handleChanges(e.target.value, 'message')} />
       </FormControl>
+      <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>
   )
 }

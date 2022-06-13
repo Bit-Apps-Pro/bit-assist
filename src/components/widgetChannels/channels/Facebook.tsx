@@ -1,6 +1,7 @@
-import { FormControl, FormHelperText, FormLabel, Input } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
+import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
 
 const Facebook = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -17,6 +18,7 @@ const Facebook = () => {
         <FormLabel htmlFor="unique_id">Facebook username</FormLabel>
         <Input id="unique_id" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
       </FormControl>
+      <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>
   )
 }

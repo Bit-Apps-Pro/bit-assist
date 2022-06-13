@@ -61,12 +61,12 @@ export interface Channel {
 interface WidgetChannelConfig {
   title: string
   icon?: string
-  url?: string
   unique_id?: string
   phone_number?: string
   message?: string
+  channel_show_on?: (string | number)[]
   open_window_action?: string
-  hide_after_office?: boolean
+  hide_after_office_hours?: boolean
   store_responses?: boolean
   delete_responses?: DeleteResponses
 }
