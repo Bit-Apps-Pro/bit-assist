@@ -110,6 +110,7 @@ const Widgets = () => {
                 </Td>
                 <Td textAlign="right">
                   <Switch
+                    aria-label="Switch widget status"
                     disabled={isWidgetStatusUpdating}
                     isChecked={widget.status}
                     colorScheme="purple"

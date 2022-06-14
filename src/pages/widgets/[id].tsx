@@ -24,14 +24,15 @@ const Widget = () => {
         <meta name="description" content="Bit Assist" />
         <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
       </Head>
+
       <Tabs variant="solid-rounded" colorScheme="purple">
-        <TabList gap="2" justifyContent="center">
+        <TabList gap={['0', '2']} justifyContent="center" flexWrap="wrap">
           <Tab>Channels</Tab>
           <Tab>Customizations</Tab>
           <Tab>Settings</Tab>
           <Tab>Publish</Tab>
         </TabList>
-        <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
+        <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p={[0, 4]}>
           <TabPanel>
             <WidgetChannels />
           </TabPanel>

@@ -9,7 +9,7 @@ import CustomCSS from '@components/customizations/CustomCSS'
 
 const Customizations = () => {
   return (
-    <Stack gap="10">
+    <Stack gap={[5, 10]}>
       <WidgetName />
       <WidgetColor />
       <WidgetIcons />

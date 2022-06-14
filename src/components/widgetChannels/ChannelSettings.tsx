@@ -1,4 +1,4 @@
-import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText, CheckboxGroup, Stack, Checkbox } from '@chakra-ui/react'
+import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 
@@ -77,14 +77,14 @@ const ChannelSettings = ({ edit = false }) => {
         <FormControl>
           <FormLabel>Channel show on</FormLabel>
           <CheckboxGroup onChange={(val) => handleChanges(val, 'channel_show_on')} colorScheme="purple" value={flow.config?.channel_show_on ?? []}>
-            <Stack spacing={[1, 5]} direction={['column', 'row']}>
+            <HStack spacing={4}>
               <Checkbox size="lg" value="desktop">
                 Desktop
               </Checkbox>
               <Checkbox size="lg" value="mobile">
                 Mobile
               </Checkbox>
-            </Stack>
+            </HStack>
           </CheckboxGroup>
         </FormControl>
       </VStack>

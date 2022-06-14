@@ -56,7 +56,7 @@ const Domains = () => {
   }
 
   return (
-    <Box width={'sm'}>
+    <Box w="sm" maxW="full">
       <Box mb="4" rounded={'md'} borderWidth={`${widget.domains.length && '1px'}`}>
         {widget.domains.map((domain, index) => (
           <Domain key={domain} index={index} domain={domain} updateWidget={updateWidget} isWidgetUpdating={isWidgetUpdating} />

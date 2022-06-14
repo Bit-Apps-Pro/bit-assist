@@ -80,13 +80,13 @@ const PageFilters = () => {
       </Box>
 
       {isAdding && (
-        <Box mb={4}>
+        <Box mb={4} maxW="full" overflowX="auto">
           <HStack mb={2} spacing="0" gap="2">
-            <Select w="15rem" maxW="full" onChange={(e) => setPageVisibility(e.target.value)}>
+            <Select w="15rem" minW="7rem" maxW="full" onChange={(e) => setPageVisibility(e.target.value)}>
               <option value="showOn">Show On</option>
               <option value="hideOn">Hide On</option>
             </Select>
-            <Select w="25rem" maxW="full" onChange={(e) => setPageCondition(e.target.value)}>
+            <Select w="25rem" minW="10rem" maxW="full" onChange={(e) => setPageCondition(e.target.value)}>
               <option value="contains">Pages that contain</option>
               <option value="equal">Specific page</option>
               <option value="startWith">Pages stars with</option>
@@ -94,7 +94,7 @@ const PageFilters = () => {
             </Select>
             <InputGroup>
               <InputLeftAddon children={`${pageDomain}/`} />
-              <Input placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
+              <Input minW="10rem" placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
             </InputGroup>
 
             <Tooltip label="Cancel">

@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
+import produce from 'immer'
 import { useAtom } from 'jotai'
 import { useRef } from 'react'
 import { HiOutlineTrash } from 'react-icons/hi'
@@ -25,35 +26,24 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
 
   const handleRemoveDomain = async (domainIndex: number, onClose: Function) => {
     onClose()
-    
-    const newDomains = [...widget.domains]
-    newDomains.splice(domainIndex, 1)
-    const response = await updateWidget({
-      ...widget,
-      domains: [...newDomains],
-    })
-    ResponseToast({
-      toast,
-      response,
-      action: 'delete',
-      messageFor: 'Widget domain',
-    })
+
+    const response = await updateWidget(
+      produce(widget, (draft) => {
+        draft.domains.splice(domainIndex, 1)
+      })
+    )
 
     setWidget((prev) => {
       prev.domains.splice(domainIndex, 1)
     })
+    
+    ResponseToast({ toast, response, action: 'delete', messageFor: 'Widget domain' })
   }
-  
+
   const initRef = useRef()
 
   return (
-    <HStack
-      justifyContent={'space-between'}
-      gap="4"
-      py="2"
-      px="4"
-      borderTopWidth={`${index > 0 && '1px'}`}
-    >
+    <HStack justifyContent="space-between" gap="4" py="2" px="4" borderTopWidth={`${index > 0 && '1px'}`}>
       <Text>{domain}</Text>
       <Popover closeOnBlur={false} initialFocusRef={initRef}>
         {({ isOpen, onClose }) => (
@@ -77,13 +67,7 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
               <PopoverCloseButton />
               <PopoverBody>
                 <Text>Are you sure you want to remove this domain?</Text>
-                <Button
-                  mt={4}
-                  colorScheme={'red'}
-                  ref={initRef}
-                  onClick={() => handleRemoveDomain(index, onClose)}
-                  disabled={isWidgetUpdating}
-                >
+                <Button mt="4" colorScheme="red" ref={initRef} onClick={() => handleRemoveDomain(index, onClose)} disabled={isWidgetUpdating}>
                   Confirm
                 </Button>
               </PopoverBody>

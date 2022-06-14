@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       <NextNProgress color="#B794F4" />
       <Navbar />
-      <Container maxW="container.lg" py={12}>
+      <Container maxW="container.lg" py={[4, 12]}>
         <main>{children}</main>
       </Container>
     </Box>

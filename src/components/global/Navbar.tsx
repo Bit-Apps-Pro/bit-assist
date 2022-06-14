@@ -3,9 +3,8 @@ import {
   Button,
   ButtonGroup,
   Container,
-  Flex,
   Heading,
-  Spacer,
+  Stack,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { DarkModeSwitch } from './DarkModeSwitch'
@@ -13,11 +12,10 @@ import { DarkModeSwitch } from './DarkModeSwitch'
 const Navbar = () => {
   return (
     <Container maxW={'container.lg'} >
-      <Flex py="4">
+      <Stack py="4" direction={['column', 'row']} alignItems={['center', 'initial']} justifyContent={['initial', 'space-between']}>
         <Box py="2">
-        <Heading size="md"><Link href={'/'}>Bit Chaty</Link></Heading>
+        <Heading size="md"><Link href={'/'}>Bit Assist</Link></Heading>
         </Box>
-        <Spacer />
         <ButtonGroup>
           <Link href={'/widgets'}>
             <Button rounded="full" colorScheme="purple" variant="ghost">
@@ -28,7 +26,7 @@ const Navbar = () => {
           <Button rounded="full" colorScheme="purple" variant="ghost">Log in</Button>
           <DarkModeSwitch />
         </ButtonGroup>
-      </Flex>
+      </Stack>
     </Container>
   )
 }

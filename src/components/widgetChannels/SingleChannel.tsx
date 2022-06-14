@@ -1,4 +1,4 @@
-import { Text, VStack } from '@chakra-ui/react'
+import { GridItem, Text, VStack } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useRouter } from 'next/router'
 import { useAtom } from 'jotai'
@@ -24,14 +24,23 @@ const SingleChannel = ({ channel }) => {
   }
 
   return (
-    <VStack onClick={() => onSelectChannel(channel.id, channel.name)} transition="250ms" _hover={{ shadow: 'lg' }} borderWidth={1} rounded="md" py="2" w="36" cursor="pointer">
+    <GridItem
+      py="2"
+      rounded="md"
+      borderWidth={1}
+      cursor="pointer"
+      transition="250ms"
+      _hover={{ shadow: 'lg' }}
+      textAlign="center"
+      onClick={() => onSelectChannel(channel.id, channel.name)}
+    >
       {channel.icon ? (
         <Image src={channel.icon} alt={channel.name} width="40" height="40" />
       ) : (
         <VStack bg="gray.200" rounded="full" w="40px" h="40px" />
       )}
       <Text>{channel.name}</Text>
-    </VStack>
+    </GridItem>
   )
 }
 
