@@ -119,7 +119,7 @@ const PageFilters = () => {
       )}
 
       {!isAdding && (
-        <Button leftIcon={<HiPlus />} colorScheme="purple" variant="outline" rounded={'full'} onClick={addPageButtonClickHandle} isLoading={isWidgetUpdating}>
+        <Button leftIcon={<HiPlus />} colorScheme="gray" variant="outline" onClick={addPageButtonClickHandle} isLoading={isWidgetUpdating}>
           Add Page
         </Button>
       )}

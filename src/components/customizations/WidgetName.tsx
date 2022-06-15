@@ -42,6 +42,7 @@ const WidgetName = () => {
     <Box>
       <Title>Widget Name</Title>
       <Input
+        maxW="lg"
         placeholder="Widget Name"
         value={widget.name ?? ''}
         onChange={handleChange}

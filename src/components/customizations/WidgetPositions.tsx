@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Box, SimpleGrid, Tooltip, useColorModeValue, useToast } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
@@ -39,51 +39,59 @@ const WidgetPositions = () => {
     <Box>
       <Title>Widget Position</Title>
       <SimpleGrid columns={3} spacing={2} width="20">
-        <Box
-          height="6"
-          cursor="pointer"
-          borderWidth="2px"
-          data-position="top-left"
-          onClick={handleChange}
-          bg={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
-          borderColor={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
-          _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
-        />
+        <Tooltip label="Top Left" hasArrow placement="left">
+          <Box
+            height="6"
+            cursor="pointer"
+            borderWidth="2px"
+            data-position="top-left"
+            onClick={handleChange}
+            bg={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
+            borderColor={`${widget.styles?.position === 'top-left' && brandColorToggle}`}
+            _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
+          />
+        </Tooltip>
         <Box bg={grayColorToggle} height="6" />
-        <Box
-          height="6"
-          cursor="pointer"
-          borderWidth="2px"
-          data-position="top-right"
-          onClick={handleChange}
-          bg={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
-          borderColor={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
-          _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
-        />
+        <Tooltip label="Top Right" hasArrow placement="right">
+          <Box
+            height="6"
+            cursor="pointer"
+            borderWidth="2px"
+            data-position="top-right"
+            onClick={handleChange}
+            bg={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
+            borderColor={`${widget.styles?.position === 'top-right' && brandColorToggle}`}
+            _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
+          />
+        </Tooltip>
         <Box bg={grayColorToggle} height="6" />
         <Box bg={grayColorToggle} height="6" />
         <Box bg={grayColorToggle} height="6" />
-        <Box
-          height="6"
-          cursor="pointer"
-          borderWidth="2px"
-          data-position="bottom-left"
-          onClick={handleChange}
-          bg={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
-          borderColor={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
-          _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
-        />
+        <Tooltip label="Bottom Left" hasArrow placement="left">
+          <Box
+            height="6"
+            cursor="pointer"
+            borderWidth="2px"
+            data-position="bottom-left"
+            onClick={handleChange}
+            bg={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
+            borderColor={`${widget.styles?.position === 'bottom-left' && brandColorToggle}`}
+            _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
+          />
+        </Tooltip>
         <Box bg={grayColorToggle} height="6" />
-        <Box
-          height="6"
-          cursor="pointer"
-          borderWidth="2px"
-          data-position="bottom-right"
-          onClick={handleChange}
-          bg={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
-          borderColor={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
-          _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
-        />
+        <Tooltip label="Bottom Right" hasArrow placement="right">
+          <Box
+            height="6"
+            cursor="pointer"
+            borderWidth="2px"
+            data-position="bottom-right"
+            onClick={handleChange}
+            bg={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
+            borderColor={`${widget.styles?.position === 'bottom-right' && brandColorToggle}`}
+            _hover={{ bg: brandColorToggle, borderColor: brandColorToggle }}
+          />
+        </Tooltip>
       </SimpleGrid>
     </Box>
   )

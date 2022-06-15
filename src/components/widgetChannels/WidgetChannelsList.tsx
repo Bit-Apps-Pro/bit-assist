@@ -19,6 +19,7 @@ import {
   Td,
   Text,
   Tr,
+  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { HiDotsVertical } from 'react-icons/hi'
@@ -38,6 +39,7 @@ const ChannelsList = () => {
   const { isOpen: isOpenEditModal, onOpen: openEditModal, onClose: closeEditModal } = useDisclosure()
   const tempWidgetChannelId = useRef('')
   const [, setEditWidgetChannelId] = useAtom(editWidgetChannelIdAtom)
+  const brandColorToggle = useColorModeValue('purple.500', 'purple.200')
 
   const onOpenEditModal = (widgetChannelId: string) => () => {
     setEditWidgetChannelId(widgetChannelId)
@@ -66,7 +68,7 @@ const ChannelsList = () => {
                 {widgetChannels?.map((widgetChannel: WidgetChannel) => (
                   <Tr key={widgetChannel.id}>
                     <Td>
-                      <Text cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>
+                      <Text _hover={{ color: brandColorToggle }} cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>
                         {widgetChannel.config?.title}
                       </Text>
                     </Td>

@@ -50,9 +50,9 @@ const CustomCSS = () => {
           <ModalHeader>Custom CSS</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box boxShadow={'md'} overflow="hidden">
+            <Box boxShadow={'md'}>
               <Editor
-                height="50vh"
+                height="40vh"
                 width="100%"
                 theme="vs-dark"
                 onChange={handleChangeCustomCSS}

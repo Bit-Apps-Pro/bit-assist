@@ -40,7 +40,7 @@ const InitialDelay = () => {
 
   return (
     <HStack>
-      <Text>Delay</Text>
+      <Text w="28">Delay</Text>
       <InputGroup>
         <Input w="28" min="0" type="number" placeholder="Initial Delay in Second" value={widget.initial_delay ?? ''} onChange={handleChange} />
         <InputRightAddon children="Sec" />

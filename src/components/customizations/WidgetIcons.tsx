@@ -41,7 +41,16 @@ const WidgetIcons = () => {
     ResponseToast({ toast, response, action: 'update', messageFor: 'Widget icon' })
   }
 
-  const iconOptions = ['chat-icon-1', 'chat-icon-2', 'chat-icon-3', 'chat-icon-4', 'chat-icon-5', 'chat-icon-6', 'chat-icon-7', 'chat-icon-8']
+  const iconOptions = [
+    'widget-icon-1',
+    'widget-icon-2',
+    'widget-icon-3',
+    'widget-icon-4',
+    'widget-icon-5',
+    'widget-icon-6',
+    'widget-icon-7',
+    'widget-icon-8',
+  ]
   const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: 'widgetIcon',
     defaultValue: widget.styles?.icon,

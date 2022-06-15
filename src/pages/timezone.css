@@ -1,7 +1,7 @@
 /**
  * Main wrapper
  */
- .select-search {
+.select-search {
   width: 100%;
   position: relative;
   font-family: 'Nunito Sans', sans-serif;
@@ -36,32 +36,59 @@
 * Input
 */
 .select-search__input {
-  display: block;
+  /* display: block;
   height: 36px;
   width: 100%;
   padding: 0 40px 0 16px;
   background: #fff;
   border: 1px solid transparent;
   box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
+  border-radius: 6px;
   outline: none;
   font-family: 'Noto Sans', sans-serif;
   font-size: 14px;
   text-align: left;
   text-overflow: ellipsis;
   line-height: 36px;
+  -webkit-appearance: none; */
+
+  -webkit-padding-end: 2rem;
+  padding-inline-end: 2rem;
+  width: 100%;
+  min-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: relative;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  background: inherit;
+  padding-bottom: 1px;
+  line-height: var(--chakra-lineHeights-normal);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  height: var(--chakra-sizes-10);
+  border-radius: var(--chakra-radii-md);
+  border: 1px solid;
+  border-color: inherit;
 }
 
 .select-search__input::-webkit-search-decoration,
 .select-search__input::-webkit-search-cancel-button,
 .select-search__input::-webkit-search-results-button,
 .select-search__input::-webkit-search-results-decoration {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
 }
 
 .select-search__input:not([readonly]):focus {
   cursor: initial;
+  z-index: unset;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
 }
 
 /**
@@ -69,7 +96,7 @@
 */
 .select-search__select {
   background: #fff;
-  box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
 }
 
 /**
@@ -184,11 +211,6 @@
 .select-search--multiple:not(.select-search--search) .select-search__input {
   cursor: default;
 }
-
-.select-search:not(.select-search--multiple) .select-search__input:hover {
-  border-color: #805ad5;
-}
-
 
 .select-search:not(.select-search--multiple) .select-search__select {
   position: absolute;

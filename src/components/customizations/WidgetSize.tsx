@@ -48,9 +48,8 @@ const WidgetSize = () => {
   return (
     <Box>
       <Title>Widget Size</Title>
-      <Text fontSize="sm" color="gray.500" mb="2">Default widget size 54px</Text>
       <InputGroup>
-        <Input min="0" w="28" type="number" placeholder="Size" value={widget.styles?.size ?? ''} onChange={handleChange} />
+        <Input min="0" w="28" type="number" placeholder="54" value={widget.styles?.size ?? ''} onChange={handleChange} />
         <InputRightAddon children="px" />
       </InputGroup>
     </Box>

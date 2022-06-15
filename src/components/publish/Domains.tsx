@@ -89,7 +89,7 @@ const Domains = () => {
       )}
 
       {!isAdding && (
-        <Button leftIcon={<HiPlus />} colorScheme="purple" variant="outline" rounded="full" onClick={() => setIsAdding(true)} isLoading={isWidgetUpdating}>
+        <Button leftIcon={<HiPlus />} colorScheme="gray" variant="outline" onClick={() => setIsAdding(true)} isLoading={isWidgetUpdating}>
           Add Domain
         </Button>
       )}

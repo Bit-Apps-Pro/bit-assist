@@ -33,7 +33,7 @@ const WidgetShape = () => {
     ResponseToast({ toast, response, action: 'update', messageFor: 'Widget shape' })
   }
 
-  const shapeOptions = ['circle', 'rounded', 'square']
+  const shapeOptions = ['rounded', 'circle', 'square']
   const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: 'widgetShape',
     defaultValue: widget.styles?.shape,
@@ -54,8 +54,8 @@ const WidgetShape = () => {
           const radio = getRadioProps({ value })
           return (
             <RadioCard design="border" key={value} {...radio}>
-              {value === shapeOptions[0] && <Box h="40px" w="40px" rounded="full" bg={formBackground} />}
-              {value === shapeOptions[1] && <Box h="40px" w="40px" rounded="md" bg={formBackground} />}
+              {value === shapeOptions[0] && <Box h="40px" w="40px" rounded="md" bg={formBackground} />}
+              {value === shapeOptions[1] && <Box h="40px" w="40px" rounded="full" bg={formBackground} />}
               {value === shapeOptions[2] && <Box h="40px" w="40px" rounded="none" bg={formBackground} />}
             </RadioCard>
           )

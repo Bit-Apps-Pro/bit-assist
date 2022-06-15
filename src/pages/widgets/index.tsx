@@ -20,9 +20,11 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
+  useColorModeValue,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react'
@@ -44,6 +46,7 @@ const Widgets = () => {
   const { createWidget, isWidgetCreating } = useCreateWidget()
   const { updateWidgetStatus, isWidgetStatusUpdating } = useUpdateWidgetStatus()
   const toast = useToast({ isClosable: true })
+  const brandColorToggle = useColorModeValue('purple.500', 'purple.200')
 
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const tempWidgetId = useRef('')
@@ -106,7 +109,9 @@ const Widgets = () => {
             {widgets?.map((widget: Widget) => (
               <Tr key={widget.id}>
                 <Td>
-                  <Link href={`/widgets/${widget.id}`}>{widget.name}</Link>
+                  <Text display="inline-block" _hover={{ color: brandColorToggle }}>
+                    <Link href={`/widgets/${widget.id}`}>{widget.name}</Link>
+                  </Text>
                 </Td>
                 <Td textAlign="right">
                   <Switch
@@ -135,6 +140,12 @@ const Widgets = () => {
                 </Td>
               </Tr>
             ))}
+
+            {widgets?.length < 1 && (
+              <Tr>
+                <Td rowSpan={2}>No Widgets</Td>
+              </Tr>
+            )}
           </Tbody>
         </Table>
       </TableContainer>

@@ -1,4 +1,4 @@
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, HStack } from '@chakra-ui/react'
 import ChannelSelect from '@components/widgetChannels/ChannelSelect'
 import ChannelSettings from '@components/widgetChannels/ChannelSettings'
 import { useAtom } from 'jotai'
@@ -26,12 +26,14 @@ const AddChannel = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {flow.step > 1 && (
-              <Button p="1" size="sm" mr="2" variant="ghost" onClick={resetFlow}>
-                <MdArrowBackIosNew size="1rem" />
-              </Button>
-            )}
-            Create New Channel
+            <HStack>
+              {flow.step > 1 && (
+                <Button p="1" size="sm" variant="ghost" onClick={resetFlow}>
+                  <MdArrowBackIosNew size="1rem" />
+                </Button>
+              )}
+              <Text>Create New Channel</Text>
+            </HStack>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb="4">
