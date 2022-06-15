@@ -6,9 +6,10 @@ import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/600.css'
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import Layout from '@components/Global/Layout'
+import Layout from '@components/global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'jotai'
+import '@pages/timezone.css'
 
 const queryClient = new QueryClient()
 export default function MyApp({ Component, pageProps }: AppProps) {

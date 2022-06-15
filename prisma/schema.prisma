@@ -8,55 +8,62 @@ datasource db {
 }
 
 model users {
-  id        String         @id @default(auto()) @map("_id") @db.ObjectId
-  email     String         @unique
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
   name      String
-  createdAt DateTime       @default(now())
-  widgets   chat_widgets[]
+  createdAt DateTime  @default(now())
+  widgets   widgets[]
 }
 
-model chat_widgets {
-  id                       String                     @id @default(auto()) @map("_id") @db.ObjectId
-  name                     String
-  userId                   String                     @db.ObjectId
-  users                    users                      @relation(fields: [userId], references: [id])
-  styles                   Json?
-  domains                  String[]
-  business_hours           Json[]
-  exclude_pages            String[]
-  initial_delay            Int                        @default(0)
-  status                   Boolean                    @default(true)
-  widget_message           String?
-  createdAt                DateTime                   @default(now())
-  integrations             Json[]
-  chat_wid_cfrm_response   chat_wid_cfrm_response[]
-  integrations_by_chat_wid integrations_by_chat_wid[]
+model widgets {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  users            users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id          String             @db.ObjectId
+  name             String
+  styles           Json?
+  domains          String[]
+  business_hours   Json[]
+  timezone         String?
+  exclude_pages    Json[]
+  initial_delay    Int                @default(0)
+  page_scroll      Int                @default(0)
+  widget_behavior  Int                @default(1)
+  custom_css       String?
+  call_to_action   Json?
+  store_responses  Boolean            @default(true)
+  delete_responses Json?
+  integrations     Json[]
+  status           Boolean            @default(true)
+  createdAt        DateTime           @default(now())
+  widget_responses widget_responses[]
+  widget_channels  widget_channels[]
 }
 
-model chat_wid_integrations {
-  id                       String                     @id @default(auto()) @map("_id") @db.ObjectId
-  name                     String
-  icon                     String
-  default                  Json?
-  status                   Boolean
-  createdAt                DateTime                   @default(now())
-  integrations_by_chat_wid integrations_by_chat_wid[]
+model channels {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  icon            String
+  default         Json?
+  status          Boolean
+  createdAt       DateTime          @default(now())
+  widget_channels widget_channels[]
 }
 
-model integrations_by_chat_wid {
-  id                       String                @id @default(auto()) @map("_id") @db.ObjectId
-  config                   Json?
-  chat_wid_integrations_id String                @db.ObjectId
-  chat_wid_integrations    chat_wid_integrations @relation(fields: [chat_wid_integrations_id], references: [id])
-  chat_wid_id              String                @db.ObjectId
-  chat_widgets             chat_widgets          @relation(fields: [chat_wid_id], references: [id])
-  createdAt                DateTime              @default(now())
+model widget_channels {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  widgets    widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
+  widget_id  String   @db.ObjectId
+  channels   channels @relation(fields: [channel_id], references: [id], onDelete: Cascade)
+  channel_id String   @db.ObjectId
+  config     Json?
+  status     Boolean  @default(true)
+  createdAt  DateTime @default(now())
 }
 
-model chat_wid_cfrm_response {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  widget_id    String       @db.ObjectId
-  chat_widgets chat_widgets @relation(fields: [widget_id], references: [id])
-  response     Json
-  createdAt    DateTime     @default(now())
+model widget_responses {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  widgets   widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
+  widget_id String   @db.ObjectId
+  response  Json
+  createdAt DateTime @default(now())
 }
