@@ -4,13 +4,13 @@ import { useQuery } from 'react-query'
 
 export default function useFetchResponses(pageLimit: number, pageNumber: number) {
   const router = useRouter()
-  const { id } = router.query
+  const { widgetId } = router.query
 
   const { data, isLoading, isFetching, isFetched } = useQuery(
-    ['/api/response/', [id?.toString(), pageNumber, pageLimit]],
-    () => request(`/api/response/${id?.toString()}?_page=${pageNumber}&_limit=${pageLimit}`),
+    ['/api/response/', [widgetId?.toString(), pageNumber, pageLimit]],
+    () => request(`/api/response/fetch?page=${pageNumber}&limit=${pageLimit}`, { widgetId }),
     {
-      enabled: !!id?.toString() && !!pageLimit && !!pageNumber ? true : false,
+      enabled: !!widgetId?.toString() && !!pageLimit && !!pageNumber ? true : false,
       keepPreviousData: true,
       staleTime: 3600000, //60000 × 60 = 1 hour
     }

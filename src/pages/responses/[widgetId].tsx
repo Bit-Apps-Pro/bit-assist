@@ -29,13 +29,15 @@ import { WidgetResponse } from '@globalStates/Interfaces'
 import useFetchResponses from '@hooks/queries/response/useFetchResponses'
 import useDeleteResponses from '@hooks/mutations/response/useDeleteResponses'
 import { serializeObj } from '@utils/utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FiTrash2 } from 'react-icons/fi'
 import Pagination from '@components/global/Pagination'
+import useFetchOthersData from '@hooks/queries/response/useFetchOthersData'
 
 const Responses = () => {
   const [pageLimit, setPageLimit] = useState<number>(10)
   const [pageNumber, setPageNumber] = useState<number>(1)
+  const { othersData, isOthersDataLoading } = useFetchOthersData()
   const { widgetResponses, isResponsesLoading, isFetching, isFetched } = useFetchResponses(pageLimit, pageNumber)
   const { deleteResponses, isResponsesDeleting } = useDeleteResponses()
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
@@ -47,18 +49,18 @@ const Responses = () => {
     closeDelModal()
   }
 
-  const convertDate = (date: any) => {
-    const dateObj = new Date(date?.$date)
+  const convertDate = (date: string) => {
+    const dateObj = new Date(date)
     return dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString()
   }
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked, name } = e.target
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, responseId: string) => {
+    const { checked } = e.target
     setCheckedItems((prev) => {
       if (checked) {
-        return [...prev, name]
+        return [...prev, responseId]
       } else {
-        return prev.filter((item) => item !== name)
+        return prev.filter((item) => item !== responseId)
       }
     })
   }
@@ -67,12 +69,17 @@ const Responses = () => {
     const { checked } = e.target
     setCheckedItems(() => {
       if (checked) {
-        return widgetResponses?.data?.map((item: WidgetResponse) => item.id)
+        return widgetResponses?.map((item: WidgetResponse) => item.id)
       } else {
         return []
       }
     })
   }
+
+  useEffect(() => {
+    if (checkedItems?.length < 1) return
+    setCheckedItems([])
+  }, [pageNumber, pageLimit])
 
   return (
     <>
@@ -85,11 +92,11 @@ const Responses = () => {
       <Stack mb="4" h="8" direction={'row'}>
         <HStack>
           <Text as="h2" fontSize="lg" textTransform="none">
-            Response List {widgetResponses?.widget?.name}
+            Response List {othersData?.widget?.name}
           </Text>
           {isResponsesLoading && <Spinner />}
         </HStack>
-        {checkedItems.length && (
+        {checkedItems?.length && (
           <Box>
             <IconButton
               onClick={openDelModal}
@@ -113,8 +120,8 @@ const Responses = () => {
               <Th w="4">
                 <Checkbox
                   colorScheme="purple"
-                  isChecked={widgetResponses?.data?.length && widgetResponses?.data?.length === checkedItems?.length}
-                  isIndeterminate={checkedItems?.length && checkedItems?.length < widgetResponses?.data?.length}
+                  isChecked={widgetResponses?.length && widgetResponses?.length === checkedItems?.length}
+                  isIndeterminate={checkedItems?.length && checkedItems?.length < widgetResponses?.length}
                   onChange={handleCheckAllBox}
                 />
               </Th>
@@ -123,22 +130,21 @@ const Responses = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {Array.isArray(widgetResponses?.data) &&
-              widgetResponses?.data.map((widgetResponse: WidgetResponse, index: number) => (
+            {Array.isArray(widgetResponses) &&
+              widgetResponses.map((widgetResponse: WidgetResponse) => (
                 <Tr key={widgetResponse.id}>
                   <Td>
                     <Checkbox
                       colorScheme="purple"
-                      name={widgetResponse.id}
                       isChecked={checkedItems.includes(widgetResponse.id)}
-                      onChange={handleCheckboxChange}
+                      onChange={(e) => handleCheckboxChange(e, widgetResponse.id)}
                     />
                   </Td>
                   <Td>{serializeObj(widgetResponse.response)}</Td>
                   <Td>{convertDate(widgetResponse.createdAt)}</Td>
                 </Tr>
               ))}
-            {widgetResponses?.data?.length < 1 && (
+            {widgetResponses?.length < 1 && (
               <Tr>
                 <Td rowSpan={3}>No responses</Td>
               </Tr>
@@ -148,21 +154,15 @@ const Responses = () => {
       </TableContainer>
 
       {!isResponsesLoading && (
-        <HStack>
-          <Pagination
-            pageNumber={pageNumber}
-            pageLimit={pageLimit}
-            totalPages={Math.floor(widgetResponses?.totalResponses / pageLimit)}
-            setPageNumber={setPageNumber}
-            setPageLimit={setPageLimit}
-          />
-
-          {!isFetched && isFetching && (
-            <Box  style={{ marginTop: '1rem' }}>
-              <Spinner size="sm" />
-            </Box>
-          )}
-        </HStack>
+        <Pagination
+          pageNumber={pageNumber}
+          pageLimit={pageLimit}
+          totalPages={Math.floor(othersData?.totalResponses / pageLimit)}
+          setPageNumber={setPageNumber}
+          setPageLimit={setPageLimit}
+        >
+          {!isFetched && isFetching && <Spinner size="sm" />}
+        </Pagination>
       )}
 
       <Modal isOpen={isOpen} onClose={closeDelModal} isCentered>
