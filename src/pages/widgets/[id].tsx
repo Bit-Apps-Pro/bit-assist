@@ -1,51 +1,54 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import Customizations from '@components/Customizations/Customizations'
-import Publish from '@components/Publish/Publish'
-import Integrations from '@components/Integrations/Integrations'
-import Settings from '@components/Settings/Settings'
-import { serializeObj } from '@utils/utils'
+import Customizations from '@components/customizations/Customizations'
+import Publish from '@components/publish/Publish'
+import WidgetChannels from '@components/widgetChannels/WidgetChannels'
+import Settings from '@components/settings/Settings'
 import { widgetAtom } from '@globalStates/atoms'
-import db from '@db'
-import { useHydrateAtoms } from 'jotai/utils'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import useFetchWidget from '@hooks/queries/widget/useFetchWidget'
+import Head from 'next/head'
 
-const Widget = ({ widgetFromServer }) => {
-  useHydrateAtoms([[widgetAtom, widgetFromServer]])
+const Widget = () => {
+  const [, setWidget] = useAtom(widgetAtom)
+  const { widget } = useFetchWidget()
+
+  useEffect(() => {
+    setWidget(widget)
+  }, [widget, setWidget])
 
   return (
-    <Tabs variant="solid-rounded" colorScheme="teal">
-      <TabList gap="2" justifyContent="center">
-        <Tab>Integrations</Tab>
-        <Tab>Customizations</Tab>
-        <Tab>Settings</Tab>
-        <Tab>Publish</Tab>
-      </TabList>
-      <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p="4">
-        <TabPanel>
-          <Integrations />
-        </TabPanel>
-        <TabPanel>
-          <Customizations />
-        </TabPanel>
-        <TabPanel>
-          <Settings />
-        </TabPanel>
-        <TabPanel>
-          <Publish />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <>
+      <Head>
+        <title>Widget</title>
+        <meta name="description" content="Bit Assist" />
+        <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
+      </Head>
+
+      <Tabs variant="solid-rounded" colorScheme="purple">
+        <TabList gap={['0', '2']} justifyContent="center" flexWrap="wrap">
+          <Tab>Channels</Tab>
+          <Tab>Customizations</Tab>
+          <Tab>Settings</Tab>
+          <Tab>Publish</Tab>
+        </TabList>
+        <TabPanels borderWidth="1.5px" rounded="lg" shadow="lg" mt="6" p={[0, 4]}>
+          <TabPanel>
+            <WidgetChannels />
+          </TabPanel>
+          <TabPanel>
+            <Customizations />
+          </TabPanel>
+          <TabPanel>
+            <Settings />
+          </TabPanel>
+          <TabPanel>
+            <Publish />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </>
   )
 }
 
 export default Widget
-
-export async function getServerSideProps(context) {
-  const { id } = context.query
-  const widget = await db.chat_widgets.findUnique({
-    where: { id },
-  })
-
-  return {
-    props: { widgetFromServer: serializeObj(widget) },
-  }
-}

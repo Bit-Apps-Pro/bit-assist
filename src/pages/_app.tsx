@@ -6,7 +6,7 @@ import '@fontsource/outfit/500.css'
 import '@fontsource/outfit/600.css'
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import Layout from '@components/Global/Layout'
+import Layout from '@components/global/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -17,6 +17,7 @@ import { getUserData } from '@utils/helper'
 interface MyAppProps extends AppProps {
   cookies: string
 }
+import '@pages/timezone.css'
 
 const queryClient = new QueryClient()
 
@@ -57,7 +58,7 @@ export default function MyApp({ cookies, Component, pageProps }: MyAppProps) {
 function Auth({ children }) {
   const router = useRouter()
   const [user] = useAtom(userState)
-  
+
   useEffect(() => {
     if (!Boolean(Object.keys(user).length)) router.push('/')
   }, [user])

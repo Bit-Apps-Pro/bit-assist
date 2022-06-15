@@ -1,16 +1,15 @@
 import db from '@db'
 
 export default async function handler(req, res) {
-
   if (req.method === 'POST') {
-    // const { userId } = JSON.parse(req.body || '{}')
-    // if (!userId) res.status(422).json({ success: false })
+    // const { user_id } = JSON.parse(req.body || '{}')
+    // if (!user_id) res.status(422).json({ success: false })
 
-    const widget = await db.chat_widgets.create({
+    const widget = await db.widgets.create({
       data: {
-        userId: '628626c4aeedcb3965aa667b',
+        user_id: '628626c4aeedcb3965aa667b',
         name: 'Untitled widget 1',
-      }
+      },
     })
 
     res.status(200).json({ success: true, data: widget })
