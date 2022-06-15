@@ -31,9 +31,12 @@ import useDeleteResponses from '@hooks/mutations/response/useDeleteResponses'
 import { serializeObj } from '@utils/utils'
 import React, { useState } from 'react'
 import { FiTrash2 } from 'react-icons/fi'
+import Pagination from '@components/global/Pagination'
 
 const Responses = () => {
-  const { widget, isResponsesFetching } = useFetchResponses()
+  const [pageLimit, setPageLimit] = useState<number>(10)
+  const [pageNumber, setPageNumber] = useState<number>(1)
+  const { widgetResponses, isResponsesLoading, isFetching, isFetched } = useFetchResponses(pageLimit, pageNumber)
   const { deleteResponses, isResponsesDeleting } = useDeleteResponses()
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const [checkedItems, setCheckedItems] = useState([])
@@ -44,8 +47,8 @@ const Responses = () => {
     closeDelModal()
   }
 
-  const convertDate = (date: string) => {
-    const dateObj = new Date(date)
+  const convertDate = (date: any) => {
+    const dateObj = new Date(date?.$date)
     return dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString()
   }
 
@@ -64,7 +67,7 @@ const Responses = () => {
     const { checked } = e.target
     setCheckedItems(() => {
       if (checked) {
-        return widget?.widget_responses?.map((item: WidgetResponse) => item.id)
+        return widgetResponses?.data?.map((item: WidgetResponse) => item.id)
       } else {
         return []
       }
@@ -82,9 +85,9 @@ const Responses = () => {
       <Stack mb="4" h="8" direction={'row'}>
         <HStack>
           <Text as="h2" fontSize="lg" textTransform="none">
-            Response List {widget?.name}
+            Response List {widgetResponses?.widget?.name}
           </Text>
-          {isResponsesFetching && <Spinner />}
+          {isResponsesLoading && <Spinner />}
         </HStack>
         {checkedItems.length && (
           <Box>
@@ -110,8 +113,8 @@ const Responses = () => {
               <Th w="4">
                 <Checkbox
                   colorScheme="purple"
-                  isChecked={widget?.widget_responses.length && widget?.widget_responses.length === checkedItems.length}
-                  isIndeterminate={checkedItems.length && checkedItems.length < widget?.widget_responses.length}
+                  isChecked={widgetResponses?.data?.length && widgetResponses?.data?.length === checkedItems?.length}
+                  isIndeterminate={checkedItems?.length && checkedItems?.length < widgetResponses?.data?.length}
                   onChange={handleCheckAllBox}
                 />
               </Th>
@@ -120,21 +123,22 @@ const Responses = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {widget?.widget_responses?.map((widget_response: WidgetResponse, index: number) => (
-              <Tr key={widget_response.id}>
-                <Td>
-                  <Checkbox
-                    colorScheme="purple"
-                    name={widget_response.id}
-                    isChecked={checkedItems.includes(widget_response.id)}
-                    onChange={handleCheckboxChange}
-                  />
-                </Td>
-                <Td>{serializeObj(widget_response.response)}</Td>
-                <Td>{convertDate(widget_response.createdAt)}</Td>
-              </Tr>
-            ))}
-            {widget?.widget_responses?.length < 1 && (
+            {Array.isArray(widgetResponses?.data) &&
+              widgetResponses?.data.map((widgetResponse: WidgetResponse, index: number) => (
+                <Tr key={widgetResponse.id}>
+                  <Td>
+                    <Checkbox
+                      colorScheme="purple"
+                      name={widgetResponse.id}
+                      isChecked={checkedItems.includes(widgetResponse.id)}
+                      onChange={handleCheckboxChange}
+                    />
+                  </Td>
+                  <Td>{serializeObj(widgetResponse.response)}</Td>
+                  <Td>{convertDate(widgetResponse.createdAt)}</Td>
+                </Tr>
+              ))}
+            {widgetResponses?.data?.length < 1 && (
               <Tr>
                 <Td rowSpan={3}>No responses</Td>
               </Tr>
@@ -142,6 +146,24 @@ const Responses = () => {
           </Tbody>
         </Table>
       </TableContainer>
+
+      {!isResponsesLoading && (
+        <HStack>
+          <Pagination
+            pageNumber={pageNumber}
+            pageLimit={pageLimit}
+            totalPages={Math.floor(widgetResponses?.totalResponses / pageLimit)}
+            setPageNumber={setPageNumber}
+            setPageLimit={setPageLimit}
+          />
+
+          {!isFetched && isFetching && (
+            <Box  style={{ marginTop: '1rem' }}>
+              <Spinner size="sm" />
+            </Box>
+          )}
+        </HStack>
+      )}
 
       <Modal isOpen={isOpen} onClose={closeDelModal} isCentered>
         <ModalOverlay />
