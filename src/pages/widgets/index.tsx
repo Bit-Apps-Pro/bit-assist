@@ -79,12 +79,13 @@ const Widgets = ({ widgetsFromServer }) => {
                     onClick={addNewWidget}
                     isLoading={isWidgetCreating}
                     loadingText="Creating..."
-                    variant="outline"
                     spinnerPlacement="start"
-                    colorScheme="gray"
+                    colorScheme="teal"
+                    shadow="md"
+                    rounded="full"
                     leftIcon={<HiPlus />}
                   >
-                    Add Widget
+                    Add New Widget
                   </Button>
                 </HStack>
               </Th>
@@ -99,7 +100,7 @@ const Widgets = ({ widgetsFromServer }) => {
                 <Td textAlign="right">
                   <Menu>
                     <MenuButton
-                      isRound={true}
+                      isRound
                       as={IconButton}
                       aria-label="Options"
                       icon={<HiDotsVertical />}

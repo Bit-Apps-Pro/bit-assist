@@ -25,7 +25,7 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
 
   const handleRemoveDomain = async (domainIndex: number, onClose: Function) => {
     onClose()
-    
+
     const newDomains = [...widget.domains]
     newDomains.splice(domainIndex, 1)
     const response = await updateWidget({
@@ -43,7 +43,7 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
       prev.domains.splice(domainIndex, 1)
     })
   }
-  
+
   const initRef = useRef()
 
   return (
@@ -72,20 +72,22 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
                 </Tooltip>
               </Box>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent shadow={'2xl'}>
               <PopoverArrow />
               <PopoverCloseButton />
-              <PopoverBody>
+              <PopoverBody p={3}>
                 <Text>Are you sure you want to remove this domain?</Text>
-                <Button
-                  mt={4}
-                  colorScheme={'red'}
-                  ref={initRef}
-                  onClick={() => handleRemoveDomain(index, onClose)}
-                  disabled={isWidgetUpdating}
-                >
-                  Confirm
-                </Button>
+                <Box mt={4} display="flex" alignItems="center" justifyContent="center" gap={2}>
+                  <Button ref={initRef} onClick={onClose} size="sm">Cancel</Button>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => handleRemoveDomain(index, onClose)}
+                    disabled={isWidgetUpdating}
+                  >
+                    Confirm
+                  </Button>
+                </Box>
               </PopoverBody>
             </PopoverContent>
           </>
