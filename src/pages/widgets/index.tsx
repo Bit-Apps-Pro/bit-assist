@@ -28,26 +28,24 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react'
-import { HiDotsVertical, HiPlus } from 'react-icons/hi'
+import { HiDotsVertical } from 'react-icons/hi'
 import Link from 'next/link'
 import { FiCopy, FiEdit2, FiList, FiTrash2 } from 'react-icons/fi'
 import { useRef } from 'react'
 import useFetchWidgets from '@hooks/queries/widget/useFetchWidgets'
 import useDeleteWidget from '@hooks/mutations/widget/useDeleteWidget'
-import useCreateWidget from '@hooks/mutations/widget/useCreateWidget'
 import Head from 'next/head'
 import { Widget } from '@globalStates/Interfaces'
 import ResponseToast from '@components/global/ResponseToast'
 import useUpdateWidgetStatus from '@hooks/mutations/widget/useUpdateWidgetStatus'
+import AddWidget from '@components/widget/AddWidget'
 
 const Widgets = () => {
+  const toast = useToast({ isClosable: true })
   const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
-  const { createWidget, isWidgetCreating } = useCreateWidget()
-  const { updateWidgetStatus, isWidgetStatusUpdating } = useUpdateWidgetStatus()
-  const toast = useToast({ isClosable: true })
   const brandColorToggle = useColorModeValue('purple.500', 'purple.200')
-
+  const { updateWidgetStatus, isWidgetStatusUpdating } = useUpdateWidgetStatus()
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const tempWidgetId = useRef('')
 
@@ -59,10 +57,6 @@ const Widgets = () => {
   const handleDeleteWidget = async () => {
     await deleteWidget(tempWidgetId.current)
     closeDelModal()
-  }
-
-  const addNewWidget = () => {
-    createWidget()
   }
 
   const handleStatusChange = async (isChecked: boolean, widgetId: string) => {
@@ -90,17 +84,7 @@ const Widgets = () => {
                     </Heading>
                     {(isWidgetFetching || isWidgetStatusUpdating) && <Spinner />}
                   </HStack>
-                  <Button
-                    onClick={addNewWidget}
-                    isLoading={isWidgetCreating}
-                    loadingText="Creating..."
-                    variant="outline"
-                    spinnerPlacement="start"
-                    colorScheme="gray"
-                    leftIcon={<HiPlus />}
-                  >
-                    Add Widget
-                  </Button>
+                  <AddWidget />
                 </HStack>
               </Th>
             </Tr>

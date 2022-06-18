@@ -1,3 +1,5 @@
+export const defaultCreateWidgetInfo = { name: '' }
+
 export const FlowDefault = { step: 1, widget_id: '', channel_id: '', channel_name: '', config: { title: '' } }
 
 export const WidgetDefault = {

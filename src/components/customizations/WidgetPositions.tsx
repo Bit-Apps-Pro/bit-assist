@@ -39,7 +39,7 @@ const WidgetPositions = () => {
     <Box>
       <Title>Widget Position</Title>
       <SimpleGrid columns={3} spacing={2} width="20">
-        <Tooltip label="Top Left" hasArrow placement="left">
+        <Tooltip label="Top Left" placement="left">
           <Box
             height="6"
             cursor="pointer"
@@ -52,7 +52,7 @@ const WidgetPositions = () => {
           />
         </Tooltip>
         <Box bg={grayColorToggle} height="6" />
-        <Tooltip label="Top Right" hasArrow placement="right">
+        <Tooltip label="Top Right" placement="right">
           <Box
             height="6"
             cursor="pointer"
@@ -67,7 +67,7 @@ const WidgetPositions = () => {
         <Box bg={grayColorToggle} height="6" />
         <Box bg={grayColorToggle} height="6" />
         <Box bg={grayColorToggle} height="6" />
-        <Tooltip label="Bottom Left" hasArrow placement="left">
+        <Tooltip label="Bottom Left" placement="left">
           <Box
             height="6"
             cursor="pointer"
@@ -80,7 +80,7 @@ const WidgetPositions = () => {
           />
         </Tooltip>
         <Box bg={grayColorToggle} height="6" />
-        <Tooltip label="Bottom Right" hasArrow placement="right">
+        <Tooltip label="Bottom Right" placement="right">
           <Box
             height="6"
             cursor="pointer"

@@ -50,6 +50,10 @@ export interface Widget {
   integrations: Integrations[]
 }
 
+export interface CreateWidgetInfo {
+  name: string
+}
+
 // channel interfaces
 export interface Channel {
   id: string
