@@ -22,6 +22,7 @@ import { HiOutlineTrash } from 'react-icons/hi'
 
 const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
   const toast = useToast({ isClosable: true })
+  const initRef = useRef()
   const [widget, setWidget] = useAtom(widgetAtom)
 
   const handleRemoveDomain = async (domainIndex: number, onClose: Function) => {
@@ -40,7 +41,6 @@ const Domain = ({ domain, index, updateWidget, isWidgetUpdating }) => {
     ResponseToast({ toast, response, action: 'delete', messageFor: 'Widget domain' })
   }
 
-  const initRef = useRef()
 
   return (
     <HStack justifyContent="space-between" gap="4" py="2" px="4" borderTopWidth={`${index > 0 && '1px'}`}>

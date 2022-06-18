@@ -1,6 +1,6 @@
 import { Box, Container } from '@chakra-ui/react'
 import NextNProgress from 'nextjs-progressbar'
-import Navbar from './Navbar'
+import Navbar from '@components/global/Navbar'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 const Layout = ({ children }) => {
