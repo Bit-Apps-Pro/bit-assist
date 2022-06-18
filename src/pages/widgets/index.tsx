@@ -40,7 +40,7 @@ import ResponseToast from '@components/global/ResponseToast'
 import useUpdateWidgetStatus from '@hooks/mutations/widget/useUpdateWidgetStatus'
 import AddWidget from '@components/widget/AddWidget'
 
-const Widgets = () => {
+export default function Widgets() {
   const toast = useToast({ isClosable: true })
   const { widgets, isWidgetFetching } = useFetchWidgets()
   const { deleteWidget, isWidgetDeleting } = useDeleteWidget()
@@ -155,4 +155,4 @@ const Widgets = () => {
   )
 }
 
-export default Widgets
+Widgets.auth = true

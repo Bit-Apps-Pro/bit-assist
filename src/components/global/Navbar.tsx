@@ -38,7 +38,6 @@ const Navbar = () => {
       <Stack py="4" direction={['column', 'row']} alignItems={['center', 'initial']} justifyContent={['initial', 'space-between']}>
         <Box py="2">
           <Heading size="md"><Link href={'/'}>Bit Assist</Link></Heading>
-          <Heading size="md"><Link href={'/'}>Bit Assist</Link></Heading>
         </Box >
         <ButtonGroup>
           {

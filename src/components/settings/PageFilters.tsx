@@ -80,8 +80,8 @@ const PageFilters = () => {
       </Box>
 
       {isAdding && (
-        <Box mb={4} maxW="full" overflowX="auto">
-          <HStack mb={2} spacing="0" gap="2">
+        <Box>
+          <HStack mb={2} py="2" pr="2" spacing="0" gap="2" overflow={'auto'}>
             <Select w="15rem" minW="7rem" maxW="full" onChange={(e) => setPageVisibility(e.target.value)}>
               <option value="showOn">Show On</option>
               <option value="hideOn">Hide On</option>
@@ -94,7 +94,7 @@ const PageFilters = () => {
             </Select>
             <InputGroup>
               <InputLeftAddon children={`${pageDomain}/`} />
-              <Input minW="10rem" placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} autoFocus />
+              <Input minW="10rem" placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} />
             </InputGroup>
 
             <Tooltip label="Cancel">
@@ -102,6 +102,7 @@ const PageFilters = () => {
             </Tooltip>
             <Tooltip label="Save">
               <IconButton
+                mr={2}
                 isRound={true}
                 aria-label="Remove Page"
                 variant="ghost"

@@ -16,7 +16,7 @@ const Widget = () => {
 
   useEffect(() => {
     setWidget(widget)
-  }, [setWidget, widget])
+  }, [widget])
 
   return (
     <>

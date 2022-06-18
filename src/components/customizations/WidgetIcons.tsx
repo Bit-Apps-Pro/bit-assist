@@ -61,7 +61,7 @@ const WidgetIcons = () => {
 
   useEffect(() => {
     setValue(widget.styles?.icon)
-  }, [widget.styles?.icon, setValue])
+  }, [widget.styles?.icon])
 
   return (
     <Box>

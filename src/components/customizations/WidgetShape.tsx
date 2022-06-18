@@ -44,7 +44,7 @@ const WidgetShape = () => {
 
   useEffect(() => {
     setValue(widget.styles?.shape)
-  }, [widget.styles?.shape, setValue])
+  }, [widget.styles?.shape])
 
   return (
     <Box>

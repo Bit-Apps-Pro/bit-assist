@@ -1,4 +1,3 @@
-import { chat_widgets } from '@prisma/client'
 import { atom } from 'jotai'
 import { atomWithImmer } from 'jotai/immer'
 import { FlowDefault, WidgetDefault } from './DefaultStates'
@@ -16,6 +15,7 @@ interface UserStateType {
 }
 
 export const userState = atom<UserStateType>({})
+
 export const editWidgetChannelIdAtom = atomWithReset('')
 
 export const flowAtom = atomWithImmer<Flow>(FlowDefault)
