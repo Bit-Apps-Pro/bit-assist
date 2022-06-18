@@ -170,9 +170,9 @@ const BusinessHours = () => {
       {isEnabled && (
         <Box mt={4}>
           <VStack alignItems="flex-start">
-            <VStack alignItems="flex-start" mb="2">
+            <VStack alignItems="flex-start" mb="2" maxW="full">
               <Text>TimeZone</Text>
-              <Box id="timezoneSelect" w="lg">
+              <Box id="timezoneSelect" w="lg" maxW="full">
                 <SelectSearch
                   search
                   filterOptions={fuzzySearch}

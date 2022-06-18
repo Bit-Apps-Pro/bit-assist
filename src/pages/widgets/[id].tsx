@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from '@chakra-ui/react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import Customizations from '@components/customizations/Customizations'
 import Publish from '@components/publish/Publish'
 import WidgetChannels from '@components/widgetChannels/WidgetChannels'
@@ -12,11 +12,11 @@ import Head from 'next/head'
 const Widget = () => {
   const [, setWidget] = useAtom(widgetAtom)
   const { widget } = useFetchWidget()
-  const { colorMode } = useColorMode()
+  const tabColorMode = useColorModeValue('rgba(255, 255, 255, 0.75)', 'rgba(26,32,44,0.75)')
 
   useEffect(() => {
     setWidget(widget)
-  }, [widget, setWidget])
+  }, [setWidget, widget])
 
   return (
     <>
@@ -34,8 +34,8 @@ const Widget = () => {
           position="sticky"
           top="0"
           py="4"
-          zIndex={100}
-          bg={colorMode === 'light' ? 'rgba(255, 255, 255, 0.75)' : 'rgba(26,32,44,0.75)'}
+          zIndex={1}
+          bg={tabColorMode}
           backdropFilter="blur(10px)"
         >
           <Tab>Channels</Tab>

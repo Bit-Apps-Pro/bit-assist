@@ -18,7 +18,7 @@ const ChannelSelect = () => {
     <VStack spacing="4">
       <Input value={filter} placeholder="Search channels" onChange={handleFilterChange} />
 
-      <Grid gap={[2, 3]} w="full" gridTemplateColumns="repeat(auto-fit, minmax(144px, 1fr))">
+      <Grid gap={[2, 3]} w="full" gridTemplateColumns="repeat(auto-fit, minmax(136px, 1fr))">
         {filter.length
           ? filteredChannels?.map((channel: Channel) => <SingleChannel key={channel.id} channel={channel} />)
           : channels?.map((channel: Channel) => <SingleChannel key={channel.id} channel={channel} />)}
