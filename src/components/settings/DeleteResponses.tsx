@@ -2,7 +2,7 @@ import { Box, FormControl, FormLabel, HStack, Input, Switch, Text, useToast, VSt
 import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
-import produce from 'immer'
+import { produce } from 'immer'
 import { useAtom } from 'jotai'
 import { debounce } from 'lodash'
 import { useEffect, useRef } from 'react'

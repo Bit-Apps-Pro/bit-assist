@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
-import produce from 'immer'
+import { produce } from 'immer'
 import { useAtom } from 'jotai'
 import { useRef } from 'react'
 import { HiOutlineTrash } from 'react-icons/hi'

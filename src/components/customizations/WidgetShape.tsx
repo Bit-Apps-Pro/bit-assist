@@ -6,7 +6,7 @@ import { widgetAtom } from '@globalStates/atoms'
 import Title from '@components/global/Title'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import produce from 'immer'
+import { produce } from 'immer'
 
 const WidgetShape = () => {
   const toast = useToast({ isClosable: true })

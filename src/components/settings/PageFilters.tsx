@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import Page from '@components/settings/Page'
 import { HiCheck, HiOutlineTrash, HiPlus } from 'react-icons/hi'
 import ResponseToast from '@components/global/ResponseToast'
-import produce from 'immer'
+import { produce } from 'immer'
 
 const PageFilters = () => {
   const toast = useToast({ isClosable: true })

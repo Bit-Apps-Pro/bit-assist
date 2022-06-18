@@ -14,7 +14,7 @@ import { useAtom } from 'jotai'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import { widgetAtom } from '@globalStates/atoms'
 import ResponseToast from '@components/global/ResponseToast'
-import produce from 'immer'
+import { produce } from 'immer'
 import { useEffect } from 'react'
 
 const WidgetIcons = () => {

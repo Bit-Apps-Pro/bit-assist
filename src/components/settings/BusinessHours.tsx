@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'
 import { Timezones } from '@components/settings/Timezones'
 import ResponseToast from '@components/global/ResponseToast'
-import produce from 'immer'
+import { produce } from 'immer'
 import { debounce } from 'lodash'
 
 const BusinessHours = () => {
