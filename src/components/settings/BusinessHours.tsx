@@ -5,11 +5,28 @@ import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import { useAtom } from 'jotai'
 import { useEffect, useRef, useState } from 'react'
-import SelectSearch, { SelectedOptionValue, SelectSearchOption } from 'react-select-search'
+import SelectSearch from 'react-select-search'
 import { Timezones } from '@components/settings/Timezones'
 import ResponseToast from '@components/global/ResponseToast'
 import { produce } from 'immer'
 import { debounce } from 'lodash'
+
+type SelectSearchOption = {
+  name: string
+  value: string | number
+  type?: string
+  items?: SelectSearchOption[]
+  disabled?: boolean
+  photo?: string
+}
+
+type SelectedOptionValue = {
+  name: string
+  value: string | number
+  index: number
+  photo?: string
+  disabled?: boolean
+}
 
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })

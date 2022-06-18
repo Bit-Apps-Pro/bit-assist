@@ -23,7 +23,6 @@ const UpdateButton = () => {
         spinnerPlacement="start"
         loadingText="Updating..."
         colorScheme="purple"
-        autoFocus
       >
         Update
       </Button>

@@ -16,6 +16,7 @@ import { getUserData } from '@utils/helper'
 
 interface MyAppProps extends AppProps {
   cookies: string
+  Component: any
 }
 import '@pages/timezone.css'
 

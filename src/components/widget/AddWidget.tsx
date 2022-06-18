@@ -58,7 +58,7 @@ const AddWidget = () => {
           <ModalBody pb="4">
             <FormControl isRequired>
               <FormLabel htmlFor="name">Widget Name</FormLabel>
-              <Input id="name" value={createWidgetInfo?.name ?? ''} onChange={(e) => handleChanges(e.target.value, 'name')} autoFocus />
+              <Input id="name" value={createWidgetInfo?.name ?? ''} onChange={(e) => handleChanges(e.target.value, 'name')} />
             </FormControl>
           </ModalBody>
           <ModalFooter gap="2">
