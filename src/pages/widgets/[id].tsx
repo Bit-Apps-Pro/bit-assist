@@ -33,8 +33,8 @@ const Widget = () => {
           flexWrap="wrap"
           position="sticky"
           top="0"
-          py="4"
-          zIndex={1}
+          py="2"
+          zIndex={2}
           bg={tabColorMode}
           backdropFilter="blur(10px)"
         >

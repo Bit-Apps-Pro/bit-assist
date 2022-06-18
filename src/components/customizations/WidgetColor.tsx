@@ -7,18 +7,24 @@ import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import ResponseToast from '@components/global/ResponseToast'
+import { useRef } from 'react'
 
 const WidgetColor = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
-  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
+  const { updateWidget } = useUpdateWidget()
+  const colorChangedRef = useRef<boolean>(false)
 
   const handleChange = async () => {
+    if (!colorChangedRef.current) return
+    colorChangedRef.current = false
+
     const response: any = await updateWidget(widget)
     ResponseToast({ toast, response, action: 'update', messageFor: 'Widget color' })
   }
 
   const handleColorChange = (color: TColor) => {
+    colorChangedRef.current = true
     setWidget((prev) => {
       if (prev.styles === null) {
         prev.styles = {}
@@ -34,7 +40,7 @@ const WidgetColor = () => {
         <MenuButton bgImage={transparentBg.src} transition="none" rounded="md" boxShadow="md" _focus={{ boxShadow: 'outline' }}>
           <Box bgColor={widget.styles?.color?.str} h="14" w="14" rounded="md"></Box>
         </MenuButton>
-        <MenuList p="0" border="0" maxW="220px">
+        <MenuList zIndex={3} p="0" border="0" maxW="220px">
           <Box maxW="100%">
             <ColorPicker showParams={true} value={widget.styles?.color} onChange={handleColorChange} />
           </Box>
