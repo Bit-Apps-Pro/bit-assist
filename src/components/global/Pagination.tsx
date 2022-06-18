@@ -12,10 +12,18 @@ interface PaginationProps {
 }
 
 const Pagination = ({ children, pageNumber, pageLimit, totalPages, setPageNumber, setPageLimit }: PaginationProps) => {
+  const validTotalPages = totalPages > 0 ? totalPages : 1
+
   const handlePageLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const currentPageLimit = parseInt(e.target.value)
-    setPageLimit(currentPageLimit)
-    setPageNumber(Math.ceil((pageLimit * pageNumber) / currentPageLimit))
+    const newPageLimit = parseInt(e.target.value)
+    const newPageNumber = Math.ceil(pageNumber / newPageLimit) * newPageLimit
+
+    setPageLimit(newPageLimit)
+    if (newPageNumber <= validTotalPages) {
+      setPageNumber(newPageNumber)
+      return
+    }
+    setPageNumber(validTotalPages)
   }
 
   return (
@@ -48,14 +56,14 @@ const Pagination = ({ children, pageNumber, pageLimit, totalPages, setPageNumber
           size="sm"
           rounded="full"
           rightIcon={<FiArrowRight />}
-          disabled={pageNumber === totalPages}
+          disabled={pageNumber === validTotalPages}
           onClick={() => setPageNumber((prev: number) => prev + 1)}
         >
           Next
         </Button>
 
         <Text whiteSpace="nowrap">
-          {pageNumber} / {totalPages} page
+          {pageNumber} / {validTotalPages} page
         </Text>
       </HStack>
     </Stack>

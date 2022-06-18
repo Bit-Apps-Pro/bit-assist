@@ -39,7 +39,7 @@ const Responses = () => {
   const [pageNumber, setPageNumber] = useState<number>(1)
   const { othersData, isOthersDataLoading } = useFetchOthersData()
   const { widgetResponses, isResponsesLoading, isFetching, isFetched } = useFetchResponses(pageLimit, pageNumber)
-  const { deleteResponses, isResponsesDeleting } = useDeleteResponses()
+  const { deleteResponses, isResponsesDeleting } = useDeleteResponses(pageLimit, pageNumber)
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const [checkedItems, setCheckedItems] = useState([])
 

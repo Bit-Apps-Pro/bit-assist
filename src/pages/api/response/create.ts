@@ -8,11 +8,11 @@ export default async function handler(req, res) {
   const response = await db.widget_responses.createMany({
     data: [
       {
-        widget_id: '629c9215eb6df57bac9ee589',
+        widget_id: '62a9c703ce454c95ca469fd2',
         response: 'Success',
       },
       {
-        widget_id: '629c9215eb6df57bac9ee589',
+        widget_id: '62a9c703ce454c95ca469fd2',
         response: 'Error',
       },
     ],
