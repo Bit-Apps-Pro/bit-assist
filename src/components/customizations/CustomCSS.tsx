@@ -8,6 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Textarea,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react'
@@ -40,7 +41,7 @@ const CustomCSS = () => {
     <Box>
       <Title>Custom CSS</Title>
       <Box onClick={onOpen} position="relative" filter="auto" blur="1.1px" w="80" h="32" cursor="pointer">
-        <Editor height="100%" width="100%" theme="vs-dark" defaultLanguage="css" defaultValue="/*write your custom css here*/" value={widget.custom_css ?? ''} />
+        <Textarea overflow="hidden" bg="gray.800" color="green.500" value={widget.custom_css ?? '/*write your custom css here*/'} />
         <Box position="absolute" top="0" w="full" h="full" zIndex={1}></Box>
       </Box>
 
