@@ -13,14 +13,18 @@ import { useEffect } from 'react'
 import { userState } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 import { getUserData } from '@utils/helper'
+import { NextComponentType } from 'next'
+const queryClient = new QueryClient()
+import '@pages/timezone.css'
+
+interface Auth {
+  auth: boolean
+}
 
 interface MyAppProps extends AppProps {
   cookies: string
-  Component: any
+  Component: NextComponentType & Auth
 }
-import '@pages/timezone.css'
-
-const queryClient = new QueryClient()
 
 MyApp.getInitialProps = async (appContext) => {
   const request = appContext?.ctx?.req

@@ -1,4 +1,4 @@
-export const defaultCreateWidgetInfo = { name: '' }
+export const defaultCreateWidgetInfo = { name: 'Untitled Widget' }
 
 export const FlowDefault = { step: 1, widget_id: '', channel_id: '', channel_name: '', config: { title: '' } }
 

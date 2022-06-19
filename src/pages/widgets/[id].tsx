@@ -38,10 +38,10 @@ const Widget = () => {
           bg={tabColorMode}
           backdropFilter="blur(10px)"
         >
-          <Tab>Channels</Tab>
-          <Tab>Customizations</Tab>
-          <Tab>Settings</Tab>
-          <Tab>Publish</Tab>
+          <Tab rounded="md">Channels</Tab>
+          <Tab rounded="md">Customizations</Tab>
+          <Tab rounded="md">Settings</Tab>
+          <Tab rounded="md">Publish</Tab>
         </TabList>
         <TabPanels mx="auto" borderWidth="1.5px" rounded="lg" shadow="lg" mt="2" p={[0, 4]}>
           <TabPanel>
@@ -61,5 +61,7 @@ const Widget = () => {
     </>
   )
 }
+
+Widget.auth = false
 
 export default Widget

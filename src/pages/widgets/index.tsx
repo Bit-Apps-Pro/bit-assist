@@ -155,4 +155,6 @@ const Widgets = () => {
   )
 }
 
+Widgets.auth = false
+
 export default Widgets

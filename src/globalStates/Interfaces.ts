@@ -1,5 +1,16 @@
 import { TColor } from '@atomik-color/core/dist/types'
 
+// logged in user state
+export interface UserStateType {
+  name?: string
+  email?: string
+  puid?: string
+  enableAffiliate?: null | boolean
+  referId?: string
+  role?: string
+  _id?: string
+}
+
 // widget interfaces
 interface Settings {
   color?: TColor
@@ -93,4 +104,22 @@ export interface Flow {
   channel_id: string
   channel_name: string
   config: WidgetChannelConfig
+}
+
+// react select search
+export type SelectSearchOption = {
+  name: string
+  value: string | number
+  type?: string
+  items?: SelectSearchOption[]
+  disabled?: boolean
+  photo?: string
+}
+
+export type SelectedOptionValue = {
+  name: string
+  value: string | number
+  index: number
+  photo?: string
+  disabled?: boolean
 }

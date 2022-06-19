@@ -1,11 +1,4 @@
-type SelectSearchOption = {
-  name: string
-  value: string | number
-  type?: string
-  items?: SelectSearchOption[]
-  disabled?: boolean
-  photo?: string
-}
+import { SelectSearchOption } from '@globalStates/Interfaces'
 
 export const Timezones: SelectSearchOption[] = [
   {

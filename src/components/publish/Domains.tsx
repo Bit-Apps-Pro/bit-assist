@@ -1,12 +1,11 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Button, HStack, IconButton, Input, useToast, Tooltip } from '@chakra-ui/react'
+import { Box, Button, HStack, IconButton, Input, useToast, Tooltip, Kbd } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import { useAtom } from 'jotai'
 import React, { useState } from 'react'
 import { HiCheck, HiOutlineTrash, HiPlus } from 'react-icons/hi'
-import { Kbd } from '@chakra-ui/react'
 import Domain from '@components/publish/Domain'
 
 const Domains = () => {

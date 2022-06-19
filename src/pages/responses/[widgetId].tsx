@@ -186,4 +186,6 @@ const Responses = () => {
   )
 }
 
+Responses.auth = false
+
 export default Responses

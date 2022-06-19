@@ -10,23 +10,7 @@ import { Timezones } from '@components/settings/Timezones'
 import ResponseToast from '@components/global/ResponseToast'
 import { produce } from 'immer'
 import { debounce } from 'lodash'
-
-type SelectSearchOption = {
-  name: string
-  value: string | number
-  type?: string
-  items?: SelectSearchOption[]
-  disabled?: boolean
-  photo?: string
-}
-
-type SelectedOptionValue = {
-  name: string
-  value: string | number
-  index: number
-  photo?: string
-  disabled?: boolean
-}
+import { SelectedOptionValue, SelectSearchOption } from '@globalStates/Interfaces'
 
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
@@ -146,8 +130,8 @@ const BusinessHours = () => {
   }
 
   const handleSwitchEnable = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsEnabled((prev) => !prev)
-    const val = !isEnabled ? defaultBusinessHours : []
+    setIsEnabled(e.target.checked)
+    const val = e.target.checked ? defaultBusinessHours : []
 
     setWidget((prev) => {
       prev.business_hours = val

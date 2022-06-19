@@ -20,7 +20,7 @@ import { useEffect } from 'react'
 const WidgetIcons = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
-  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
+  const { updateWidget } = useUpdateWidget()
 
   const handleChange = async (icon: string) => {
     setWidget((prev) => {
