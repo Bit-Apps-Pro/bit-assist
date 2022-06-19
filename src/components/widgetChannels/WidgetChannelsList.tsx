@@ -1,10 +1,7 @@
 import {
   Button,
+  ButtonGroup,
   IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,6 +15,7 @@ import {
   Tbody,
   Td,
   Text,
+  Tooltip,
   Tr,
   useColorModeValue,
   useDisclosure,
@@ -73,17 +71,27 @@ const ChannelsList = () => {
                       </Text>
                     </Td>
                     <Td textAlign="right">
-                      <Menu>
-                        <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
-                        <MenuList shadow="lg">
-                          <MenuItem icon={<FiEdit2 />} onClick={onOpenEditModal(widgetChannel.id)}>
-                            Edit
-                          </MenuItem>
-                          <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
-                            Delete
-                          </MenuItem>
-                        </MenuList>
-                      </Menu>
+                      <ButtonGroup>
+                        <Tooltip label="Edit">
+                          <IconButton
+                            isRound
+                            aria-label="Edit Channel"
+                            icon={<FiEdit2 />}
+                            variant="ghost"
+                            onClick={onOpenEditModal(widgetChannel.id)}
+                          />
+                        </Tooltip>
+                        <Tooltip label="Delete">
+                          <IconButton
+                            isRound
+                            aria-label="Delete Channel"
+                            icon={<FiTrash2 />}
+                            variant="ghost"
+                            colorScheme="red"
+                            onClick={openDeleteModal(widgetChannel.id)}
+                          />
+                        </Tooltip>
+                      </ButtonGroup>
                     </Td>
                   </Tr>
                 ))}
