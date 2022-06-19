@@ -28,7 +28,7 @@ const Widget = () => {
 
       <Tabs variant="solid-rounded" colorScheme="purple">
         <TabList
-          gap={['0', '2']}
+          gap={['1', '2']}
           justifyContent="center"
           flexWrap="wrap"
           position="sticky"
