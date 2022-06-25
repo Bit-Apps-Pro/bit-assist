@@ -1,9 +1,11 @@
 import db from '@db'
 import { serializeObj } from '@utils/utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { limit, page } = req.query
+    const limit = parseInt(req.query.limit.toString())
+    const page = parseInt(req.query.page.toString())
 
     const { widgetId } = JSON.parse(req.body || '{}')
     if (!widgetId) res.status(422).json({ success: false })
@@ -24,8 +26,8 @@ export default async function handler(req, res) {
             response: true,
           },
         },
-        { $skip: parseInt(page ?? 1 * limit - limit) },
-        { $limit: parseInt(limit) },
+        { $skip: page ?? 1 * limit - limit },
+        { $limit: limit },
       ],
     })
 

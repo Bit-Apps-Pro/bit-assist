@@ -1,8 +1,20 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import db from '@db'
+import Cors from 'cors'
+import initMiddleware from '@middleware/initMiddleware'
 
-export default async function handler(req, res) {
+const cors = initMiddleware(
+  Cors({
+    origin: ['http://cdn.xyz', 'http://127.0.0.1:5500'],
+    methods: ['GET', 'POST'],
+  })
+)
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await cors(req, res)
+
   if (req.method === 'POST') {
-    const { domain } = JSON.parse(req.body || '{}')
+    const { domain } = req.body
     if (!domain) res.status(422).json({ success: false })
 
     const widgets = await db.widgets.findFirst({

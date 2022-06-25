@@ -1,7 +1,8 @@
 import db from '@db'
 import { serializeObj } from '@utils/utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { id } = req.query
     if (!id) res.status(422).json({ success: false })

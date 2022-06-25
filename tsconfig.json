@@ -23,7 +23,8 @@
       "@mutations/*": ["src/mutations/*"],
       "@globalStates/*": ["src/globalStates/*"],
       "@db": ["prisma/db"],
-      "@public/*": ["public/*"]
+      "@public/*": ["public/*"],
+      "@middleware/*": ["src/middleware/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/atom.js", "src/components/settings/BusinessHours.tsx"],
