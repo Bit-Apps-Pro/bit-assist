@@ -1,9 +1,17 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Code, Stack, Text } from '@chakra-ui/react'
+import { CopyIcon } from '@chakra-ui/icons'
+import { Box, Code, HStack, IconButton, Stack, Text, Tooltip, useToast } from '@chakra-ui/react'
 import Title from '@components/global/Title'
 import Domains from './Domains'
 
 const Publish = () => {
+  const toast = useToast({ isClosable: true })
+
+  const copy = async () => {
+    await navigator.clipboard.writeText('<script src=\'https://cdn.bitapps.pro/bit-assist.js\' async defer></script>')
+    toast({ title: 'Copied', status: 'success', position: 'top-right' })
+  }
+
   return (
     <Stack gap={[5, 10]}>
       <Box>
@@ -11,7 +19,12 @@ const Publish = () => {
         <Text mb="2">
           Bit Assist can easily be installed using the below code snippet. Paste it just above the <Code children="</body>" /> tag.
         </Text>
-        <Code maxW="full" children="<script async defer src='https://cdn.bitapps.pro/bit-assist.js'></script>"></Code>
+        <HStack spacing={0} gap="2" flexWrap={'wrap'}>
+          <Code maxW="full" children="<script src='https://cdn.bitapps.pro/bit-assist.js' async defer></script>" />
+          <Tooltip label="Copy">
+            <IconButton colorScheme="purple" icon={<CopyIcon />} size="sm" aria-label="Copy" onClick={copy} />
+          </Tooltip>
+        </HStack>
       </Box>
 
       <Box>

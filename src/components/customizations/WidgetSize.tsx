@@ -49,7 +49,7 @@ const WidgetSize = () => {
     <Box>
       <Title>Widget Size</Title>
       <InputGroup>
-        <Input min="0" w="28" type="number" placeholder="54" value={widget.styles?.size ?? ''} onChange={handleChange} />
+        <Input min="0" w="28" type="number" placeholder="60" value={widget.styles?.size ?? ''} onChange={handleChange} />
         <InputRightAddon children="px" />
       </InputGroup>
     </Box>

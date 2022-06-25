@@ -1,0 +1,4 @@
+.semiRoundedShape {
+  mask: url(/widget-button-mask.svg);
+  -webkit-mask: url(/widget-button-mask.svg);
+}

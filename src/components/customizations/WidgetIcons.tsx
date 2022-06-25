@@ -16,6 +16,7 @@ import { widgetAtom } from '@globalStates/atoms'
 import ResponseToast from '@components/global/ResponseToast'
 import { produce } from 'immer'
 import { useEffect } from 'react'
+import EyeIcon from '@components/icons/EyeIcon'
 
 const WidgetIcons = () => {
   const toast = useToast({ isClosable: true })
@@ -50,6 +51,7 @@ const WidgetIcons = () => {
     'widget-icon-6',
     'widget-icon-7',
     'widget-icon-8',
+    'widget-icon-9',
   ]
   const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: 'widgetIcon',
@@ -71,14 +73,15 @@ const WidgetIcons = () => {
           const radio = getRadioProps({ value })
           return (
             <RadioCard key={value} {...radio}>
-              {value === iconOptions[0] && <IoChatboxEllipses />}
-              {value === iconOptions[1] && <HiChatAlt2 />}
-              {value === iconOptions[2] && <IoChatbubbleEllipsesSharp />}
-              {value === iconOptions[3] && <IoChatbubblesSharp />}
-              {value === iconOptions[4] && <IoChatboxEllipsesOutline />}
-              {value === iconOptions[5] && <HiOutlineChatAlt2 />}
-              {value === iconOptions[6] && <IoChatbubbleEllipsesOutline />}
-              {value === iconOptions[7] && <IoChatbubblesOutline />}
+              {value === iconOptions[0] && <EyeIcon />}
+              {value === iconOptions[1] && <IoChatboxEllipses />}
+              {value === iconOptions[2] && <HiChatAlt2 />}
+              {value === iconOptions[3] && <IoChatbubbleEllipsesSharp />}
+              {value === iconOptions[4] && <IoChatbubblesSharp />}
+              {value === iconOptions[5] && <IoChatboxEllipsesOutline />}
+              {value === iconOptions[6] && <HiOutlineChatAlt2 />}
+              {value === iconOptions[7] && <IoChatbubbleEllipsesOutline />}
+              {value === iconOptions[8] && <IoChatbubblesOutline />}
             </RadioCard>
           )
         })}

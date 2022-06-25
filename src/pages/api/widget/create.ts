@@ -11,9 +11,9 @@ export default async function handler(req, res) {
         user_id: '628626c4aeedcb3965aa667b',
         name: widgetInfo?.name,
         styles: {
-          size: 54,
-          shape: 'rounded',
-          color: str2Color('#805ad5'),
+          size: 60,
+          shape: 'semiRounded',
+          color: str2Color('#00ffa3'),
           icon: 'widget-icon-1',
           position: 'bottom-right',
         },

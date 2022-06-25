@@ -15,6 +15,7 @@ import { useAtom } from 'jotai'
 import { getUserData } from '@utils/helper'
 import { NextComponentType } from 'next'
 const queryClient = new QueryClient()
+import '@pages/_app.css'
 import '@pages/timezone.css'
 
 interface Auth {
