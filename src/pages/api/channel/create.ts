@@ -9,8 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const channels = await db.channels.createMany({
     data: [
       {
-        name: 'Facebook',
-        icon: 'https://ik.imagekit.io/shuvo/fb-01_2w4Ehpovo.png?ik-sdk-version=javascript-1.4.3&updatedAt=1655702004265',
+        name: 'Messenger',
+        icon: 'https://ik.imagekit.io/shuvo/messenger-01_-PT9LygZ4.png?ik-sdk-version=javascript-1.4.3&updatedAt=1655785530211',
         status: true,
       },
       {

@@ -4,7 +4,7 @@ import { useAtom } from 'jotai'
 
 import SaveButton from '@components/widgetChannels/SaveButton'
 import Whatsapp from '@components/widgetChannels/channels/Whatsapp'
-import Facebook from '@components/widgetChannels/channels/Facebook'
+import Messenger from '@components/widgetChannels/channels/Messenger'
 import Twitter from '@components/widgetChannels/channels/Twitter'
 import Instagram from '@components/widgetChannels/channels/Instagram'
 import Telegram from '@components/widgetChannels/channels/Telegram'
@@ -29,6 +29,10 @@ const ChannelSettings = ({ edit = false }) => {
   const handleChanges = (value: string | number | boolean | (string | number)[], key: string) => {
     setFlow((prev) => {
       prev.config[key] = value
+
+if (key === 'unique_id') {
+    prev.config.url = `https://m.me/${value}`
+}
     })
   }
 
@@ -55,7 +59,7 @@ const ChannelSettings = ({ edit = false }) => {
         {flow.channel_name?.toLowerCase() === 'call' && <Call />}
         {flow.channel_name?.toLowerCase() === 'skype' && <Skype />}
         {flow.channel_name?.toLowerCase() === 'whatsapp' && <Whatsapp />}
-        {flow.channel_name?.toLowerCase() === 'facebook' && <Facebook />}
+        {flow.channel_name?.toLowerCase() === 'messenger' && <Messenger />}
         {flow.channel_name?.toLowerCase() === 'twitter' && <Twitter />}
         {flow.channel_name?.toLowerCase() === 'instagram' && <Instagram />}
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}

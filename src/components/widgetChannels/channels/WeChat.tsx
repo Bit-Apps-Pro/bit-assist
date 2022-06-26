@@ -9,6 +9,10 @@ const WeChat = () => {
   const handleChanges = (value: string | number | boolean, key: string) => {
     setFlow((prev) => {
       prev.config[key] = value
+
+      if (key === 'unique_id') {
+        prev.config.url = `https://m.me/${value}`
+      }
     })
   }
 

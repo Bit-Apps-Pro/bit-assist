@@ -2,6 +2,7 @@ import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
+import { useEffect } from 'react'
 
 const Whatsapp = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -12,6 +13,12 @@ const Whatsapp = () => {
     })
   }
 
+  useEffect(() => {
+    setFlow((prev) => {
+      prev.config.url = `https://api.whatsapp.com/send/?phone=${flow.config?.unique_id ?? ''}&text=${flow.config?.message ?? ''}`
+    })
+  }, [flow.config?.unique_id, flow.config?.message])
+
   return (
     <>
       <FormControl>
@@ -20,7 +27,7 @@ const Whatsapp = () => {
       </FormControl>
       <FormControl>
         <FormLabel htmlFor="message">Message</FormLabel>
-        <Textarea id="message" value={flow.config.message} onChange={(e) => handleChanges(e.target.value, 'message')} />
+        <Textarea id="message" value={flow.config?.message ?? ''} onChange={(e) => handleChanges(e.target.value, 'message')} />
       </FormControl>
       <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>

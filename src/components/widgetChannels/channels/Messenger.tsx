@@ -3,12 +3,16 @@ import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 import OpenWindowAction from '@components/widgetChannels/channels/OpenWindowAction'
 
-const Facebook = () => {
+const Messenger = () => {
   const [flow, setFlow] = useAtom(flowAtom)
 
   const handleChanges = (value: string | number | boolean, key: string) => {
     setFlow((prev) => {
       prev.config[key] = value
+
+      if (key === 'unique_id') {
+        prev.config.url = `https://m.me/${value}`
+      }
     })
   }
 
@@ -23,4 +27,4 @@ const Facebook = () => {
   )
 }
 
-export default Facebook
+export default Messenger

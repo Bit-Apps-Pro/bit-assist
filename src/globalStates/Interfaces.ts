@@ -76,6 +76,7 @@ export interface Channel {
 interface WidgetChannelConfig {
   title: string
   icon?: string
+  url?: string
   unique_id?: string
   phone_number?: string
   message?: string
