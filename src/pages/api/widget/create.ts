@@ -16,6 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shape: 'semiRounded',
           color: str2Color('#00ffa3'),
           icon: 'widget-icon-1',
+          iconUrl: 'https://ik.imagekit.io/shuvo/widget_icons/eye_j4gQF6dk-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306394910',
           position: 'bottom-right',
         },
       },
