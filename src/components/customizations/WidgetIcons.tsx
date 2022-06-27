@@ -1,14 +1,5 @@
 import { Box, HStack, useRadioGroup, useToast } from '@chakra-ui/react'
 import RadioCard from '@components/global/RadioCard'
-import {
-  IoChatboxEllipsesOutline,
-  IoChatboxEllipses,
-  IoChatbubbleEllipsesOutline,
-  IoChatbubbleEllipsesSharp,
-  IoChatbubblesOutline,
-  IoChatbubblesSharp,
-} from 'react-icons/io5'
-import { HiChatAlt2, HiOutlineChatAlt2 } from 'react-icons/hi'
 import Title from '@components/global/Title'
 import { useAtom } from 'jotai'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
@@ -16,7 +7,7 @@ import { widgetAtom } from '@globalStates/atoms'
 import ResponseToast from '@components/global/ResponseToast'
 import { produce } from 'immer'
 import { useEffect } from 'react'
-import EyeIcon from '@components/icons/EyeIcon'
+import Image from 'next/image'
 
 const WidgetIcons = () => {
   const toast = useToast({ isClosable: true })
@@ -29,6 +20,7 @@ const WidgetIcons = () => {
         prev.styles = {}
       }
       prev.styles.icon = icon
+      prev.styles.iconUrl = iconOptions[icon]
     })
 
     const response: any = await updateWidget(
@@ -37,22 +29,18 @@ const WidgetIcons = () => {
           draft.styles = {}
         }
         draft.styles.icon = icon
+        draft.styles.iconUrl = iconOptions[icon]
       })
     )
     ResponseToast({ toast, response, action: 'update', messageFor: 'Widget icon' })
   }
 
-  const iconOptions = [
-    'widget-icon-1',
-    'widget-icon-2',
-    'widget-icon-3',
-    'widget-icon-4',
-    'widget-icon-5',
-    'widget-icon-6',
-    'widget-icon-7',
-    'widget-icon-8',
-    'widget-icon-9',
-  ]
+  const iconOptions = {
+    'widget-icon-1': 'https://ik.imagekit.io/shuvo/widget_icons/eye_j4gQF6dk-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306394910',
+    'widget-icon-2': 'https://ik.imagekit.io/shuvo/widget_icons/comment_pkWd0-hi6.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306468414',
+    'widget-icon-3': 'https://ik.imagekit.io/shuvo/widget_icons/chat_kiw1xpsa4.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306468674',
+  }
+
   const { getRootProps, getRadioProps, setValue } = useRadioGroup({
     name: 'widgetIcon',
     defaultValue: widget.styles?.icon,
@@ -69,19 +57,11 @@ const WidgetIcons = () => {
     <Box>
       <Title>Widget Icon</Title>
       <HStack {...group} flexWrap="wrap" gap={2} spacing={0}>
-        {iconOptions.map((value) => {
+        {Object.entries(iconOptions).map(([value, url]) => {
           const radio = getRadioProps({ value })
           return (
             <RadioCard key={value} {...radio}>
-              {value === iconOptions[0] && <EyeIcon />}
-              {value === iconOptions[1] && <IoChatboxEllipses />}
-              {value === iconOptions[2] && <HiChatAlt2 />}
-              {value === iconOptions[3] && <IoChatbubbleEllipsesSharp />}
-              {value === iconOptions[4] && <IoChatbubblesSharp />}
-              {value === iconOptions[5] && <IoChatboxEllipsesOutline />}
-              {value === iconOptions[6] && <HiOutlineChatAlt2 />}
-              {value === iconOptions[7] && <IoChatbubbleEllipsesOutline />}
-              {value === iconOptions[8] && <IoChatbubblesOutline />}
+              <Image src={url} alt="widget icon" className="widget-icon" width="30" height="30" objectFit="contain" />
             </RadioCard>
           )
         })}

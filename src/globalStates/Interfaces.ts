@@ -12,10 +12,11 @@ export interface UserStateType {
 }
 
 // widget interfaces
-interface Settings {
+interface Styles {
   color?: TColor
   position?: string
   icon?: string
+  iconUrl?: string
   shape?: string
   size?: number
 }
@@ -44,7 +45,7 @@ export interface Widget {
   id: string
   name: string
   user_id: string
-  styles: Settings | null
+  styles: Styles | null
   domains: string[]
   business_hours: BusinessHours[]
   timezone: string
