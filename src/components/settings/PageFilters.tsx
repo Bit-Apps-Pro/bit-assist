@@ -38,7 +38,7 @@ const PageFilters = () => {
   }, [])
 
   const addNewPage = async () => {
-    if (pageUrl === '' || pageCondition === '' || pageVisibility === '') {
+    if (pageVisibility === '' || pageCondition === '' || (pageUrl === '' && pageCondition !== 'equal')) {
       toast({ status: 'warning', position: 'top-right', description: 'All fields are required' })
       return
     }
@@ -48,9 +48,11 @@ const PageFilters = () => {
     })
     resetStates()
 
-    const response = await updateWidget(produce(widget, (draft) => {
-      draft.exclude_pages.push({ url: pageUrl, condition: pageCondition, visibility: pageVisibility })
-    }))
+    const response = await updateWidget(
+      produce(widget, (draft) => {
+        draft.exclude_pages.push({ url: pageUrl, condition: pageCondition, visibility: pageVisibility })
+      })
+    )
     ResponseToast({ toast, response, action: 'create', messageFor: 'Widget page' })
   }
 
@@ -93,8 +95,14 @@ const PageFilters = () => {
               <option value="endWith">Pages ended with</option>
             </Select>
             <InputGroup>
-              <InputLeftAddon children={`${pageDomain}/`} />
-              <Input minW="10rem" placeholder="Page url" value={pageUrl ?? ''} onChange={(e) => setPageName(e.target.value)} onKeyDown={handleKeyDown} />
+              <InputLeftAddon children={'/'} />
+              <Input
+                minW="10rem"
+                placeholder="Page url"
+                value={pageUrl ?? ''}
+                onChange={(e) => setPageName(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
             </InputGroup>
 
             <Tooltip label="Cancel">

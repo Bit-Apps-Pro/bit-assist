@@ -66,13 +66,13 @@ const Page = ({ pageDomain, page, index, updateWidget, isWidgetUpdating }) => {
   const makeUrl = (url: string, condition: string) => {
     switch (condition) {
       case 'contains':
-        return `${pageDomain}/*${url}*`
+        return `/*${url}*`
       case 'equal':
-        return `${pageDomain}/${url}`
+        return `/${url}`
       case 'startWith':
-        return `${pageDomain}/${url}*`
+        return `/${url}*`
       case 'endWith':
-        return `${pageDomain}/*${url}`
+        return `/*${url}`
       default:
         return 'None'
     }
