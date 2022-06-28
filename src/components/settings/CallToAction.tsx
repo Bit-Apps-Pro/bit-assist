@@ -1,4 +1,4 @@
-import { Box, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text, Tooltip, useToast, VStack } from '@chakra-ui/react'
+import { Box, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text, Tooltip, useColorModeValue, useToast, VStack } from '@chakra-ui/react'
 import ResponseToast from '@components/global/ResponseToast'
 import Title from '@components/global/Title'
 import { widgetAtom } from '@globalStates/atoms'
@@ -12,7 +12,9 @@ const CallToAction = () => {
   const [showTooltip, setShowTooltip] = useState(false)
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
-  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
+  const { updateWidget } = useUpdateWidget()
+  const brandColorToggle = useColorModeValue('purple.500', 'purple.200')
+  const textColorToggle = useColorModeValue('white', 'gray.800')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateData(e.target.value, 'text')
@@ -57,7 +59,7 @@ const CallToAction = () => {
     <Box>
       <Title>Call To Action</Title>
 
-      <VStack spacing="3" alignItems="flex-start" w="lg" maxW="full">
+      <VStack spacing="4" alignItems="flex-start" w="lg" maxW="full">
         <Text>Display a call to action message next to widget after {widget.call_to_action?.delay ?? 0} seconds.</Text>
         <Slider
           defaultValue={widget.call_to_action?.delay ?? 0}
@@ -71,8 +73,15 @@ const CallToAction = () => {
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>
-          <Tooltip hasArrow bg="purple.500" color="white" placement="top" isOpen={showTooltip} label={`${widget.call_to_action?.delay ?? 0} sec`}>
-            <SliderThumb />
+          <Tooltip
+            hasArrow
+            bg={brandColorToggle}
+            color={textColorToggle}
+            placement="top"
+            isOpen={showTooltip}
+            label={`${widget.call_to_action?.delay ?? 0} sec`}
+          >
+            <SliderThumb bg={brandColorToggle} />
           </Tooltip>
         </Slider>
         <Input placeholder="Message" value={widget.call_to_action?.text ?? ''} onChange={handleChange} />

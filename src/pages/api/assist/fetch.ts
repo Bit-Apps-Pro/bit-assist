@@ -5,7 +5,7 @@ import initMiddleware from '@middleware/initMiddleware'
 
 const cors = initMiddleware(
   Cors({
-    origin: ['http://cdn.xyz', 'http://127.0.0.1:5500'],
+    origin: 'http://cdn.xyz',
     methods: ['GET', 'POST'],
   })
 )
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const widgets = await db.widgets.findFirst({
       where: {
         domains: {
-          has: domain,
+          has: domain.replace(/^www.?/, ''),
         },
       },
       select: {
