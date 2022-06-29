@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         domains: {
           has: domain.replace(/^www.?/, ''),
         },
+        status: true,
       },
       select: {
         id: true,
