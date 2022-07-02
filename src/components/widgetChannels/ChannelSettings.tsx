@@ -29,10 +29,6 @@ const ChannelSettings = ({ edit = false }) => {
   const handleChanges = (value: string | number | boolean | (string | number)[], key: string) => {
     setFlow((prev) => {
       prev.config[key] = value
-
-if (key === 'unique_id') {
-    prev.config.url = `https://m.me/${value}`
-}
     })
   }
 
@@ -64,19 +60,19 @@ if (key === 'unique_id') {
         {flow.channel_name?.toLowerCase() === 'instagram' && <Instagram />}
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
-        <FormControl>
+        {/* <FormControl>
           <FormLabel htmlFor="hide_after_office_hours">
             Hide after office hours
             <Switch
               ml="2"
               id="hide_after_office_hours"
               colorScheme="purple"
-              isChecked={!!flow.config?.hide_after_office_hours}
+              isChecked={flow.config?.hide_after_office_hours || false}
               onChange={(e) => handleChanges(e.target.checked, 'hide_after_office_hours')}
             />
           </FormLabel>
           <FormHelperText>Hide this channel after office time.</FormHelperText>
-        </FormControl>
+        </FormControl> */}
 
         <FormControl>
           <FormLabel>Channel show on</FormLabel>

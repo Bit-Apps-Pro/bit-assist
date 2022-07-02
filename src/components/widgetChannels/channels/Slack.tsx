@@ -11,7 +11,7 @@ const Slack = () => {
       prev.config[key] = value
 
       if (key === 'unique_id') {
-        prev.config.url = `https://m.me/${value}`
+        prev.config.url = `https://${value}.slack.com`
       }
     })
   }

@@ -15,41 +15,17 @@ import { SelectedOptionValue, SelectSearchOption } from '@globalStates/Interface
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
   const [widget, setWidget] = useAtom(widgetAtom)
-  const { updateWidget, isWidgetUpdating } = useUpdateWidget()
+  const { updateWidget } = useUpdateWidget()
   const [isChanged, setIsChanged] = useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
   const [defaultBusinessHours] = useState([
-    {
-      day: 'monday',
-      start: '09:00',
-      end: '18:00',
-    },
-    {
-      day: 'tuesday',
-      start: '09:00',
-      end: '18:00',
-    },
-    {
-      day: 'wednesday',
-      start: '09:00',
-      end: '18:00',
-    },
-    {
-      day: 'thursday',
-      start: '09:00',
-      end: '18:00',
-    },
-    {
-      day: 'friday',
-      start: '09:00',
-      end: '18:00',
-    },
-    {
-      day: 'saturday',
-    },
-    {
-      day: 'sunday',
-    },
+    { day: 'sunday', start: '09:00', end: '18:00' },
+    { day: 'monday', start: '09:00', end: '18:00' },
+    { day: 'tuesday', start: '09:00', end: '18:00' },
+    { day: 'wednesday', start: '09:00', end: '18:00' },
+    { day: 'thursday', start: '09:00', end: '18:00' },
+    { day: 'friday' },
+    { day: 'saturday' },
   ])
 
   useEffect(() => {

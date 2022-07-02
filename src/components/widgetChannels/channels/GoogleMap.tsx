@@ -12,7 +12,7 @@ const GoogleMap = () => {
       prev.config[key] = value
 
       if (key === 'unique_id') {
-        prev.config.url = `https://m.me/${value}`
+        prev.config.url = `https://goo.gl/maps/${value}`
       }
     })
   }

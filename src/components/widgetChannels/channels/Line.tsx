@@ -12,7 +12,7 @@ const Line = () => {
       prev.config[key] = value
 
       if (key === 'unique_id') {
-        prev.config.url = `https://m.me/${value}`
+        prev.config.url = `http://line.me/ti/p/${value}`
       }
     })
   }

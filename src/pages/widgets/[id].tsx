@@ -62,6 +62,6 @@ const Widget = () => {
   )
 }
 
-Widget.auth = false
+Widget.auth = true
 
 export default Widget

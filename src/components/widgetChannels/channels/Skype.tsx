@@ -10,8 +10,8 @@ const Skype = () => {
     setFlow((prev) => {
       prev.config[key] = value
 
-      if (key === 'unique_id') {
-        prev.config.url = `https://m.me/${value}`
+      if (key === 'unique_id' || key === 'phone_number') {
+        prev.config.url = `skype:${value || (key === 'unique_id' ? prev.config?.phone_number : prev.config?.unique_id)}?chat`
       }
     })
   }
@@ -27,7 +27,7 @@ const Skype = () => {
 
       <FormControl>
         <FormLabel htmlFor="phone_number">(Skype) Phone number</FormLabel>
-        <Input id="phone_number" type="tel" value={flow.config.phone_number} onChange={(e) => handleChanges(e.target.value, 'phone_number')} />
+        <Input id="phone_number" type="tel" value={flow.config?.phone_number ?? ''} onChange={(e) => handleChanges(e.target.value, 'phone_number')} />
       </FormControl>
       <OpenWindowAction value={flow.config?.open_window_action ?? ''} handleChanges={handleChanges} />
     </>

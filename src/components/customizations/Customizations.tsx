@@ -16,7 +16,7 @@ const Customizations = () => {
       <WidgetPositions />
       <WidgetSize />
       <WidgetShape />
-      <CustomCSS />
+      {/* <CustomCSS /> */}
     </Stack>
   )
 }
