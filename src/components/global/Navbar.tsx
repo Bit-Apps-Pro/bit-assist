@@ -30,6 +30,13 @@ const Navbar = () => {
           </Heading>
         </Box>
         <ButtonGroup>
+          {/* TODO remove this widget button when login work */}
+          {/* <Link href={'/widgets'}>
+            <Button colorScheme="purple" variant="ghost">
+              Widgets
+            </Button>
+          </Link> */}
+
           {!Boolean(Object.keys(user).length) && (
             <>
               <Link href={signUpUrl}>
