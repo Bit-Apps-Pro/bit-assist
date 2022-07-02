@@ -31,11 +31,11 @@ const Navbar = () => {
         </Box>
         <ButtonGroup>
           {/* TODO remove this widget button when login work */}
-          {/* <Link href={'/widgets'}>
+          <Link href={'/widgets'}>
             <Button colorScheme="purple" variant="ghost">
               Widgets
             </Button>
-          </Link> */}
+          </Link>
 
           {!Boolean(Object.keys(user).length) && (
             <>
