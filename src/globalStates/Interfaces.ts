@@ -87,11 +87,12 @@ interface WidgetChannelConfig {
   store_responses?: boolean
   delete_responses?: DeleteResponses
 }
-export interface WidgetChannel {
+export interface WidgetChannelType {
   id: string
   widget_id: string
   channel_id: string
   config: WidgetChannelConfig
+  order?: number
   status?: boolean
 }
 export interface WidgetResponse {
@@ -102,6 +103,7 @@ export interface WidgetResponse {
 }
 export interface Flow {
   step: number
+  order: number
   widget_id: string
   channel_id: string
   channel_name: string

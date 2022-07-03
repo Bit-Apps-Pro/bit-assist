@@ -7,10 +7,11 @@ import Image from 'next/image'
 const SingleChannel = ({ channel }) => {
   const router = useRouter()
   const { id } = router.query
-  const [, setFlow] = useAtom(flowAtom)
+  const [flow, setFlow] = useAtom(flowAtom)
 
   const onSelectChannel = (channel_id: string, channel_name: string) => {
     setFlow({
+      ...flow,
       step: 2,
       widget_id: id?.toString(),
       channel_id: channel_id,
