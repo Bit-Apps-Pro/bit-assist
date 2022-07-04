@@ -34,7 +34,7 @@ export default function useUpdateWidgetChannelOrder() {
         }
       })
       await mutateAsync(newArray)
-    }, 0)
+    }, 3000)
   ).current
 
   useEffect(() => {
