@@ -51,7 +51,9 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
     onClose()
   }
 
-  const { attributes, listeners, setNodeRef, transition, transform, isDragging } = useSortable({ id: widgetChannel.id })
+  const { attributes, listeners, setNodeRef, transition, transform, isDragging } = useSortable({
+    id: widgetChannel.id,
+  })
 
   const style = {
     transition,
@@ -63,21 +65,28 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
   return (
     <>
       <HStack
-        {...listeners}
-        {...attributes}
-        ref={setNodeRef}
         p={3}
         w={'full'}
         rounded="md"
         style={style}
+        ref={setNodeRef}
         borderWidth={1}
         bg={channelColorToggle}
         shadow={props.shadow || 'none'}
-        cursor={props.cursor || 'grab'}
         justifyContent={'space-between'}
       >
         <HStack>
-          <Flex justifyContent={'center'} alignItems={'center'} w={[6, 8]}>
+          <Flex
+            {...listeners}
+            {...attributes}
+            rounded="sm"
+            bg={props.bg}
+            cursor={props.cursor || 'grab'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            w={6}
+            h={8}
+          >
             <DragHandleIcon />
           </Flex>
           <Text _hover={{ color: brandColorToggle }} ml="2" cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>

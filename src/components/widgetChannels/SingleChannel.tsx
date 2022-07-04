@@ -10,8 +10,8 @@ const SingleChannel = ({ channel }) => {
   const [flow, setFlow] = useAtom(flowAtom)
 
   const onSelectChannel = (channel_id: string, channel_name: string) => {
-    setFlow({
-      ...flow,
+    setFlow((prev) => ({
+      ...prev,
       step: 2,
       widget_id: id?.toString(),
       channel_id: channel_id,
@@ -21,7 +21,7 @@ const SingleChannel = ({ channel }) => {
         open_window_action: '_blank',
         channel_show_on: ['desktop', 'mobile'],
       },
-    })
+    }))
   }
 
   return (

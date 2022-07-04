@@ -6,17 +6,14 @@ import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, 
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { useEffect, useState } from 'react'
-import { useQueryClient } from 'react-query'
-import { useRouter } from 'next/router'
 import { useAtom } from 'jotai'
 import { flowAtom } from '@globalStates/atoms'
+import useUpdateWidgetChannelsOrder from '@hooks/mutations/widgetChannel/useUpdateWidgetChannelsOrder'
 
 const ChannelsList = () => {
   const { widgetChannels, isWidgetChannelsFetching } = useFetchWidgetChannels()
+  const { updateWidgetChannelsOrder } = useUpdateWidgetChannelsOrder()
   const [activeId, setActiveId] = useState<string | null>(null)
-  const router = useRouter()
-  const { id } = router.query
-  const queryClient = useQueryClient()
   const [, setFlow] = useAtom(flowAtom)
 
   useEffect(() => {
@@ -33,31 +30,24 @@ const ChannelsList = () => {
   }, [widgetChannels])
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        delay: 250,
-        tolerance: 5,
-      },
-    }),
+    useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
 
   const handleDragStart = ({ active }) => {
-    setActiveId(active.id)
+    setActiveId(active?.id)
   }
 
   const handleDragEnd = ({ active, over }) => {
+    setActiveId(null)
     if (active?.id !== over?.id) {
       const oldIndex = widgetChannels.findIndex((item: WidgetChannelType) => item?.id === active?.id)
       const newIndex = widgetChannels.findIndex((item: WidgetChannelType) => item?.id === over?.id)
-
-      queryClient.setQueryData(['/api/widgetChannel/fetch', id?.toString()], {
-        data: arrayMove(widgetChannels, oldIndex, newIndex),
-      })
+      const newWidgetChannels: WidgetChannelType[] = arrayMove(widgetChannels, oldIndex, newIndex)
+      updateWidgetChannelsOrder(newWidgetChannels)
     }
-    setActiveId(null)
   }
 
   return (
@@ -82,9 +72,10 @@ const ChannelsList = () => {
                 <DragOverlay style={{ marginTop: 0 }}>
                   {activeId && (
                     <WidgetChanel
-                      shadow={'lg'}
-                      cursor={'grabbing'}
-                      widgetChannel={widgetChannels.filter((item: WidgetChannelType) => item.id === activeId)[0]}
+                      shadow="lg"
+                      cursor="grabbing"
+                      bg={'gray.100'}
+                      widgetChannel={widgetChannels.find((item: WidgetChannelType) => item.id === activeId)}
                     />
                   )}
                 </DragOverlay>

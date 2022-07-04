@@ -15,6 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         config: true,
         order: true,
       },
+      orderBy: {
+        order: 'asc',
+      },
     })
 
     res.status(200).json({ success: true, data: widgetChannels })

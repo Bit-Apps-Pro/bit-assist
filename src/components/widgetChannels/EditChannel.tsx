@@ -29,6 +29,7 @@ const EditChannel = ({ isOpen, onClose }) => {
       channel_id: widgetChannel.channel_id,
       channel_name: channel?.name,
       config: widgetChannel.config,
+      order: widgetChannel.order,
     })
   }, [widgetChannel, channel])
 

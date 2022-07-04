@@ -41,6 +41,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         status: true,
 
         widget_channels: {
+          orderBy: {
+            order: 'desc',
+          },
           select: {
             id: true,
             config: true,
