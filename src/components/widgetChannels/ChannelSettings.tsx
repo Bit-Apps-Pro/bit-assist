@@ -60,7 +60,7 @@ const ChannelSettings = ({ edit = false }) => {
         {flow.channel_name?.toLowerCase() === 'instagram' && <Instagram />}
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
-        {/* <FormControl>
+        <FormControl>
           <FormLabel htmlFor="hide_after_office_hours">
             Hide after office hours
             <Switch
@@ -72,7 +72,7 @@ const ChannelSettings = ({ edit = false }) => {
             />
           </FormLabel>
           <FormHelperText>Hide this channel after office time.</FormHelperText>
-        </FormControl> */}
+        </FormControl>
 
         <FormControl>
           <FormLabel>Channel show on</FormLabel>

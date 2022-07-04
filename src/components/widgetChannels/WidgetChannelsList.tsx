@@ -27,7 +27,7 @@ const ChannelsList = () => {
     setFlow((prev) => {
       prev.order = maxNumber + 1
     })
-  }, [widgetChannels, flow])
+  }, [widgetChannels])
 
   const sensors = useSensors(
     useSensor(PointerSensor),
