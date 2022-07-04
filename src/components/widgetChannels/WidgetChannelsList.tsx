@@ -14,7 +14,7 @@ const ChannelsList = () => {
   const { widgetChannels, isWidgetChannelsFetching } = useFetchWidgetChannels()
   const { updateWidgetChannelsOrder } = useUpdateWidgetChannelsOrder()
   const [activeId, setActiveId] = useState<string | null>(null)
-  const [, setFlow] = useAtom(flowAtom)
+  const [flow, setFlow] = useAtom(flowAtom)
 
   useEffect(() => {
     if (widgetChannels?.length < 1) return
@@ -27,7 +27,7 @@ const ChannelsList = () => {
     setFlow((prev) => {
       prev.order = maxNumber + 1
     })
-  }, [widgetChannels])
+  }, [widgetChannels, flow])
 
   const sensors = useSensors(
     useSensor(PointerSensor),

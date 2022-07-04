@@ -103,7 +103,7 @@ export interface WidgetResponse {
 }
 export interface Flow {
   step: number
-  order: number
+  order?: number
   widget_id: string
   channel_id: string
   channel_name: string
