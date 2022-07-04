@@ -25,14 +25,28 @@ export default function useUpdateWidgetChannelOrder() {
     })
   }
 
-  const debounceUpdateWidget = debounce(async (widgetChannels) => {
-    mutateAsync(widgetChannels)
-  }, 2000)
+  const debounceUpdateWidget = useRef(
+    debounce(async (widgetChannels, newIndex, oldIndex) => {
+      const newArray = []
+      widgetChannels.filter((widgetChannel: WidgetChannelType, i: number) => {
+        if ((i >= oldIndex && i <= newIndex) || (i >= newIndex && i <= oldIndex)) {
+          newArray.push({ ...widgetChannel, order: i + 1 })
+        }
+      })
+      await mutateAsync(newArray)
+    }, 0)
+  ).current
+
+  useEffect(() => {
+    return () => {
+      debounceUpdateWidget.cancel()
+    }
+  }, [debounceUpdateWidget])
 
   return {
-    updateWidgetChannelsOrder: (widgetChannels: WidgetChannelType[]) => {
+    updateWidgetChannelsOrder: (widgetChannels: WidgetChannelType[], newIndex: number, oldIndex: number) => {
       setWidgetChannelsOrder(widgetChannels)
-      debounceUpdateWidget(widgetChannels)
+      debounceUpdateWidget(widgetChannels, newIndex, oldIndex)
     },
     isWidgetChannelOrderUpdating: isLoading,
   }

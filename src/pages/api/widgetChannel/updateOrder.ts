@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       widgetChannels.map(async (widgetChannel: WidgetChannelType, i: number) => {
         await db.widget_channels.update({
           where: { id: widgetChannel.id },
-          data: { order: i + 1 },
+          data: { order: widgetChannel.order },
         })
       })
     )
