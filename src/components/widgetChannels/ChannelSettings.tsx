@@ -21,6 +21,7 @@ import GoogleMap from '@components/widgetChannels/channels/GoogleMap'
 import Slack from '@components/widgetChannels/channels/Slack'
 import Youtube from '@components/widgetChannels/channels/Youtube'
 import Call from '@components/widgetChannels/channels/Call'
+import Form from '@components/widgetChannels/channels/Form'
 import UpdateButton from '@components/widgetChannels/UpdateButton'
 
 const ChannelSettings = ({ edit = false, ...props }) => {
@@ -41,6 +42,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
+        {flow.channel_name?.toLowerCase() === 'form' && <Form />}
         {flow.channel_name?.toLowerCase() === 'discord' && <Discord />}
         {flow.channel_name?.toLowerCase() === 'line' && <Line />}
         {flow.channel_name?.toLowerCase() === 'snapchat' && <Snapchat />}

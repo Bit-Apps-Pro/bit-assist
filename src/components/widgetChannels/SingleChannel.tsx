@@ -7,7 +7,7 @@ import Image from 'next/image'
 const SingleChannel = ({ channel }) => {
   const router = useRouter()
   const { id } = router.query
-  const [flow, setFlow] = useAtom(flowAtom)
+  const [, setFlow] = useAtom(flowAtom)
 
   const onSelectChannel = (channel_id: string, channel_name: string) => {
     setFlow((prev) => ({
