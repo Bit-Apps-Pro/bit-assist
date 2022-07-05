@@ -3,16 +3,17 @@ import { editWidgetChannelIdAtom, flowAtom } from '@globalStates/atoms'
 import useUpdateWidgetChannel from '@hooks/mutations/widgetChannel/useUpdateWidgetChannel'
 import { useAtom } from 'jotai'
 
-const UpdateButton = () => {
+const UpdateButton = ({ closeModal }) => {
   const [flow] = useAtom(flowAtom)
   const [editWidgetChannelId] = useAtom(editWidgetChannelIdAtom)
   const { updateWidgetChannel, isWidgetChannelUpdating } = useUpdateWidgetChannel()
 
-  const addNewWidgetChannel = () => {
+  const addNewWidgetChannel = async () => {
     const newFlow = { ...flow }
     delete newFlow['step']
     delete newFlow['channel_name']
-    updateWidgetChannel(newFlow, editWidgetChannelId)
+    await updateWidgetChannel(newFlow, editWidgetChannelId)
+    closeModal()
   }
 
   return (

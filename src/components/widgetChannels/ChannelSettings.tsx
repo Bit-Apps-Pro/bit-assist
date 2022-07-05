@@ -23,7 +23,7 @@ import Youtube from '@components/widgetChannels/channels/Youtube'
 import Call from '@components/widgetChannels/channels/Call'
 import UpdateButton from '@components/widgetChannels/UpdateButton'
 
-const ChannelSettings = ({ edit = false }) => {
+const ChannelSettings = ({ edit = false, ...props }) => {
   const [flow, setFlow] = useAtom(flowAtom)
 
   const handleChanges = (value: string | number | boolean | (string | number)[], key: string) => {
@@ -89,7 +89,7 @@ const ChannelSettings = ({ edit = false }) => {
         </FormControl>
       </VStack>
 
-      {edit ? <UpdateButton /> : <SaveButton />}
+      {edit ? <UpdateButton closeModal={props.closeModal} /> : <SaveButton />}
     </>
   )
 }

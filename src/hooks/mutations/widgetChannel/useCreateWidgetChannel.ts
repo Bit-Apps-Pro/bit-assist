@@ -17,7 +17,6 @@ export default function useCreateWidgetChannel() {
     onSuccess: () => {
       resetFlow()
       toast({ status: 'success', position: 'top-right', title: 'Widget channel created' })
-
       queryClient.invalidateQueries(['/api/widgetChannel/fetch', id?.toString()])
     },
   })

@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         widget_id: true,
         channel_id: true,
         config: true,
+        order: true,
       },
     })
 

@@ -7,14 +7,15 @@ import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSo
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
-import { flowAtom } from '@globalStates/atoms'
+import { flowAtom, widgetChannelOrderAtom } from '@globalStates/atoms'
 import useUpdateWidgetChannelsOrder from '@hooks/mutations/widgetChannel/useUpdateWidgetChannelsOrder'
 
 const ChannelsList = () => {
   const { widgetChannels, isWidgetChannelsFetching } = useFetchWidgetChannels()
   const { updateWidgetChannelsOrder } = useUpdateWidgetChannelsOrder()
   const [activeId, setActiveId] = useState<string | null>(null)
-  const [flow, setFlow] = useAtom(flowAtom)
+  const [, setChannelOrder] = useAtom(widgetChannelOrderAtom)
+  const [, setFlow] = useAtom(flowAtom)
 
   useEffect(() => {
     if (widgetChannels?.length < 1) return
@@ -24,6 +25,7 @@ const ChannelsList = () => {
         maxNumber = item.order
       }
     })
+    setChannelOrder(maxNumber + 1)
     setFlow((prev) => {
       prev.order = maxNumber + 1
     })

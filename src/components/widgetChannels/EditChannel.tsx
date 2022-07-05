@@ -29,7 +29,7 @@ const EditChannel = ({ isOpen, onClose }) => {
       channel_id: widgetChannel.channel_id,
       channel_name: channel?.name,
       config: widgetChannel.config,
-      order: widgetChannel.order,
+      order: widgetChannel?.order,
     })
   }, [widgetChannel, channel])
 
@@ -46,7 +46,7 @@ const EditChannel = ({ isOpen, onClose }) => {
                 <Spinner />
               </Center>
             )}
-            {!isWidgetChannelFetching && !isChannelFetching && <ChannelSettings edit={true} />}
+            {!isWidgetChannelFetching && !isChannelFetching && <ChannelSettings edit={true} closeModal={onModalClose} />}
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -10,7 +10,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       where: { id: widgetChannelId },
       data: flow,
     })
-    console.log('updateWidgetChannel', updateWidgetChannel)
     res.status(200).json({ success: true, data: 'flow' })
   }
 }
