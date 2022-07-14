@@ -1,13 +1,12 @@
-import { Box, Menu, MenuButton, MenuList, useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import Title from '@components/global/Title'
-import transparentBg from '@public/transparent_bg.png'
-import ColorPicker from '@atomik-color/component'
 import { TColor } from '@atomik-color/core/dist/types'
 import { useAtom } from 'jotai'
 import { widgetAtom } from '@globalStates/atoms'
 import useUpdateWidget from '@hooks/mutations/widget/useUpdateWidget'
 import ResponseToast from '@components/global/ResponseToast'
 import { useRef } from 'react'
+import ColorPickerWrap from '@components/global/ColorPickerWrap'
 
 const WidgetColor = () => {
   const toast = useToast({ isClosable: true })
@@ -15,7 +14,7 @@ const WidgetColor = () => {
   const { updateWidget } = useUpdateWidget()
   const colorChangedRef = useRef<boolean>(false)
 
-  const handleChange = async () => {
+  const handleClose = async () => {
     if (!colorChangedRef.current) return
     colorChangedRef.current = false
 
@@ -36,16 +35,7 @@ const WidgetColor = () => {
   return (
     <Box>
       <Title>Widget Color</Title>
-      <Menu onClose={handleChange}>
-        <MenuButton bgImage={transparentBg.src} transition="none" rounded="md" boxShadow="md" _focus={{ boxShadow: 'outline' }}>
-          <Box bgColor={widget.styles?.color?.str} h="14" w="14" rounded="md"></Box>
-        </MenuButton>
-        <MenuList zIndex={3} p="0" border="0" maxW="220px">
-          <Box maxW="100%">
-            <ColorPicker showParams={true} value={widget.styles?.color} onChange={handleColorChange} />
-          </Box>
-        </MenuList>
-      </Menu>
+      <ColorPickerWrap color={widget.styles?.color} handleChange={handleColorChange} handleClose={handleClose} />
     </Box>
   )
 }

@@ -40,7 +40,7 @@ const SingleChannel = ({ channel }) => {
       ) : (
         <VStack bg="gray.200" rounded="full" w="40px" h="40px" />
       )}
-      <Text>{channel.name}</Text>
+      <Text>{channel.name.replace(/-/g, ' ')}</Text>
     </GridItem>
   )
 }

@@ -74,6 +74,13 @@ export interface Channel {
 }
 
 // flow interfaces
+interface DynamicFormField {
+  id: number
+  order: number
+  label?: string
+  field_type?: string
+  required?: boolean
+}
 interface WidgetChannelConfig {
   title: string
   icon?: string
@@ -81,6 +88,12 @@ interface WidgetChannelConfig {
   unique_id?: string
   phone_number?: string
   message?: string
+  form_config?: {
+    maxOrder?: number
+    form_bg_color?: TColor
+    form_text_color?: TColor
+    form_fields?: DynamicFormField[]
+  }
   channel_show_on?: (string | number)[]
   open_window_action?: string
   hide_after_office_hours?: boolean

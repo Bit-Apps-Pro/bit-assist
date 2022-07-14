@@ -21,7 +21,8 @@ import GoogleMap from '@components/widgetChannels/channels/GoogleMap'
 import Slack from '@components/widgetChannels/channels/Slack'
 import Youtube from '@components/widgetChannels/channels/Youtube'
 import Call from '@components/widgetChannels/channels/Call'
-import Form from '@components/widgetChannels/channels/Form'
+import ContactForm from '@components/widgetChannels/channels/ContactForm'
+import CustomForm from '@components/widgetChannels/channels/CustomForm'
 import UpdateButton from '@components/widgetChannels/UpdateButton'
 
 const ChannelSettings = ({ edit = false, ...props }) => {
@@ -38,11 +39,12 @@ const ChannelSettings = ({ edit = false, ...props }) => {
       <VStack alignItems="flex-start" spacing="4">
         <FormControl isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} />
+          <Input id="title" value={flow.config.title.replace(/-/g, ' ')} onChange={(e) => handleChanges(e.target.value, 'title')} />
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
-        {flow.channel_name?.toLowerCase() === 'form' && <Form />}
+        {flow.channel_name?.toLowerCase() === 'contact-form' && <ContactForm />}
+        {flow.channel_name?.toLowerCase() === 'custom-form' && <CustomForm />}
         {flow.channel_name?.toLowerCase() === 'discord' && <Discord />}
         {flow.channel_name?.toLowerCase() === 'line' && <Line />}
         {flow.channel_name?.toLowerCase() === 'snapchat' && <Snapchat />}
@@ -51,7 +53,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
         {flow.channel_name?.toLowerCase() === 'sms' && <SMS />}
         {flow.channel_name?.toLowerCase() === 'linkedin' && <Linkedin />}
         {flow.channel_name?.toLowerCase() === 'tiktok' && <TikTok />}
-        {flow.channel_name?.toLowerCase() === 'googlemap' && <GoogleMap />}
+        {flow.channel_name?.toLowerCase() === 'google-map' && <GoogleMap />}
         {flow.channel_name?.toLowerCase() === 'slack' && <Slack />}
         {flow.channel_name?.toLowerCase() === 'youtube' && <Youtube />}
         {flow.channel_name?.toLowerCase() === 'call' && <Call />}
@@ -63,7 +65,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
         <FormControl>
-          <FormLabel htmlFor="hide_after_office_hours">
+          <FormLabel htmlFor="hide_after_office_hours" display={'flex'}>
             Hide after office hours
             <Switch
               ml="2"

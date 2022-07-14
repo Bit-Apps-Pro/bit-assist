@@ -90,7 +90,7 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
             <DragHandleIcon />
           </Flex>
           <Text _hover={{ color: brandColorToggle }} ml="2" cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>
-            {widgetChannel.config?.title}
+            {widgetChannel.config?.title.replace(/-/g, ' ')}
           </Text>
         </HStack>
         <Box textAlign="right">
