@@ -92,6 +92,7 @@ interface WidgetChannelConfig {
     maxOrder?: number
     form_bg_color?: TColor
     form_text_color?: TColor
+    submit_button_text?: string
     form_fields?: DynamicFormField[]
   }
   channel_show_on?: (string | number)[]

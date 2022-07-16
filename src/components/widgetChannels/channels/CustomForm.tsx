@@ -15,17 +15,24 @@ const CustomForm = () => {
   const [activeId, setActiveId] = useState<number | null>(null)
 
   useEffect(() => {
+    if (typeof flow.config?.form_config?.form_bg_color !== 'undefined') return
     setFlow((prev) => {
-      if (typeof prev.config.form_config === undefined) {
+      if (typeof prev.config?.form_config === 'undefined') {
         prev.config.form_config = {}
       }
-      prev.config.form_config = { form_bg_color: str2Color('#00ffa3'), form_text_color: str2Color('#fff'), form_fields: [] }
+      prev.config.form_config = { form_bg_color: str2Color('#00ffa3'), form_text_color: str2Color('#fff'), submit_button_text: 'Submit' }
     })
   }, [])
 
   const handleColorChange = (color: TColor, key: string) => {
     setFlow((prev) => {
       prev.config.form_config[key] = color
+    })
+  }
+
+  const handleFormChange = (value: string | number | boolean, key: string) => {
+    setFlow((prev) => {
+      prev.config.form_config[key] = value
     })
   }
 
@@ -40,6 +47,9 @@ const CustomForm = () => {
     if (value === '') return
 
     setFlow((prev) => {
+      if (typeof prev.config?.form_config?.form_fields === 'undefined') {
+        prev.config.form_config.form_fields = []
+      }
       prev.config.form_config.maxOrder = (prev.config.form_config.maxOrder || 0) + 1
       prev.config.form_config.form_fields.push({
         id: prev.config.form_config.maxOrder,
@@ -74,8 +84,6 @@ const CustomForm = () => {
     setActiveId(active?.id)
   }
 
-  console.log(flow.config.form_config.form_fields)
-
   const handleDragEnd = ({ active, over }) => {
     setActiveId(null)
     if (active?.id !== over?.id) {
@@ -91,35 +99,37 @@ const CustomForm = () => {
   return (
     <>
       <VStack alignSelf={'center'} shadow="base" w="full" maxW="full" borderWidth={1} p={[2, 4]} rounded={'sm'}>
-        <DndContext
-          modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}
-        >
-          <SortableContext items={flow.config?.form_config?.form_fields.map((item) => item.id)} strategy={verticalListSortingStrategy}>
-            <VStack w="full">
-              {flow.config?.form_config?.form_fields.map((field, index) => {
-                return <Field key={field.id} id={index} field={field} handleChange={handleChangeField} handleDelete={handleDeleteField} />
-              })}
+        {flow.config?.form_config?.form_fields && (
+          <DndContext
+            modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+          >
+            <SortableContext items={flow.config.form_config.form_fields.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+              <VStack w="full">
+                {flow.config.form_config.form_fields.map((field, index) => {
+                  return <Field key={field.id} id={index} field={field} handleChange={handleChangeField} handleDelete={handleDeleteField} />
+                })}
 
-              <DragOverlay style={{ marginTop: 0 }}>
-                {activeId && (
-                  <Field
-                    shadow="lg"
-                    cursor="grabbing"
-                    bg={'gray.100'}
-                    id={activeId}
-                    field={flow.config?.form_config?.form_fields.find((item) => item.id == activeId)}
-                    handleChange={handleChangeField}
-                    handleDelete={handleDeleteField}
-                  />
-                )}
-              </DragOverlay>
-            </VStack>
-          </SortableContext>
-        </DndContext>
+                <DragOverlay style={{ marginTop: 0 }}>
+                  {activeId && (
+                    <Field
+                      shadow="lg"
+                      cursor="grabbing"
+                      bg={'gray.100'}
+                      id={activeId}
+                      field={flow.config.form_config.form_fields.find((item) => item.id == activeId)}
+                      handleChange={handleChangeField}
+                      handleDelete={handleDeleteField}
+                    />
+                  )}
+                </DragOverlay>
+              </VStack>
+            </SortableContext>
+          </DndContext>
+        )}
 
         <Select name="addField" w="48" onChange={handleAddField} defaultValue="">
           <option value="">Add Field</option>
@@ -137,7 +147,11 @@ const CustomForm = () => {
 
         <FormControl>
           <FormLabel htmlFor="submitButtonText">Button Text</FormLabel>
-          <Input id="submitButtonText" value={'Submit'} onChange={(e) => handleChanges(e.target.value, 'submitButtonText')} />
+          <Input
+            id="submitButtonText"
+            value={flow.config?.form_config?.submit_button_text ?? 'Submit'}
+            onChange={(e) => handleFormChange(e.target.value, 'submit_button_text')}
+          />
         </FormControl>
       </VStack>
 

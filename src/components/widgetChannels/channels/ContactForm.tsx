@@ -11,7 +11,7 @@ const ContactForm = () => {
 
   useEffect(() => {
     setFlow((prev) => {
-      if (typeof prev.config.form_config === undefined) {
+      if (typeof prev.config.form_config === 'undefined') {
         prev.config.form_config = {}
       }
       prev.config.form_config = { form_bg_color: str2Color('#00ffa3'), form_text_color: str2Color('#fff') }
