@@ -76,7 +76,6 @@ export interface Channel {
 // flow interfaces
 interface DynamicFormField {
   id: number
-  order: number
   label?: string
   field_type?: string
   required?: boolean

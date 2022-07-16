@@ -53,7 +53,6 @@ const CustomForm = () => {
       prev.config.form_config.maxOrder = (prev.config.form_config.maxOrder || 0) + 1
       prev.config.form_config.form_fields.push({
         id: prev.config.form_config.maxOrder,
-        order: prev.config.form_config.maxOrder,
         label: value.charAt(0).toUpperCase() + value.slice(1),
         field_type: value,
         required: true,
