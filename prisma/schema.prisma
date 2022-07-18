@@ -65,6 +65,7 @@ model widget_responses {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   widgets   widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
   widget_id String   @db.ObjectId
+  form_name String
   response  Json
   createdAt DateTime @default(now())
 }

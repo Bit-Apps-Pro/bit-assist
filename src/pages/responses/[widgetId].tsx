@@ -125,6 +125,7 @@ const Responses = () => {
                   onChange={handleCheckAllBox}
                 />
               </Th>
+              <Th>Form</Th>
               <Th>Response</Th>
               <Th w="6">Created At</Th>
             </Tr>
@@ -140,7 +141,8 @@ const Responses = () => {
                       onChange={(e) => handleCheckboxChange(e, widgetResponse.id)}
                     />
                   </Td>
-                  <Td>{serializeObj(widgetResponse.response)}</Td>
+                  <Td>{widgetResponse.form_name}</Td>
+                  <Td>{JSON.stringify(widgetResponse.response)}</Td>
                   <Td>{convertDate(widgetResponse.createdAt)}</Td>
                 </Tr>
               ))}

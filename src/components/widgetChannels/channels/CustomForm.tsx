@@ -1,4 +1,20 @@
-import { FormControl, FormLabel, Input, Select, Stack, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Select,
+  SimpleGrid,
+  Stack,
+  VStack,
+} from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
@@ -9,6 +25,7 @@ import Field from './Fields/Field'
 import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { FiPlus } from 'react-icons/fi'
 
 const CustomForm = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -42,8 +59,7 @@ const CustomForm = () => {
     })
   }
 
-  const handleAddField = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target
+  const handleAddField = (value: string) => {
     if (value === '') return
 
     setFlow((prev) => {
@@ -130,19 +146,28 @@ const CustomForm = () => {
           </DndContext>
         )}
 
-        <Select name="addField" w="48" onChange={handleAddField} defaultValue="">
-          <option value="">Add Field</option>
-          <option value="text">Text</option>
-          <option value="email">Email</option>
-          <option value="number">Number</option>
-          <option value="date">Date</option>
-          <option value="select">Select</option>
-          <option value="textarea">Textarea</option>
-          <option value="file">File Upload</option>
-          <option value="rating">Rating</option>
-          <option value="emoji">Emoji</option>
-          <option value="feedback">Feedback</option>
-        </Select>
+        <Popover>
+          <PopoverTrigger>
+            <Button rightIcon={<FiPlus />}>Add Field</Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverBody>
+              <SimpleGrid columns={3} gap={1}>
+                <Button onClick={() => handleAddField('text')}>Text</Button>
+                <Button onClick={() => handleAddField('email')}>Email</Button>
+                <Button onClick={() => handleAddField('number')}>Number</Button>
+                <Button onClick={() => handleAddField('date')}>Date</Button>
+                <Button onClick={() => handleAddField('textarea')}>Textarea</Button>
+                {/* <Button onClick={() => handleAddField('select')}>Select</Button> */}
+                {/* <Button onClick={() => handleAddField('file')}>File</Button> */}
+                {/* <Button onClick={() => handleAddField('rating')}>Rating</Button>
+                <Button onClick={() => handleAddField('emoji')}>Emoji</Button>
+                <Button onClick={() => handleAddField('feedback')}>Feedback</Button> */}
+              </SimpleGrid>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
 
         <FormControl>
           <FormLabel htmlFor="submitButtonText">Button Text</FormLabel>

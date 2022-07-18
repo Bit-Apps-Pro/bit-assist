@@ -23,10 +23,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           $project: {
             id: { $toString: '$_id' },
             createdAt: { $toString: '$createdAt' },
+            form_name: true,
             response: true,
           },
         },
-        { $skip: page ?? 1 * limit - limit },
+        { $skip: (page || 1) * limit - limit },
         { $limit: limit },
       ],
     })
