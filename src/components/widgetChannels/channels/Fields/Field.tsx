@@ -5,7 +5,7 @@ import { FiX } from 'react-icons/fi'
 import { CSS } from '@dnd-kit/utilities'
 
 const Field = ({ id, field, handleChange, handleDelete, ...props }) => {
-  const channelColorToggle = useColorModeValue('white', 'gray.800')
+  const channelColorToggle = useColorModeValue('white', 'gray.700')
 
   const { attributes, listeners, setNodeRef, transition, transform, isDragging } = useSortable({
     id: field.id,
@@ -18,8 +18,8 @@ const Field = ({ id, field, handleChange, handleDelete, ...props }) => {
     touchAction: 'pinch-zoom',
   }
   return (
-    <HStack w="full" style={style} ref={setNodeRef} bg={channelColorToggle}>
-      <HStack w="full" borderWidth={1} p="2" rounded="sm">
+    <HStack w="full" style={style} ref={setNodeRef}>
+      <HStack w="full" borderWidth={1} p="2" rounded="sm" bg={channelColorToggle}>
         <Flex
           {...listeners}
           {...attributes}

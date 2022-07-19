@@ -28,12 +28,18 @@ const SingleChannel = ({ channel }) => {
     <GridItem
       py="2"
       rounded="md"
+      tabIndex={0}
       borderWidth={1}
       cursor="pointer"
+      outline={'none'}
       transition="250ms"
-      _hover={{ shadow: 'lg' }}
       textAlign="center"
+      _hover={{ shadow: 'lg' }}
+      _focusVisible={{ boxShadow: 'outline' }}
       onClick={() => onSelectChannel(channel.id, channel.name)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') onSelectChannel(channel.id, channel.name)
+      }}
     >
       {channel.icon ? (
         <Image src={channel.icon} alt={channel.name} width="40" height="40" />

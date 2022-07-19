@@ -6,13 +6,11 @@ import {
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
-  PopoverHeader,
   PopoverTrigger,
-  Select,
   SimpleGrid,
   Stack,
+  useColorModeValue,
   VStack,
 } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
@@ -30,6 +28,7 @@ import { FiPlus } from 'react-icons/fi'
 const CustomForm = () => {
   const [flow, setFlow] = useAtom(flowAtom)
   const [activeId, setActiveId] = useState<number | null>(null)
+  const bgColorToggle = useColorModeValue('gray.100', 'gray.500')
 
   useEffect(() => {
     if (typeof flow.config?.form_config?.form_bg_color !== 'undefined') return
@@ -133,7 +132,7 @@ const CustomForm = () => {
                     <Field
                       shadow="lg"
                       cursor="grabbing"
-                      bg={'gray.100'}
+                      bg={bgColorToggle}
                       id={activeId}
                       field={flow.config.form_config.form_fields.find((item) => item.id == activeId)}
                       handleChange={handleChangeField}

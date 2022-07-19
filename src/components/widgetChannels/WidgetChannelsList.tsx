@@ -1,4 +1,4 @@
-import { Spinner, Text, VStack } from '@chakra-ui/react'
+import { Spinner, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { WidgetChannelType } from '@globalStates/Interfaces'
 import useFetchWidgetChannels from '@hooks/queries/widgetChannel/useFetchWidgetChannels'
 import WidgetChanel from '@components/widgetChannels/WidgetChannel'
@@ -16,6 +16,7 @@ const ChannelsList = () => {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [, setChannelOrder] = useAtom(widgetChannelOrderAtom)
   const [, setFlow] = useAtom(flowAtom)
+  const bgColorToggle = useColorModeValue('gray.100', 'gray.600')
 
   useEffect(() => {
     if (widgetChannels?.length < 1) return
@@ -76,7 +77,7 @@ const ChannelsList = () => {
                     <WidgetChanel
                       shadow="lg"
                       cursor="grabbing"
-                      bg={'gray.100'}
+                      bg={bgColorToggle}
                       widgetChannel={widgetChannels.find((item: WidgetChannelType) => item.id === activeId)}
                     />
                   )}
