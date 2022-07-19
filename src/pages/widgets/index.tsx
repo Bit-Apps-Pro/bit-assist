@@ -113,9 +113,6 @@ const Widgets = () => {
                         <MenuItem icon={<FiEdit2 />}>Edit</MenuItem>
                       </Link>
                       {/* <MenuItem icon={<FiCopy />}>Duplicate</MenuItem> */}
-                      <Link href={`/responses/${widget.id}`}>
-                        <MenuItem icon={<FiList />}>Responses</MenuItem>
-                      </Link>
                       <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widget.id)}>
                         Delete
                       </MenuItem>

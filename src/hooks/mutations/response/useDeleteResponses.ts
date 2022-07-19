@@ -5,16 +5,16 @@ import { useRouter } from 'next/router'
 export default function useDeleteResponses(pageLimit: number, pageNumber: number) {
   const queryClient = useQueryClient()
   const router = useRouter()
-  const { widgetId } = router.query
+  const { widgetChannelId } = router.query
 
-  const { mutateAsync, isLoading } = useMutation((widgetIds: string[]) => request('/api/response/delete', { widgetIds }), {
+  const { mutateAsync, isLoading } = useMutation((responseIds: string[]) => request('/api/response/delete', { responseIds }), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['/api/response/fetch', [widgetId?.toString(), pageNumber, pageLimit]])
-      queryClient.invalidateQueries(['/api/response/othersData', widgetId?.toString()])
+      queryClient.invalidateQueries(['/api/response/fetch', [widgetChannelId?.toString(), pageNumber, pageLimit]])
+      queryClient.invalidateQueries(['/api/response/othersData', widgetChannelId?.toString()])
     },
   })
   return {
-    deleteResponses: (widgetIds: string[]) => mutateAsync(widgetIds),
+    deleteResponses: (responseIds: string[]) => mutateAsync(responseIds),
     isResponsesDeleting: isLoading,
   }
 }

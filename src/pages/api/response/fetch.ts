@@ -7,15 +7,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const limit = parseInt(req.query.limit.toString())
     const page = parseInt(req.query.page.toString())
 
-    const { widgetId } = JSON.parse(req.body || '{}')
-    if (!widgetId) res.status(422).json({ success: false })
+    const { widgetChannelId } = JSON.parse(req.body || '{}')
+    if (!widgetChannelId) res.status(422).json({ success: false })
 
     const widgetResponses = await db.widget_responses.aggregateRaw({
       pipeline: [
         {
           $match: {
-            widget_id: {
-              $oid: widgetId,
+            widget_channel_id: {
+              $oid: widgetChannelId,
             },
           },
         },
@@ -23,7 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           $project: {
             id: { $toString: '$_id' },
             createdAt: { $toString: '$createdAt' },
-            form_name: true,
             response: true,
           },
         },

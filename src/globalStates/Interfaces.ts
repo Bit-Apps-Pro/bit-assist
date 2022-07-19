@@ -110,7 +110,7 @@ export interface WidgetChannelType {
 }
 export interface WidgetResponse {
   id: string
-  widget_id: string
+  widget_channel_id: string
   form_name: string
   response: JSON
   createdAt: string

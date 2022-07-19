@@ -1,10 +1,13 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
   HStack,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,19 +16,20 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Tooltip,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { useAtom } from 'jotai'
 import { DragHandleIcon } from '@chakra-ui/icons'
-import { FiEdit2, FiTrash2 } from 'react-icons/fi'
+import { FiEdit2, FiList, FiTrash2 } from 'react-icons/fi'
 import { editWidgetChannelIdAtom } from '@globalStates/atoms'
 import EditChannel from '@components/widgetChannels/EditChannel'
 import useDeleteWidgetChannel from '@hooks/mutations/widgetChannel/useDeleteWidgetChannel'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { HiDotsVertical } from 'react-icons/hi'
+import Link from 'next/link'
 
 const WidgetChannelType = ({ widgetChannel, ...props }) => {
   const tempWidgetChannelId = useRef('')
@@ -93,22 +97,21 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
             {widgetChannel.config?.title.replace(/-/g, ' ')}
           </Text>
         </HStack>
-        <Box textAlign="right">
-          <ButtonGroup>
-            <Tooltip label="Edit">
-              <IconButton isRound aria-label="Edit Channel" icon={<FiEdit2 />} variant="ghost" onClick={onOpenEditModal(widgetChannel.id)} />
-            </Tooltip>
-            <Tooltip label="Delete">
-              <IconButton
-                isRound
-                aria-label="Delete Channel"
-                icon={<FiTrash2 />}
-                variant="ghost"
-                colorScheme="red"
-                onClick={openDeleteModal(widgetChannel.id)}
-              />
-            </Tooltip>
-          </ButtonGroup>
+        <Box>
+          <Menu>
+            <MenuButton isRound={true} as={IconButton} aria-label="Options" icon={<HiDotsVertical />} />
+            <MenuList shadow="lg">
+              <MenuItem icon={<FiEdit2 />} onClick={onOpenEditModal(widgetChannel.id)}>
+                Edit
+              </MenuItem>
+              <Link href={`/responses/${widgetChannel.id}`}>
+                <MenuItem icon={<FiList />}>Responses</MenuItem>
+              </Link>
+              <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
       </HStack>
 

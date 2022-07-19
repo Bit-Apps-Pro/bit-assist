@@ -15,15 +15,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     const { formData } = req.body
-    const { widget_id, form_name } = formData
-    if (!widget_id || !form_name) res.status(422).json({ success: false })
+    const { widget_channel_id, form_name } = formData
+    if (!widget_channel_id || !form_name) res.status(422).json({ success: false })
 
-    delete formData.widget_id
+    delete formData.widget_channel_id
     delete formData.form_name
     const response = await db.widget_responses.create({
       data: {
-        widget_id: widget_id,
-        form_name: form_name,
+        widget_channel_id,
+        form_name,
         response: formData,
       },
     })

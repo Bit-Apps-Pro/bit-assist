@@ -33,6 +33,8 @@ import React, { useEffect, useState } from 'react'
 import { FiTrash2 } from 'react-icons/fi'
 import Pagination from '@components/global/Pagination'
 import useFetchOthersData from '@hooks/queries/response/useFetchOthersData'
+import { MdArrowBackIosNew } from 'react-icons/md'
+import { useRouter } from 'next/router'
 
 const Responses = () => {
   const [pageLimit, setPageLimit] = useState<number>(10)
@@ -42,6 +44,7 @@ const Responses = () => {
   const { deleteResponses, isResponsesDeleting } = useDeleteResponses(pageLimit, pageNumber)
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const [checkedItems, setCheckedItems] = useState([])
+  const router = useRouter()
 
   const handleDeleteWidget = async () => {
     await deleteResponses(checkedItems)
@@ -90,9 +93,13 @@ const Responses = () => {
       </Head>
 
       <Stack mb="4" h="8" direction={'row'}>
-        <HStack>
+        <HStack alignItems={'center'}>
+          <Button p="1" size="sm" variant="ghost" onClick={() => router.back()}>
+            <MdArrowBackIosNew size="1rem" />
+          </Button>
           <Text as="h2" fontSize="lg" textTransform="none">
-            Response List {othersData?.widget?.name}
+            {/* Response List {othersData?.widget?.name} */}
+            Response List
           </Text>
           {isResponsesLoading && <Spinner />}
         </HStack>
@@ -125,7 +132,6 @@ const Responses = () => {
                   onChange={handleCheckAllBox}
                 />
               </Th>
-              <Th>Form</Th>
               <Th>Response</Th>
               <Th w="6">Created At</Th>
             </Tr>
@@ -141,7 +147,6 @@ const Responses = () => {
                       onChange={(e) => handleCheckboxChange(e, widgetResponse.id)}
                     />
                   </Td>
-                  <Td>{widgetResponse.form_name}</Td>
                   <Td>{JSON.stringify(widgetResponse.response)}</Td>
                   <Td>{convertDate(widgetResponse.createdAt)}</Td>
                 </Tr>

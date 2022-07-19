@@ -16,26 +16,25 @@ model users {
 }
 
 model widgets {
-  id               String             @id @default(auto()) @map("_id") @db.ObjectId
-  users            users              @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id          String             @db.ObjectId
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  users            users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id          String            @db.ObjectId
   name             String
   styles           Json?
   domains          String[]
   business_hours   Json[]
   timezone         String?
   exclude_pages    Json[]
-  initial_delay    Int                @default(0)
-  page_scroll      Int                @default(0)
-  widget_behavior  Int                @default(1)
+  initial_delay    Int               @default(0)
+  page_scroll      Int               @default(0)
+  widget_behavior  Int               @default(1)
   custom_css       String?
   call_to_action   Json?
-  store_responses  Boolean            @default(true)
+  store_responses  Boolean           @default(true)
   delete_responses Json?
   integrations     Json[]
-  status           Boolean            @default(true)
-  createdAt        DateTime           @default(now())
-  widget_responses widget_responses[]
+  status           Boolean           @default(true)
+  createdAt        DateTime          @default(now())
   widget_channels  widget_channels[]
 }
 
@@ -50,22 +49,23 @@ model channels {
 }
 
 model widget_channels {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  widgets    widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
-  widget_id  String   @db.ObjectId
-  channels   channels @relation(fields: [channel_id], references: [id], onDelete: Cascade)
-  channel_id String   @db.ObjectId
-  config     Json?
-  order      Int?
-  status     Boolean  @default(true)
-  createdAt  DateTime @default(now())
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  widgets          widgets            @relation(fields: [widget_id], references: [id], onDelete: Cascade)
+  widget_id        String             @db.ObjectId
+  channels         channels           @relation(fields: [channel_id], references: [id], onDelete: Cascade)
+  channel_id       String             @db.ObjectId
+  config           Json?
+  order            Int?
+  status           Boolean            @default(true)
+  createdAt        DateTime           @default(now())
+  widget_responses widget_responses[]
 }
 
 model widget_responses {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  widgets   widgets  @relation(fields: [widget_id], references: [id], onDelete: Cascade)
-  widget_id String   @db.ObjectId
-  form_name String
-  response  Json
-  createdAt DateTime @default(now())
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  widget_channels   widget_channels @relation(fields: [widget_channel_id], references: [id], onDelete: Cascade)
+  widget_channel_id String          @db.ObjectId
+  form_name         String
+  response          Json
+  createdAt         DateTime        @default(now())
 }
