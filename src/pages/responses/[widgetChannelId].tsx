@@ -23,13 +23,19 @@ import {
   Badge,
   useDisclosure,
   Box,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
 } from '@chakra-ui/react'
 import Head from 'next/head'
 import { WidgetResponse } from '@globalStates/Interfaces'
 import useFetchResponses from '@hooks/queries/response/useFetchResponses'
 import useDeleteResponses from '@hooks/mutations/response/useDeleteResponses'
-import { serializeObj } from '@utils/utils'
-import React, { useEffect, useState } from 'react'
+import { textTrim, toSlug } from '@utils/utils'
+import React, { useEffect, useRef, useState } from 'react'
 import { FiTrash2 } from 'react-icons/fi'
 import Pagination from '@components/global/Pagination'
 import useFetchOthersData from '@hooks/queries/response/useFetchOthersData'
@@ -39,12 +45,15 @@ import { useRouter } from 'next/router'
 const Responses = () => {
   const [pageLimit, setPageLimit] = useState<number>(10)
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const { othersData, isOthersDataLoading } = useFetchOthersData()
+  const { othersData } = useFetchOthersData()
   const { widgetResponses, isResponsesLoading, isFetching, isFetched } = useFetchResponses(pageLimit, pageNumber)
   const { deleteResponses, isResponsesDeleting } = useDeleteResponses(pageLimit, pageNumber)
   const { isOpen, onOpen: openDelModal, onClose: closeDelModal } = useDisclosure()
   const [checkedItems, setCheckedItems] = useState([])
   const router = useRouter()
+  const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure()
+  const btnRef = useRef()
+  const drawerResponse = useRef()
 
   const handleDeleteWidget = async () => {
     await deleteResponses(checkedItems)
@@ -84,6 +93,16 @@ const Responses = () => {
     setCheckedItems([])
   }, [pageNumber, pageLimit])
 
+  const handleResponseClick = (response) => {
+    drawerResponse.current = response
+    onDrawerOpen()
+  }
+
+  const handleDrawerClose = () => {
+    drawerResponse.current = null
+    onDrawerClose()
+  }
+
   return (
     <>
       <Head>
@@ -92,19 +111,18 @@ const Responses = () => {
         <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
       </Head>
 
-      <Stack mb="4" h="8" direction={'row'}>
+      <HStack mb="4" flexWrap="wrap">
         <HStack alignItems={'center'}>
           <Button p="1" size="sm" variant="ghost" onClick={() => router.back()}>
             <MdArrowBackIosNew size="1rem" />
           </Button>
           <Text as="h2" fontSize="lg" textTransform="none">
-            {/* Response List {othersData?.widget?.name} */}
-            Response List
+            Response List {othersData?.channelName && '- ' + othersData.channelName.replace(/-/g, ' ')}
           </Text>
           {isResponsesLoading && <Spinner />}
         </HStack>
         {checkedItems?.length && (
-          <Box>
+          <HStack spacing={1}>
             <IconButton
               onClick={openDelModal}
               fontSize={'1rem'}
@@ -113,12 +131,11 @@ const Responses = () => {
               aria-label="Delete Icon"
               variant="ghost"
               icon={<FiTrash2 />}
-              mr="2"
             />
             <Badge textTransform="lowercase">{checkedItems.length} items selected</Badge>
-          </Box>
+          </HStack>
         )}
-      </Stack>
+      </HStack>
 
       <TableContainer borderWidth="1px" rounded="lg" shadow="md">
         <Table variant="simple">
@@ -132,7 +149,9 @@ const Responses = () => {
                   onChange={handleCheckAllBox}
                 />
               </Th>
-              <Th>Response</Th>
+              {othersData?.formFields?.map((field: { id: string; label: string }) => (
+                <Th key={field.id + 'th'}>{field.label}</Th>
+              ))}
               <Th w="6">Created At</Th>
             </Tr>
           </Thead>
@@ -147,7 +166,11 @@ const Responses = () => {
                       onChange={(e) => handleCheckboxChange(e, widgetResponse.id)}
                     />
                   </Td>
-                  <Td>{JSON.stringify(widgetResponse.response)}</Td>
+                  {othersData?.formFields?.map((field: { id: string; label: string }) => (
+                    <Td ref={btnRef} onClick={() => handleResponseClick(widgetResponse.response)} cursor="pointer" key={field.id + 'td'}>
+                      {textTrim(widgetResponse.response[toSlug(field.label, '_')], 40)}
+                    </Td>
+                  ))}
                   <Td>{convertDate(widgetResponse.createdAt)}</Td>
                 </Tr>
               ))}
@@ -171,6 +194,30 @@ const Responses = () => {
           {!isFetched && isFetching && <Spinner size="sm" />}
         </Pagination>
       )}
+
+      <Drawer isOpen={isDrawerOpen} placement="right" onClose={handleDrawerClose} finalFocusRef={btnRef}>
+        <DrawerOverlay bg={'blackAlpha.400'} />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Response Details</DrawerHeader>
+
+          <DrawerBody>
+            {drawerResponse?.current &&
+              Object.entries(drawerResponse.current).map(([label, value]) => {
+                return (
+                  <Box key={label}>
+                    <Text fontSize="md" fontWeight="bold" mb="2">
+                      {label.toUpperCase().replace(/_/g, ' ')}
+                    </Text>
+                    <Text fontSize="sm" mb="2">
+                      {value.toString()}
+                    </Text>
+                  </Box>
+                )
+              })}
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
 
       <Modal isOpen={isOpen} onClose={closeDelModal} isCentered>
         <ModalOverlay />

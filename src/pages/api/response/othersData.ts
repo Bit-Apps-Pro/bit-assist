@@ -7,12 +7,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { widgetChannelId } = JSON.parse(req.body || '{}')
     if (!widgetChannelId) res.status(422).json({ success: false })
 
-    // const widget = await db.widgets.findUnique({
-    //   where: { id: widgetId },
-    //   select: {
-    //     name: true,
-    //   },
-    // })
+    const { config } = await db.widget_channels.findUnique({
+      where: { id: widgetChannelId },
+      select: {
+        config: true,
+      },
+    })
 
     const widgetResponsesCount = await db.widget_responses.aggregateRaw({
       pipeline: [
@@ -29,7 +29,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
     })
 
-    const newObj = { totalResponses: widgetResponsesCount?.[0]?.totalResponses }
+    const newObj = {
+      channelName: config?.title,
+      formFields: config?.form_config?.form_fields,
+      totalResponses: widgetResponsesCount?.[0]?.totalResponses,
+    }
     res.status(200).json({ success: true, data: serializeObj(newObj) })
   }
 }

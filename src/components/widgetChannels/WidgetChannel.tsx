@@ -104,9 +104,11 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
               <MenuItem icon={<FiEdit2 />} onClick={onOpenEditModal(widgetChannel.id)}>
                 Edit
               </MenuItem>
-              <Link href={`/responses/${widgetChannel.id}`}>
-                <MenuItem icon={<FiList />}>Responses</MenuItem>
-              </Link>
+              {widgetChannel.config?.form_config && (
+                <Link href={`/responses/${widgetChannel.id}`}>
+                  <MenuItem icon={<FiList />}>Responses</MenuItem>
+                </Link>
+              )}
               <MenuItem icon={<FiTrash2 />} color="red.600" onClick={openDeleteModal(widgetChannel.id)}>
                 Delete
               </MenuItem>
