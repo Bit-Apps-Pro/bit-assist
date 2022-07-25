@@ -8,11 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const channels = await db.channels.createMany({
     data: [
-      // {
-      //   name: 'Contact-Form',
-      //   icon: 'https://ik.imagekit.io/shuvo/google-forms_15ZYafggb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657019669212',
-      //   status: true,
-      // },
+      {
+        name: 'FAQ',
+        icon: 'https://ik.imagekit.io/shuvo/faq2_ySsQ5jXdE.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658749492982',
+        status: true,
+      },
       {
         name: 'Custom-Form',
         icon: 'https://ik.imagekit.io/shuvo/google-forms_15ZYafggb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1657019669212',
