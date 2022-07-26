@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const newObj = {
       channelName: config?.title,
-      formFields: config?.form_config?.form_fields,
+      formFields: config?.card_config?.form_fields,
       totalResponses: widgetResponsesCount?.[0]?.totalResponses,
     }
     res.status(200).json({ success: true, data: serializeObj(newObj) })

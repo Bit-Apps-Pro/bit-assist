@@ -104,7 +104,7 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
               <MenuItem icon={<FiEdit2 />} onClick={onOpenEditModal(widgetChannel.id)}>
                 Edit
               </MenuItem>
-              {widgetChannel.config?.form_config && (
+              {widgetChannel.config?.card_config?.form_fields && (
                 <Link href={`/responses/${widgetChannel.id}`}>
                   <MenuItem icon={<FiList />}>Responses</MenuItem>
                 </Link>

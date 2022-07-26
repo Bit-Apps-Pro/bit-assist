@@ -74,12 +74,6 @@ export interface Channel {
 }
 
 // flow interfaces
-interface DynamicFormField {
-  id: number
-  label?: string
-  field_type?: string
-  required?: boolean
-}
 interface WidgetChannelConfig {
   title: string
   icon?: string
@@ -87,18 +81,31 @@ interface WidgetChannelConfig {
   unique_id?: string
   phone_number?: string
   message?: string
-  form_config?: {
-    maxOrder?: number
-    form_bg_color?: TColor
-    form_text_color?: TColor
-    submit_button_text?: string
-    form_fields?: DynamicFormField[]
-  }
+  card_config?: CardConfig
   channel_show_on?: (string | number)[]
   open_window_action?: string
   hide_after_office_hours?: boolean
   store_responses?: boolean
   delete_responses?: DeleteResponses
+}
+export interface CardConfig {
+  maxId?: number
+  card_bg_color?: TColor
+  card_text_color?: TColor
+  submit_button_text?: string
+  form_fields?: DynamicFormField[]
+  faqs?: Faqs[]
+}
+interface DynamicFormField {
+  id: number
+  label?: string
+  field_type?: string
+  required?: boolean
+}
+interface Faqs {
+  id: number
+  title: string
+  description?: string
 }
 export interface WidgetChannelType {
   id: string
