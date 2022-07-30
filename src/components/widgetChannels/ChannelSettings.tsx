@@ -24,6 +24,7 @@ import Call from '@components/widgetChannels/channels/Call'
 import FAQ from '@components/widgetChannels/channels/FAQ'
 import CustomForm from '@components/widgetChannels/channels/CustomForm'
 import UpdateButton from '@components/widgetChannels/UpdateButton'
+import KnowledgeBase from '@components/widgetChannels/channels/KnowledgeBase'
 
 const ChannelSettings = ({ edit = false, ...props }) => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -43,6 +44,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
+        {flow.channel_name?.toLowerCase() === 'knowledge-base' && <KnowledgeBase />}
         {flow.channel_name?.toLowerCase() === 'faq' && <FAQ />}
         {flow.channel_name?.toLowerCase() === 'custom-form' && <CustomForm />}
         {flow.channel_name?.toLowerCase() === 'discord' && <Discord />}

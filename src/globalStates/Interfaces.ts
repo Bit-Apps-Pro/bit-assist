@@ -94,6 +94,7 @@ export interface CardConfig {
   submit_button_text?: string
   form_fields?: DynamicFormField[]
   faqs?: Faqs[]
+  knowledge_bases?: KnowledgeBase[]
 }
 interface DynamicFormField {
   id: number
@@ -103,6 +104,11 @@ interface DynamicFormField {
   required?: boolean
 }
 interface Faqs {
+  id: number
+  title: string
+  description?: string
+}
+interface KnowledgeBase {
   id: number
   title: string
   description?: string
