@@ -20,6 +20,7 @@ import { TColor } from '@atomik-color/core/dist/types'
 import { str2Color } from '@atomik-color/core'
 import ColorPickerWrap from '@components/global/ColorPickerWrap'
 import CustomFormField from '@components/widgetChannels/channels/Fields/CustomFormField'
+import GDPRField from '@components/widgetChannels/channels/Fields/GDPRField'
 import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
@@ -139,6 +140,7 @@ const CustomForm = () => {
                 <Button onClick={() => handleAddField('number')}>Number</Button>
                 <Button onClick={() => handleAddField('date')}>Date</Button>
                 <Button onClick={() => handleAddField('textarea')}>Textarea</Button>
+                <Button onClick={() => handleAddField('GDPR')}>GDPR</Button>
                 {/* <Button onClick={() => handleAddField('select')}>Select</Button> */}
                 {/* <Button onClick={() => handleAddField('file')}>File</Button> */}
                 {/* <Button onClick={() => handleAddField('rating')}>Rating</Button>

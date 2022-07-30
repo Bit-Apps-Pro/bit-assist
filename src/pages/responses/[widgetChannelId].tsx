@@ -150,7 +150,7 @@ const Responses = () => {
                 />
               </Th>
               {othersData?.formFields?.map((field: { id: string; label: string }) => (
-                <Th key={field.id + 'th'}>{field.label}</Th>
+                <Th key={field.id + 'th'}>{textTrim(field.label, 20)}</Th>
               ))}
               <Th w="6">Created At</Th>
             </Tr>

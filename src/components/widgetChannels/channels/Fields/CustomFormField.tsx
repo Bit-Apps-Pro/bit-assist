@@ -1,5 +1,5 @@
 import { DragHandleIcon } from '@chakra-ui/icons'
-import { Box, Flex, HStack, IconButton, Input, Switch, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton, Input, Switch, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { useSortable } from '@dnd-kit/sortable'
 import { FiX } from 'react-icons/fi'
 import { CSS } from '@dnd-kit/utilities'
@@ -64,7 +64,10 @@ const CustomFormField = ({ id, field, ...props }) => {
               <Switch colorScheme={'purple'} isChecked={field.required || false} onChange={(e) => handleChange(e.target.checked, 'required', id)} />
             </HStack>
           </HStack>
-          <Input value={field.label} onChange={(e) => handleChange(e.target.value, 'label', id)} />
+          <VStack>
+            <Input value={field.label} onChange={(e) => handleChange(e.target.value, 'label', id)} placeholder="label" />
+            {field.field_type === 'GDPR' && <Input value={field.url} onChange={(e) => handleChange(e.target.value, 'url', id)} placeholder="url" />}
+          </VStack>
         </Box>
       </HStack>
       <Box>

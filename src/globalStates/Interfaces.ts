@@ -99,6 +99,7 @@ interface DynamicFormField {
   id: number
   label?: string
   field_type?: string
+  url?: string
   required?: boolean
 }
 interface Faqs {
