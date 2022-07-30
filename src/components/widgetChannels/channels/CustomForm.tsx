@@ -24,6 +24,7 @@ import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, 
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { FiPlus } from 'react-icons/fi'
+import StoreResponses from '@components/widgetChannels/StoreResponses'
 
 const CustomForm = () => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -172,6 +173,8 @@ const CustomForm = () => {
           />
         </FormControl>
       </Stack>
+
+      <StoreResponses />
     </>
   )
 }

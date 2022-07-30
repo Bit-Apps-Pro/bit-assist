@@ -65,7 +65,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
         {flow.channel_name?.toLowerCase() === 'telegram' && <Telegram />}
 
         <FormControl>
-          <FormLabel htmlFor="hide_after_office_hours" display={'flex'}>
+          <FormLabel htmlFor="hide_after_office_hours" display={'flex'} alignItems="center">
             Hide after office hours
             <Switch
               ml="2"

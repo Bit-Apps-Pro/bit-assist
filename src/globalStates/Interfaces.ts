@@ -86,7 +86,6 @@ interface WidgetChannelConfig {
   open_window_action?: string
   hide_after_office_hours?: boolean
   store_responses?: boolean
-  delete_responses?: DeleteResponses
 }
 export interface CardConfig {
   maxId?: number

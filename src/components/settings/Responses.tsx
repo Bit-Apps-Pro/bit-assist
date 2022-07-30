@@ -8,7 +8,7 @@ const Responses = () => {
     <Box>
       <Title>Responses</Title>
       <VStack alignItems="flex-start">
-        <StoreResponses />
+        {/* <StoreResponses /> */}
         <DeleteResponses />
       </VStack>
     </Box>

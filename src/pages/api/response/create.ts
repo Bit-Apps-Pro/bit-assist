@@ -17,14 +17,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { formData } = req.body
     const { widget_channel_id } = formData
     if (!widget_channel_id) res.status(422).json({ success: false })
-
     delete formData.widget_channel_id
-    const response = await db.widget_responses.create({
-      data: {
-        widget_channel_id,
-        response: formData,
+
+    const { config } = await db.widget_channels.findUnique({
+      where: { id: widget_channel_id },
+      select: {
+        config: true,
       },
     })
+
+    if (config?.store_responses) {
+      await db.widget_responses.create({
+        data: {
+          widget_channel_id,
+          response: formData,
+        },
+      })
+    }
 
     res.status(200).json({ success: true })
   }

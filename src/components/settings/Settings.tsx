@@ -16,7 +16,7 @@ const Settings = () => {
       <CallToAction />
       <WidgetBehavior />
       {/* <FontFamily /> */}
-      {/* <Responses /> */}
+      <Responses />
     </Stack>
   )
 }
