@@ -9,3 +9,6 @@
 .radio-card[data-checked].dark .widget-icon {
   filter: invert(7%) sepia(5%) saturate(5605%) hue-rotate(182deg) brightness(98%) contrast(88%); /* white icon */
 }
+.tox-tinymce-aux {
+  z-index: 2000 !important;
+}

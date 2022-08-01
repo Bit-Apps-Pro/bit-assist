@@ -1,11 +1,12 @@
 import { DragHandleIcon } from '@chakra-ui/icons'
-import { Box, Flex, HStack, IconButton, Input, Textarea, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton, Input, useColorModeValue } from '@chakra-ui/react'
 import { useSortable } from '@dnd-kit/sortable'
 import { FiChevronDown, FiX } from 'react-icons/fi'
 import { CSS } from '@dnd-kit/utilities'
 import { useState } from 'react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
+import { Editor } from '@tinymce/tinymce-react'
 
 const KnowledgeBaseField = ({ id, field, ...props }) => {
   const [, setFlow] = useAtom(flowAtom)
@@ -52,11 +53,30 @@ const KnowledgeBaseField = ({ id, field, ...props }) => {
           <DragHandleIcon />
         </Flex>
         <Box w="full">
-          <HStack w="full">
+          <HStack w="full" mb={'2'}>
             <Input value={field.title || ''} onChange={(e) => handleChange(e.target.value, 'title', id)} />
             <IconButton aria-label="Show Desc" onClick={() => setIsEditing((prev) => !prev)} size="sm" icon={<FiChevronDown />} />
           </HStack>
-          {isEditing && <Textarea value={field.description || ''} onChange={(e) => handleChange(e.target.value, 'description', id)} mt="2" />}
+          {isEditing && (
+            <Editor
+              tinymceScriptSrc={'/tinymce/tinymce.min.js'}
+              value={`${field.description}`}
+              onEditorChange={(val, editor) => handleChange(val, 'description', id)}
+              init={{
+                height: 300,
+                menubar: false,
+                plugins: ['autolink', 'lists', 'link', 'image', 'code', 'table'],
+                toolbar:
+                  'undo redo | blocks | ' +
+                  'bold italic link image forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'removeformat',
+                link_default_target: '_blank',
+                link_target_list: false,
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+              }}
+            />
+          )}
         </Box>
       </HStack>
       <Box>

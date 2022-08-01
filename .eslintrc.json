@@ -21,13 +21,13 @@
       "error",
       "prefer-double"
     ],
-    "array-element-newline": [
-      "error",
-      {
-        "multiline": true,
-        "minItems": 6
-      }
-    ],
+    // "array-element-newline": [
+    //   "error",
+    //   {
+    //     "multiline": true,
+    //     "minItems": 6
+    //   }
+    // ],
     "lines-between-class-members": [
       "error",
       "always"

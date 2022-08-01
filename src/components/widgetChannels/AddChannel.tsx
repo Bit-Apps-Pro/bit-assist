@@ -22,7 +22,7 @@ const AddChannel = () => {
         Add Channel
       </Button>
 
-      <Modal scrollBehavior="inside" size="2xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onModalClose}>
+      <Modal scrollBehavior="inside" size="3xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onModalClose} trapFocus={false}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
