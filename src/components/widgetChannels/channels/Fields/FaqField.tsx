@@ -60,7 +60,7 @@ const FaqField = ({ id, field, ...props }) => {
           </HStack>
           {isEditing && (
             <Editor
-              tinymceScriptSrc={'/tinymce/tinymce.min.js'}
+              tinymceScriptSrc={process.env.NEXT_PUBLIC_APP_DOMAIN + '/tinymce/tinymce.min.js'}
               value={`${field.description}`}
               onEditorChange={(val, editor) => handleChange(val, 'description', id)}
               init={{
@@ -71,7 +71,7 @@ const FaqField = ({ id, field, ...props }) => {
                 link_default_target: '_blank',
                 link_target_list: false,
                 skin: colorMode === 'dark' ? 'oxide-dark' : 'oxide',
-                content_css: colorMode === 'dark' ? 'dark' : 'light',
+                content_css: colorMode === 'dark' ? 'dark' : 'default',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
               }}
             />

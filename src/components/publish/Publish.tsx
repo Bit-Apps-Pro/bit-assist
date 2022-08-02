@@ -8,7 +8,7 @@ const Publish = () => {
   const toast = useToast({ isClosable: true })
 
   const copy = async () => {
-    await navigator.clipboard.writeText('<script src=\'https://cdn.bitapps.pro/bit-assist.js\' async defer></script>')
+    await navigator.clipboard.writeText('<script defer src=\'https://cdn.bitapps.pro/bit-assist.js\'></script>')
     toast({ title: 'Copied', status: 'success', position: 'top-right' })
   }
 
