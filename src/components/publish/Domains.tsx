@@ -28,25 +28,31 @@ const Domains = () => {
   }
 
   const addNewDomain = async () => {
-    const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
-    if (domainName === '' || pattern.test(domainName) === false) {
+    try {
+      const hostName = new URL(domainName).hostname
+
+      const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
+      if (hostName === '' || pattern.test(hostName) === false) {
+        toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
+        return
+      }
+
+      const domainExists = widget.domains.find((domain: string) => domain === hostName)
+      if (domainExists) {
+        toast({ status: 'warning', position: 'top-right', description: 'Domain already exists' })
+        return
+      }
+
+      setWidget((prev) => {
+        prev.domains.push(hostName)
+      })
+      resetStates()
+
+      const response = await updateWidget({ ...widget, domains: [...widget.domains, hostName] })
+      ResponseToast({ toast, response, action: 'create', messageFor: 'Widget domain' })
+    } catch (error) {
       toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
-      return
     }
-
-    const domainExists = widget.domains.find((domain: string) => domain === domainName)
-    if (domainExists) {
-      toast({ status: 'warning', position: 'top-right', description: 'Domain already exists' })
-      return
-    }
-
-    setWidget((prev) => {
-      prev.domains.push(domainName)
-    })
-    resetStates()
-
-    const response = await updateWidget({ ...widget, domains: [...widget.domains, domainName] })
-    ResponseToast({ toast, response, action: 'create', messageFor: 'Widget domain' })
   }
 
   const resetStates = () => {
@@ -65,9 +71,21 @@ const Domains = () => {
       {isAdding && (
         <Box mb={4}>
           <HStack mb={2}>
-            <Input placeholder="Domain Name" value={domainName ?? ''} onChange={(e) => setDomainName(e.target.value)} onKeyDown={handleKeyDown} />
+            <Input
+              placeholder="ex: https://your-domain.com"
+              value={domainName ?? ''}
+              onChange={(e) => setDomainName(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
             <Tooltip label="Cancel">
-              <IconButton isRound={true} aria-label="Remove Domain" variant="ghost" colorScheme="red" icon={<HiOutlineTrash />} onClick={resetStates} />
+              <IconButton
+                isRound={true}
+                aria-label="Remove Domain"
+                variant="ghost"
+                colorScheme="red"
+                icon={<HiOutlineTrash />}
+                onClick={resetStates}
+              />
             </Tooltip>
             <Tooltip label="Save">
               <IconButton
