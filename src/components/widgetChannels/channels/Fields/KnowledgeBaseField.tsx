@@ -1,5 +1,5 @@
 import { DragHandleIcon } from '@chakra-ui/icons'
-import { Box, Flex, HStack, IconButton, Input, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, HStack, IconButton, Input, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import { useSortable } from '@dnd-kit/sortable'
 import { FiChevronDown, FiX } from 'react-icons/fi'
 import { CSS } from '@dnd-kit/utilities'
@@ -11,6 +11,7 @@ import { Editor } from '@tinymce/tinymce-react'
 const KnowledgeBaseField = ({ id, field, ...props }) => {
   const [, setFlow] = useAtom(flowAtom)
   const [isEditing, setIsEditing] = useState(false)
+  const { colorMode } = useColorMode()
   const bgColorToggle = useColorModeValue('white', 'gray.700')
 
   const { attributes, listeners, setNodeRef, transition, transform, isDragging } = useSortable({
@@ -73,6 +74,8 @@ const KnowledgeBaseField = ({ id, field, ...props }) => {
                   'removeformat',
                 link_default_target: '_blank',
                 link_target_list: false,
+                skin: colorMode === 'dark' ? 'oxide-dark' : 'oxide',
+                content_css: colorMode === 'dark' ? 'dark' : 'light',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
               }}
             />
