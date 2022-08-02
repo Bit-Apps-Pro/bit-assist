@@ -20,7 +20,7 @@ const Publish = () => {
           Bit Assist can easily be installed using the below code snippet. Paste it just above the <Code children="</body>" /> tag.
         </Text>
         <HStack spacing={0} gap="2" flexWrap={'wrap'}>
-          <Code maxW="full" children="<script src='https://cdn.bitapps.pro/bit-assist.js' async defer></script>" />
+          <Code maxW="full" children="<script defer src='https://cdn.bitapps.pro/bit-assist.js'></script>" />
           <Tooltip label="Copy">
             <IconButton colorScheme="purple" icon={<CopyIcon />} size="sm" aria-label="Copy" onClick={copy} />
           </Tooltip>
