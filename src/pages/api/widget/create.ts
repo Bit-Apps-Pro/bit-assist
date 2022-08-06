@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const widget = await db.widgets.create({
       data: {
-        user_id: '628626c4aeedcb3965aa667b',
+        user_id,
         name: widgetInfo?.name,
         styles: {
           size: 60,
