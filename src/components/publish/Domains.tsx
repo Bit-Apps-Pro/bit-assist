@@ -29,26 +29,26 @@ const Domains = () => {
 
   const addNewDomain = async () => {
     try {
-      const hostName = new URL(domainName).hostname
+      const origin = new URL(domainName).origin.replace('www.', '')
 
-      const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
-      if (hostName === '' || pattern.test(hostName) === false) {
-        toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
-        return
-      }
+      // const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
+      // if (origin === '' || pattern.test(origin) === false) {
+      //   toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
+      //   return
+      // }
 
-      const domainExists = widget.domains.find((domain: string) => domain === hostName)
+      const domainExists = widget.domains.find((domain: string) => domain === origin)
       if (domainExists) {
         toast({ status: 'warning', position: 'top-right', description: 'Domain already exists' })
         return
       }
 
       setWidget((prev) => {
-        prev.domains.push(hostName)
+        prev.domains.push(origin)
       })
       resetStates()
 
-      const response = await updateWidget({ ...widget, domains: [...widget.domains, hostName] })
+      const response = await updateWidget({ ...widget, domains: [...widget.domains, origin] })
       ResponseToast({ toast, response, action: 'create', messageFor: 'Widget domain' })
     } catch (error) {
       toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
