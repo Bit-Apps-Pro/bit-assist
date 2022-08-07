@@ -67,7 +67,7 @@ const Navbar = () => {
                 <MenuButton colorScheme="purple" variant="ghost" as={Button} rightIcon={<ChevronDownIcon />}>
                   {user?.name}
                 </MenuButton>
-                <MenuList boxShadow="md">
+                <MenuList boxShadow="md" zIndex={3}>
                   <Link href={`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/Profile`}>
                     <a target="_blank" href={`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/Profile`} rel="noopener noreferrer">
                       <MenuItem>Profile</MenuItem>

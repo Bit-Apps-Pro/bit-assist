@@ -6,9 +6,10 @@ import Domains from './Domains'
 
 const Publish = () => {
   const toast = useToast({ isClosable: true })
+  const cdnUrl = `<script defer src='${process.env.CLIENT_CDN_URL}/bit-assist.js'></script>`
 
   const copy = async () => {
-    await navigator.clipboard.writeText('<script defer src=\'https://cdn.bitapps.pro/bit-assist.js\'></script>')
+    await navigator.clipboard.writeText(cdnUrl)
     toast({ title: 'Copied', status: 'success', position: 'top-right' })
   }
 
@@ -20,7 +21,7 @@ const Publish = () => {
           Bit Assist can easily be installed using the below code snippet. Paste it just above the <Code children="</body>" /> tag.
         </Text>
         <HStack spacing={0} gap="2" flexWrap={'wrap'}>
-          <Code maxW="full" children="<script defer src='https://cdn.bitapps.pro/bit-assist.js'></script>" />
+          <Code maxW="full" children={cdnUrl} />
           <Tooltip label="Copy">
             <IconButton colorScheme="purple" icon={<CopyIcon />} size="sm" aria-label="Copy" onClick={copy} />
           </Tooltip>

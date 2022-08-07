@@ -3,7 +3,7 @@ import initMiddleware from '@middleware/initMiddleware'
 
 const cors = initMiddleware(
   Cors({
-    origin: process.env.CLIENT_CDN_URL.split(','),
+    origin: process.env.CLIENT_CDN_URL,
     methods: ['GET', 'POST'],
   })
 )
