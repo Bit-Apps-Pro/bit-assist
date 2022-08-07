@@ -23,7 +23,7 @@ const Whatsapp = () => {
     <>
       <FormControl>
         <FormLabel htmlFor="unique_id">Phone number</FormLabel>
-        <Input id="unique_id" type="tel" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
+        <Input id="unique_id" type="tel" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} placeholder="ex: 88012312312312" />
       </FormControl>
       <FormControl>
         <FormLabel htmlFor="message">Message</FormLabel>
