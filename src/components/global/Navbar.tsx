@@ -10,8 +10,14 @@ import { DarkModeSwitch } from './DarkModeSwitch'
 const Navbar = () => {
   const [user, setUser] = useAtom(userState)
   const router = useRouter()
-  const signInUrl = encodeURI(`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login?product=assist&redirect=${process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath}`)
-  const signUpUrl = encodeURI(`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login/bit-assist/?product=assist&redirect=${process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath}`)
+  const signInUrl = encodeURI(
+    `${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login?product=assist&redirect=${process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath}`
+  )
+  const signUpUrl = encodeURI(
+    `${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login/bit-assist/?product=assist&redirect=${
+      process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath
+    }`
+  )
 
   const signOut = () => () => {
     deleteCookie('bit-usr')
@@ -29,6 +35,13 @@ const Navbar = () => {
           </Heading>
         </Box>
         <ButtonGroup>
+          {process.env.NODE_ENV === 'development' && (
+            <Link href={'/widgets'}>
+              <Button colorScheme="purple" variant="ghost">
+                Widgets
+              </Button>
+            </Link>
+          )}
           {!Boolean(Object.keys(user).length) && (
             <>
               <Link href={signUpUrl}>

@@ -1,14 +1,7 @@
 import db from '@db'
 import { NextApiRequest, NextApiResponse } from 'next'
-import Cors from 'cors'
-import initMiddleware from '@middleware/initMiddleware'
+import cors from '@utils/cors'
 
-const cors = initMiddleware(
-  Cors({
-    origin: 'http://cdn.xyz',
-    methods: ['POST'],
-  })
-)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res)

@@ -14,8 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const widgets = await db.widgets.findFirst({
     where: {
       domains: {
-        // has: domain.replace(/^www\./, ''),
-        has: 'bitcode.xyz',
+        has: domain.replace(/^www\./, ''),
+        // has: 'bitcode.xyz',
       },
       status: true,
     },
