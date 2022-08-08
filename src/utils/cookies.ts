@@ -16,9 +16,9 @@ export function getCookie(cname: string) {
 
 export function deleteCookie(keyName: string) {
   document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/;`
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/; domain=.${process.env.BASE_DOMAIN}`
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/; domain=${process.env.BASE_DOMAIN}`
+  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/; domain=.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`
+  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/; domain=${process.env.NEXT_PUBLIC_BASE_DOMAIN}`
   document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/login;`
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/login; domain=${process.env.BASE_DOMAIN}`
-  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/login; domain=.${process.env.BASE_DOMAIN}`
+  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/login; domain=${process.env.NEXT_PUBLIC_BASE_DOMAIN}`
+  document.cookie = `${keyName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Max-Age=0; path=/login; domain=.${process.env.NEXT_PUBLIC_BASE_DOMAIN}`
 }
