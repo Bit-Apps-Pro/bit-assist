@@ -30,7 +30,7 @@ interface MyAppProps extends AppProps {
 MyApp.getInitialProps = async (appContext) => {
   const request = appContext?.ctx?.req
   return {
-    cookies: request?.cookies?.['bit-usr']
+    cookies: request?.cookies?.['bit-usr'],
   }
 }
 
@@ -49,7 +49,7 @@ export default function MyApp({ cookies, Component, pageProps }: MyAppProps) {
       <ChakraProvider theme={theme}>
         <Layout>
           {Component?.auth ? (
-            <Auth>
+            <Auth cookies={cookies}>
               <Component {...pageProps} />
             </Auth>
           ) : (
@@ -61,12 +61,12 @@ export default function MyApp({ cookies, Component, pageProps }: MyAppProps) {
   )
 }
 
-function Auth({ children }) {
+function Auth({ children, cookies }) {
   const router = useRouter()
   const [user] = useAtom(userState)
 
   useEffect(() => {
-    if (!Boolean(Object.keys(user).length)) router.push('/')
+    if (!Boolean(Object.keys(user).length) && !cookies) router.push('/')
   }, [user])
 
   if (Boolean(Object.keys(user).length)) return children
