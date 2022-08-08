@@ -240,6 +240,6 @@ const Responses = () => {
   )
 }
 
-Responses.auth = process.env.NODE_ENV === 'development' ? false : true
+Responses.auth = true
 
 export default Responses

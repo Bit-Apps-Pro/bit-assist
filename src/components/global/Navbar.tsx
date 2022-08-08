@@ -35,13 +35,6 @@ const Navbar = () => {
           </Heading>
         </Box>
         <ButtonGroup>
-          {process.env.NODE_ENV === 'development' && (
-            <Link href={'/widgets'}>
-              <Button colorScheme="purple" variant="ghost">
-                Widgets
-              </Button>
-            </Link>
-          )}
           {!Boolean(Object.keys(user).length) && (
             <>
               <Link href={signUpUrl}>

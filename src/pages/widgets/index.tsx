@@ -152,6 +152,6 @@ const Widgets = () => {
   )
 }
 
-Widgets.auth = process.env.NODE_ENV === 'development' ? false : true
+Widgets.auth = true
 
 export default Widgets

@@ -11,7 +11,7 @@ export default function useCreateWidget(closeCreateWidgetModal: () => void, setC
 
   const { mutate, isLoading } = useMutation(
     (widgetInfo: CreateWidgetInfo) =>
-      request('/api/widget/create', { widgetInfo, user_id: process.env.NODE_ENV === 'development' ? '628626c4aeedcb3965aa667b' : user._id }),
+      request('/api/widget/create', { widgetInfo, user_id: user?._id }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('/api/widget/fetch')
