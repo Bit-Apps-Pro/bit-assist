@@ -62,7 +62,8 @@ const CallToAction = () => {
       <VStack spacing="4" alignItems="flex-start" w="lg" maxW="full">
         <Text>Display a call to action message next to widget after {widget.call_to_action?.delay ?? 0} seconds.</Text>
         <Slider
-          defaultValue={widget.call_to_action?.delay ?? 0}
+          defaultValue={0}
+          value={widget.call_to_action?.delay}
           min={0}
           max={60}
           colorScheme="purple"

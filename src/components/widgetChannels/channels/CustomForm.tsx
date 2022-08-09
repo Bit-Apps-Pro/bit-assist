@@ -37,7 +37,7 @@ const CustomForm = () => {
       if (typeof prev.config?.card_config === 'undefined') {
         prev.config.card_config = {}
       }
-      prev.config.card_config = { card_bg_color: str2Color('#00ffa3'), card_text_color: str2Color('#fff'), submit_button_text: 'Submit' }
+      prev.config.card_config = { card_bg_color: str2Color('#0038FF'), card_text_color: str2Color('#fff'), submit_button_text: 'Submit' }
     })
   }, [])
 
