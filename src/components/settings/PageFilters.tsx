@@ -95,10 +95,10 @@ const PageFilters = () => {
               <option value="endWith">Pages ended with</option>
             </Select>
             <InputGroup>
-              <InputLeftAddon children={'/'} />
+              <InputLeftAddon children={'your-domain/'} />
               <Input
                 minW="10rem"
-                placeholder="Page url"
+                placeholder="Page slug"
                 value={pageUrl ?? ''}
                 onChange={(e) => setPageName(e.target.value)}
                 onKeyDown={handleKeyDown}
