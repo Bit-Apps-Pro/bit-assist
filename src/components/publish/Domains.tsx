@@ -32,10 +32,11 @@ const Domains = () => {
       const origin = new URL(domainName).origin.replace('www.', '')
 
       // const pattern = /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/gm
-      // if (origin === '' || pattern.test(origin) === false) {
-      //   toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
-      //   return
-      // }
+      // pattern.test(origin) === false
+      if (origin === '' || origin === 'null' || origin === null) {
+        toast({ status: 'error', position: 'top-right', description: 'Please enter a valid domain name' })
+        return
+      }
 
       const domainExists = widget.domains.find((domain: string) => domain === origin)
       if (domainExists) {
