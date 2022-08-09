@@ -12,7 +12,7 @@ const Youtube = () => {
       prev.config[key] = value
 
       if (key === 'unique_id') {
-        prev.config.url = `https://youtube.com/watch?v=${value}`
+        prev.config.url = `https://youtube.com/${value}`
       }
     })
   }
@@ -22,7 +22,7 @@ const Youtube = () => {
       <FormControl>
         <FormLabel htmlFor="unique_id">youtube page</FormLabel>
         <InputGroup>
-          <InputLeftAddon children="youtube.com/watch?v=" />
+          <InputLeftAddon children="youtube.com/" />
           <Input id="unique_id" value={flow.config?.unique_id ?? ''} onChange={(e) => handleChanges(e.target.value, 'unique_id')} />
         </InputGroup>
       </FormControl>
