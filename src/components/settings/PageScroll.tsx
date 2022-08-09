@@ -14,7 +14,10 @@ const PageScroll = () => {
   const { updateWidget, isWidgetUpdating } = useUpdateWidget()
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value ? parseInt(e.target.value) : 0
+    let val = e.target.value ? parseInt(e.target.value) : 0
+    if (val > 100) {
+      val = 100
+    }
     setWidget((draft) => {
       draft.page_scroll = val
     })
