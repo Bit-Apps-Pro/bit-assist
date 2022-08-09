@@ -74,7 +74,7 @@ export interface Channel {
 }
 
 // flow interfaces
-interface WidgetChannelConfig {
+export interface WidgetChannelConfig {
   title: string
   icon?: string
   url?: string
