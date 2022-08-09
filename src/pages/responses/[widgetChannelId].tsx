@@ -117,7 +117,7 @@ const Responses = () => {
             <MdArrowBackIosNew size="1rem" />
           </Button>
           <Text as="h2" fontSize="lg" textTransform="none">
-            Response List {othersData?.channelName && '- ' + othersData.channelName.replace(/-/g, ' ')}
+            Response List {othersData?.channelName && '- ' + othersData.channelName}
           </Text>
           {isResponsesLoading && <Spinner />}
         </HStack>

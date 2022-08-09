@@ -17,7 +17,7 @@ const SingleChannel = ({ channel }) => {
       channel_id: channel_id,
       channel_name: channel_name,
       config: {
-        title: channel_name,
+        title: channel_name.replace(/-/g, ' '),
         open_window_action: '_blank',
         channel_show_on: ['desktop', 'mobile'],
       },

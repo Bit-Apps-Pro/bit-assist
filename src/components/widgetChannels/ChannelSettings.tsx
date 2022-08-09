@@ -40,7 +40,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
       <VStack alignItems="flex-start" spacing="4">
         <FormControl isRequired>
           <FormLabel htmlFor="title">Title</FormLabel>
-          <Input id="title" value={flow.config.title.replace(/-/g, ' ')} onChange={(e) => handleChanges(e.target.value, 'title')} />
+          <Input id="title" value={flow.config.title} onChange={(e) => handleChanges(e.target.value, 'title')} />
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
