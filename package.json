@@ -34,7 +34,7 @@
     "jotai": "^1.7.2",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
-    "mongoose": "^6.3.8",
+    "mongoose": "^6.4.6",
     "next": "latest",
     "next-auth": "^4.5.0",
     "nextjs-progressbar": "^0.0.14",
