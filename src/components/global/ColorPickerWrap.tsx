@@ -1,19 +1,27 @@
-import { Box, Menu, MenuButton, MenuList } from '@chakra-ui/react'
+import { Button, Popover, PopoverBody, PopoverContent, PopoverTrigger } from '@chakra-ui/react'
 import ColorPicker from '@atomik-color/component'
-import transparentBg from '@public/transparent_bg.png'
 
 const ColorPickerWrap = ({ color, handleChange, handleClose = undefined }) => {
   return (
-    <Menu onClose={handleClose}>
-      <MenuButton bgImage={transparentBg.src} transition="none" rounded="md" boxShadow="md" _focus={{ boxShadow: 'outline' }}>
-        <Box bgColor={color?.str} h="14" w="14" rounded="md"></Box>
-      </MenuButton>
-      <MenuList zIndex={3} p="0" border="0" maxW="220px">
-        <Box maxW="100%">
-          <ColorPicker showParams={true} value={color} onChange={handleChange} />
-        </Box>
-      </MenuList>
-    </Menu>
+    <Popover onClose={handleClose} placement="right">
+      <PopoverTrigger>
+        <Button
+          h="14"
+          w="14"
+          rounded="md"
+          boxShadow="md"
+          transition="none"
+          bgColor={color?.str}
+          _hover={{ backgroundColor: color?.str }}
+          _focus={{ boxShadow: 'outline', backgroundColor: color?.str }}
+        />
+      </PopoverTrigger>
+      <PopoverContent border="0" w="242px" rounded={'sm'}>
+        <PopoverBody p="0" maxW="100%">
+          <ColorPicker showParams={true} showPreview={false} value={color} onChange={handleChange} />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
   )
 }
 
