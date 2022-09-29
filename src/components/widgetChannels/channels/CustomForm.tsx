@@ -20,7 +20,15 @@ import { TColor } from '@atomik-color/core/dist/types'
 import { str2Color } from '@atomik-color/core'
 import ColorPickerWrap from '@components/global/ColorPickerWrap'
 import CustomFormField from '@components/widgetChannels/channels/Fields/CustomFormField'
-import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { FiPlus } from 'react-icons/fi'
@@ -37,7 +45,11 @@ const CustomForm = () => {
       if (typeof prev.config?.card_config === 'undefined') {
         prev.config.card_config = {}
       }
-      prev.config.card_config = { card_bg_color: str2Color('#0038FF'), card_text_color: str2Color('#fff'), submit_button_text: 'Submit' }
+      prev.config.card_config = {
+        card_bg_color: str2Color('#0038FF'),
+        card_text_color: str2Color('#fff'),
+        submit_button_text: 'Submit',
+      }
     })
   }, [])
 
@@ -51,7 +63,7 @@ const CustomForm = () => {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   )
 
   const handleDragStart = ({ active }) => {
@@ -104,7 +116,10 @@ const CustomForm = () => {
             onDragEnd={handleDragEnd}
             onDragStart={handleDragStart}
           >
-            <SortableContext items={flow.config.card_config.form_fields.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext
+              items={flow.config.card_config.form_fields.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
+            >
               <VStack w="full">
                 {flow.config.card_config.form_fields.map((field, index) => {
                   return <CustomFormField key={field.id} id={index} field={field} />
@@ -160,10 +175,23 @@ const CustomForm = () => {
         </FormControl>
       </VStack>
 
+      <FormControl>
+        <FormLabel htmlFor="webhook_url">Webhook URL</FormLabel>
+        <Input
+          id="webhook_url"
+          placeholder="https://"
+          value={flow.config?.card_config?.webhook_url ?? ''}
+          onChange={(e) => handleFormChange(e.target.value, 'webhook_url')}
+        />
+      </FormControl>
+
       <Stack w={'full'} spacing="0" gap="2" flexDirection={['column', 'row']}>
         <FormControl>
           <FormLabel>Form Theme Color</FormLabel>
-          <ColorPickerWrap color={flow.config?.card_config?.card_bg_color} handleChange={(val: TColor) => handleColorChange(val, 'card_bg_color')} />
+          <ColorPickerWrap
+            color={flow.config?.card_config?.card_bg_color}
+            handleChange={(val: TColor) => handleColorChange(val, 'card_bg_color')}
+          />
         </FormControl>
 
         <FormControl>

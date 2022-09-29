@@ -2,7 +2,6 @@ import db from '@db'
 import { NextApiRequest, NextApiResponse } from 'next'
 import cors from '@utils/cors'
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res)
 
@@ -27,6 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       })
     }
+
+    fetch(config?.card_config?.webhook_url, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
 
     res.status(200).json({ success: true })
   }

@@ -1,4 +1,15 @@
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, HStack } from '@chakra-ui/react'
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Text,
+  HStack,
+} from '@chakra-ui/react'
 import ChannelSelect from '@components/widgetChannels/ChannelSelect'
 import ChannelSettings from '@components/widgetChannels/ChannelSettings'
 import { useAtom } from 'jotai'
@@ -22,7 +33,14 @@ const AddChannel = () => {
         Add Channel
       </Button>
 
-      <Modal scrollBehavior="inside" size="3xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onModalClose} trapFocus={false}>
+      <Modal
+        scrollBehavior="inside"
+        size="3xl"
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={onModalClose}
+        trapFocus={false}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
