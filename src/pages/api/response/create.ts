@@ -1,6 +1,7 @@
 import db from '@db'
 import { NextApiRequest, NextApiResponse } from 'next'
 import cors from '@utils/cors'
+import { webhook } from '@utils/request'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await cors(req, res)
@@ -18,6 +19,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     })
 
+    const { webhook_url } = config?.card_config || {}
+    if (typeof webhook_url !== 'undefined' && webhook_url.trim() !== '') {
+      webhook(webhook_url, formData)
+    }
+
     if (config?.store_responses) {
       await db.widget_responses.create({
         data: {
@@ -26,11 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       })
     }
-
-    fetch(config?.card_config?.webhook_url, {
-      method: 'POST',
-      body: JSON.stringify(formData),
-    })
 
     res.status(200).json({ success: true })
   }
