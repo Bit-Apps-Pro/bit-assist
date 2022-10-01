@@ -1,4 +1,14 @@
-import { VStack, Input, FormControl, FormLabel, Switch, FormHelperText, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
+import {
+  VStack,
+  Input,
+  FormControl,
+  FormLabel,
+  Switch,
+  FormHelperText,
+  CheckboxGroup,
+  Checkbox,
+  HStack,
+} from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 
@@ -25,6 +35,7 @@ import FAQ from '@components/widgetChannels/channels/FAQ'
 import CustomForm from '@components/widgetChannels/channels/CustomForm'
 import UpdateButton from '@components/widgetChannels/UpdateButton'
 import KnowledgeBase from '@components/widgetChannels/channels/KnowledgeBase'
+import Tawk from '@components/widgetChannels/channels/Tawk'
 
 const ChannelSettings = ({ edit = false, ...props }) => {
   const [flow, setFlow] = useAtom(flowAtom)
@@ -44,6 +55,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
           <FormHelperText>Descriptive text for visitors.</FormHelperText>
         </FormControl>
 
+        {flow.channel_name?.toLowerCase() === 'tawk' && <Tawk />}
         {flow.channel_name?.toLowerCase() === 'knowledge-base' && <KnowledgeBase />}
         {flow.channel_name?.toLowerCase() === 'faq' && <FAQ />}
         {flow.channel_name?.toLowerCase() === 'custom-form' && <CustomForm />}
@@ -82,7 +94,11 @@ const ChannelSettings = ({ edit = false, ...props }) => {
 
         <FormControl>
           <FormLabel>Channel show on</FormLabel>
-          <CheckboxGroup onChange={(val) => handleChanges(val, 'channel_show_on')} colorScheme="purple" value={flow.config?.channel_show_on ?? []}>
+          <CheckboxGroup
+            onChange={(val) => handleChanges(val, 'channel_show_on')}
+            colorScheme="purple"
+            value={flow.config?.channel_show_on ?? []}
+          >
             <HStack spacing={4}>
               <Checkbox size="lg" value="desktop">
                 Desktop
