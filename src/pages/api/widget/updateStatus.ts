@@ -3,10 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { widgetId, status } = JSON.parse(req.body || '{}')
+    const { widgetId, status } = req.body
     if (!widgetId || status === undefined) res.status(422).json({ success: false })
 
-    const updateWidget = await db.widgets.update({
+    await db.widgets.update({
       where: { id: widgetId },
       data: {
         status: status,

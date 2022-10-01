@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { user_id, widgetInfo } = JSON.parse(req.body || '{}')
+    const { user_id, widgetInfo } = req.body
     if (!widgetInfo) res.status(422).json({ success: false })
 
     const widget = await db.widgets.create({
@@ -16,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shape: 'semiRounded',
           color: str2Color('#00ffa3'),
           icon: 'widget-icon-1',
-          iconUrl: 'https://ik.imagekit.io/shuvo/widget_icons/eye_j4gQF6dk-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306394910',
+          iconUrl:
+            'https://ik.imagekit.io/shuvo/widget_icons/eye_j4gQF6dk-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1656306394910',
           position: 'bottom-right',
         },
       },

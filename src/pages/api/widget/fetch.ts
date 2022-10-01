@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { user_id } = JSON.parse(req.body || '{}')
+    const { user_id } = req.body
     if (!user_id) res.status(422).json({ success: false })
 
     const widgets = await db.widgets.findMany({
