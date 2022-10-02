@@ -1,3 +1,4 @@
+import { Text, Link } from '@chakra-ui/react'
 import { flowAtom } from '@globalStates/atoms'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
@@ -15,12 +16,12 @@ const Tawk = () => {
   }, [])
 
   return (
-    <>
-      <h3>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aut ratione dolores cum illo ipsum molestiae
-        aspernatur earum nostrum, praesentium nihil quasi dicta ullam placeat laborum ducimus ea illum omnis?
-      </h3>
-    </>
+    <Text>
+      Make Sure to add the Tawk.to script to your website.{' '}
+      <Link href="https://www.tawk.to/" isExternal textDecoration="underline">
+        Learn more
+      </Link>
+    </Text>
   )
 }
 

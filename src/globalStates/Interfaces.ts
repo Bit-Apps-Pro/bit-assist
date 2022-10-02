@@ -141,17 +141,11 @@ export interface Flow {
 // react select search
 export type SelectSearchOption = {
   name: string
-  value: string | number
+  value?: string | number
   type?: string
   items?: SelectSearchOption[]
   disabled?: boolean
-  photo?: string
+  [key: string]: any
 }
 
-export type SelectedOptionValue = {
-  name: string
-  value: string | number
-  index: number
-  photo?: string
-  disabled?: boolean
-}
+export type SelectedOptionValue = string | number

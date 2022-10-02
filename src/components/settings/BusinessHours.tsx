@@ -10,7 +10,8 @@ import { Timezones } from '@components/settings/Timezones'
 import ResponseToast from '@components/global/ResponseToast'
 import { produce } from 'immer'
 import { debounce } from 'lodash'
-import { SelectedOptionValue, SelectSearchOption } from '@globalStates/Interfaces'
+import { SelectedOptionValue } from '@globalStates/Interfaces'
+import 'react-select-search/style.css'
 
 const BusinessHours = () => {
   const toast = useToast({ isClosable: true })
@@ -51,7 +52,7 @@ const BusinessHours = () => {
     debounceUpdateWidget(
       produce(widget, (draft) => {
         draft.business_hours[index][e.target.name] = e.target.value
-      })
+      }),
     )
     setIsChanged(false)
   }
@@ -67,7 +68,7 @@ const BusinessHours = () => {
         produce(widget, (draft) => {
           draft.business_hours[index].start = '09:00'
           draft.business_hours[index].end = '18:00'
-        })
+        }),
       )
     } else {
       setWidget((prev) => {
@@ -79,7 +80,7 @@ const BusinessHours = () => {
         produce(widget, (draft) => {
           delete draft.business_hours[index].start
           delete draft.business_hours[index].end
-        })
+        }),
       )
     }
   }
@@ -92,17 +93,9 @@ const BusinessHours = () => {
     const response = await updateWidget(
       produce(widget, (draft) => {
         draft.timezone = selectedOption.toString()
-      })
+      }),
     )
     ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-  }
-
-  const fuzzySearch = (options: SelectSearchOption[]) => {
-    return (searchTerm: string) => {
-      return options.filter((option) => {
-        return option.name.toLowerCase().includes(searchTerm.toLowerCase())
-      })
-    }
   }
 
   const handleSwitchEnable = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +109,7 @@ const BusinessHours = () => {
     debounceUpdateWidget(
       produce(widget, (draft) => {
         draft.business_hours = val
-      })
+      }),
     )
   }
 
@@ -124,7 +117,7 @@ const BusinessHours = () => {
     debounce(async (widget) => {
       const response: any = await updateWidget(widget)
       ResponseToast({ toast, response, action: 'update', messageFor: 'Widget business hours' })
-    }, 1000)
+    }, 1000),
   ).current
 
   useEffect(() => {
@@ -152,18 +145,23 @@ const BusinessHours = () => {
               <Box id="timezoneSelect" w="lg" maxW="full">
                 <SelectSearch
                   search
-                  filterOptions={fuzzySearch}
                   options={Timezones}
                   onChange={handleTimezoneChange}
-                  value={widget.timezone ?? ''}
+                  defaultValue={widget.timezone ?? ''}
                   placeholder="Choose your timezone"
+                  className="select-search"
                 />
               </Box>
             </VStack>
 
             {widget.business_hours.map((item, index) => (
               <HStack key={index} minH="10" maxW="full">
-                <Checkbox size="lg" colorScheme="purple" isChecked={!!item?.start} onChange={(e) => handleCheckboxChange(e, index)}>
+                <Checkbox
+                  size="lg"
+                  colorScheme="purple"
+                  isChecked={!!item?.start}
+                  onChange={(e) => handleCheckboxChange(e, index)}
+                >
                   <Text w="24" fontSize={'md'}>
                     {item?.day && item.day.charAt(0).toUpperCase() + item.day.slice(1)}
                   </Text>
