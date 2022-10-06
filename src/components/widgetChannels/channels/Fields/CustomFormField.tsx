@@ -47,7 +47,7 @@ const CustomFormField = ({ id, field, ...props }) => {
           w={6}
           h={8}
         >
-          <DragHandleIcon />
+          <DragHandleIcon aria-label="draggable button" />
         </Flex>
         <Box w="full">
           <HStack alignItems={'flex-start'} justifyContent="space-between">
@@ -61,12 +61,22 @@ const CustomFormField = ({ id, field, ...props }) => {
             </Text>
             <HStack alignItems={'center'}>
               <Text>Required</Text>
-              <Switch colorScheme={'purple'} isChecked={field.required || false} onChange={(e) => handleChange(e.target.checked, 'required', id)} />
+              <Switch
+                colorScheme={'purple'}
+                isChecked={field.required || false}
+                onChange={(e) => handleChange(e.target.checked, 'required', id)}
+              />
             </HStack>
           </HStack>
           <VStack>
-            <Input value={field.label} onChange={(e) => handleChange(e.target.value, 'label', id)} placeholder="label" />
-            {field.field_type === 'GDPR' && <Input value={field.url} onChange={(e) => handleChange(e.target.value, 'url', id)} placeholder="url" />}
+            <Input
+              value={field.label}
+              onChange={(e) => handleChange(e.target.value, 'label', id)}
+              placeholder="label"
+            />
+            {field.field_type === 'GDPR' && (
+              <Input value={field.url} onChange={(e) => handleChange(e.target.value, 'url', id)} placeholder="url" />
+            )}
           </VStack>
         </Box>
       </HStack>

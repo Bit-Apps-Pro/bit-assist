@@ -91,9 +91,15 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
             w={6}
             h={8}
           >
-            <DragHandleIcon />
+            <DragHandleIcon aria-label="draggable button" />
           </Flex>
-          <Text _hover={{ color: brandColorToggle }} ml="2" cursor="pointer" display="inline-block" onClick={onOpenEditModal(widgetChannel.id)}>
+          <Text
+            _hover={{ color: brandColorToggle }}
+            ml="2"
+            cursor="pointer"
+            display="inline-block"
+            onClick={onOpenEditModal(widgetChannel.id)}
+          >
             {widgetChannel.config?.title}
           </Text>
         </HStack>
@@ -130,7 +136,13 @@ const WidgetChannelType = ({ widgetChannel, ...props }) => {
             <Button disabled={isWidgetChannelDeleting} mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleDeleteWidgetChannel} isLoading={isWidgetChannelDeleting} loadingText="Deleting..." colorScheme="red" shadow={'md'}>
+            <Button
+              onClick={handleDeleteWidgetChannel}
+              isLoading={isWidgetChannelDeleting}
+              loadingText="Deleting..."
+              colorScheme="red"
+              shadow={'md'}
+            >
               Delete
             </Button>
           </ModalFooter>

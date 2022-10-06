@@ -108,13 +108,16 @@ const Responses = () => {
       <Head>
         <title>Responses</title>
         <meta name="description" content="Bit Assist" />
-        <meta name="keywords" content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow" />
+        <meta
+          name="keywords"
+          content="BitCode, Bit, Code, Bit Assist, Assist, Bit Form, Form, Bit Integrations, Integrations, Bit Flow, Flow"
+        />
       </Head>
 
       <HStack mb="4" flexWrap="wrap">
         <HStack alignItems={'center'}>
           <Button p="1" size="sm" variant="ghost" onClick={() => router.back()}>
-            <MdArrowBackIosNew size="1rem" />
+            <MdArrowBackIosNew size="1rem" aria-label="back button" />
           </Button>
           <Text as="h2" fontSize="lg" textTransform="none">
             Response List {othersData?.channelName && '- ' + othersData.channelName}
@@ -147,6 +150,7 @@ const Responses = () => {
                   isChecked={widgetResponses?.length && widgetResponses?.length === checkedItems?.length}
                   isIndeterminate={checkedItems?.length && checkedItems?.length < widgetResponses?.length}
                   onChange={handleCheckAllBox}
+                  aria-label="select all"
                 />
               </Th>
               {othersData?.formFields?.map((field: { id: string; label: string }) => (
@@ -164,11 +168,19 @@ const Responses = () => {
                       colorScheme="purple"
                       isChecked={checkedItems.includes(widgetResponse.id)}
                       onChange={(e) => handleCheckboxChange(e, widgetResponse.id)}
+                      aria-label="select single checkbox"
                     />
                   </Td>
                   {othersData?.formFields?.map((field: { id: string; label: string }) => (
-                    <Td ref={btnRef} onClick={() => handleResponseClick(widgetResponse.response)} cursor="pointer" key={field.id + 'td'}>
-                      {textTrim(widgetResponse.response[toSlug(field.label, '_')], 40)}
+                    <Td
+                      ref={btnRef}
+                      onClick={() => handleResponseClick(widgetResponse.response)}
+                      cursor="pointer"
+                      key={field.id + 'td'}
+                    >
+                      {typeof widgetResponse.response[toSlug(field.label)] === 'object'
+                        ? 'file'
+                        : textTrim(widgetResponse.response[toSlug(field.label, '_')], 40)}
                     </Td>
                   ))}
                   <Td>{convertDate(widgetResponse.createdAt)}</Td>
@@ -210,7 +222,7 @@ const Responses = () => {
                       {label.toUpperCase().replace(/_/g, ' ')}
                     </Text>
                     <Text fontSize="sm" mb="2">
-                      {value.toString()}
+                      {typeof value === 'object' ? 'file' : value.toString()}
                     </Text>
                   </Box>
                 )
@@ -230,7 +242,13 @@ const Responses = () => {
             <Button disabled={isResponsesDeleting} mr={3} onClick={closeDelModal}>
               Cancel
             </Button>
-            <Button onClick={handleDeleteWidget} isLoading={isResponsesDeleting} loadingText="Deleting..." colorScheme="red" shadow={'md'}>
+            <Button
+              onClick={handleDeleteWidget}
+              isLoading={isResponsesDeleting}
+              loadingText="Deleting..."
+              colorScheme="red"
+              shadow={'md'}
+            >
               Delete
             </Button>
           </ModalFooter>

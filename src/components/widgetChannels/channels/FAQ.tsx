@@ -5,7 +5,15 @@ import React, { useEffect, useState } from 'react'
 import { TColor } from '@atomik-color/core/dist/types'
 import { str2Color } from '@atomik-color/core'
 import ColorPickerWrap from '@components/global/ColorPickerWrap'
-import { closestCenter, DndContext, DragOverlay, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { FiPlus } from 'react-icons/fi'
@@ -36,7 +44,7 @@ const CustomForm = () => {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   )
 
   const handleDragStart = ({ active }) => {
@@ -61,7 +69,11 @@ const CustomForm = () => {
         prev.config.card_config.faqs = []
       }
       prev.config.card_config.maxId = (prev.config.card_config.maxId || 0) + 1
-      prev.config.card_config.faqs.push({ id: prev.config.card_config.maxId, title: 'FAQ Title', description: 'FAQ Description' })
+      prev.config.card_config.faqs.push({
+        id: prev.config.card_config.maxId,
+        title: 'FAQ Title',
+        description: 'FAQ Description',
+      })
     })
   }
 
@@ -76,7 +88,10 @@ const CustomForm = () => {
             onDragEnd={handleDragEnd}
             onDragStart={handleDragStart}
           >
-            <SortableContext items={flow.config.card_config.faqs.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext
+              items={flow.config.card_config.faqs.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
+            >
               <VStack w="full">
                 {flow.config.card_config.faqs.map((field, index) => {
                   return <FaqField key={field.id} id={index} field={field} />
@@ -106,7 +121,10 @@ const CustomForm = () => {
       <Stack w={'full'} spacing="0" gap="2" flexDirection={['column', 'row']}>
         <FormControl>
           <FormLabel>Form Theme Color</FormLabel>
-          <ColorPickerWrap color={flow.config?.card_config?.card_bg_color} handleChange={(val: TColor) => handleColorChange(val, 'card_bg_color')} />
+          <ColorPickerWrap
+            color={flow.config?.card_config?.card_bg_color}
+            handleChange={(val: TColor) => handleColorChange(val, 'card_bg_color')}
+          />
         </FormControl>
 
         <FormControl>

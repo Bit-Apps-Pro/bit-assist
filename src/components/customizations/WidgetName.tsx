@@ -22,7 +22,7 @@ const WidgetName = () => {
         action: 'update',
         messageFor: 'Widget name',
       })
-    }, 1000)
+    }, 1000),
   ).current
 
   useEffect(() => {
@@ -41,13 +41,7 @@ const WidgetName = () => {
   return (
     <Box>
       <Title>Widget Name</Title>
-      <Input
-        maxW="lg"
-        placeholder="Widget Name"
-        value={widget.name ?? ''}
-        onChange={handleChange}
-        isRequired={true}
-      />
+      <Input maxW="lg" placeholder="Widget Name" value={widget.name || ''} onChange={handleChange} isRequired={true} />
     </Box>
   )
 }

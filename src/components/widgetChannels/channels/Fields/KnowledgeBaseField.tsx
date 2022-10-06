@@ -51,12 +51,17 @@ const KnowledgeBaseField = ({ id, field, ...props }) => {
           w={6}
           h={8}
         >
-          <DragHandleIcon />
+          <DragHandleIcon aria-label="draggable button" />
         </Flex>
         <Box w="full">
           <HStack w="full" mb={'2'}>
             <Input value={field.title || ''} onChange={(e) => handleChange(e.target.value, 'title', id)} />
-            <IconButton aria-label="Show Desc" onClick={() => setIsEditing((prev) => !prev)} size="sm" icon={<FiChevronDown />} />
+            <IconButton
+              aria-label="Show Desc"
+              onClick={() => setIsEditing((prev) => !prev)}
+              size="sm"
+              icon={<FiChevronDown />}
+            />
           </HStack>
           {isEditing && (
             <Editor

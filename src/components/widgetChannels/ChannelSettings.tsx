@@ -85,6 +85,7 @@ const ChannelSettings = ({ edit = false, ...props }) => {
               ml="2"
               id="hide_after_office_hours"
               colorScheme="purple"
+              aria-label="hide after office hours"
               isChecked={flow.config?.hide_after_office_hours || false}
               onChange={(e) => handleChanges(e.target.checked, 'hide_after_office_hours')}
             />
@@ -100,10 +101,10 @@ const ChannelSettings = ({ edit = false, ...props }) => {
             value={flow.config?.channel_show_on ?? []}
           >
             <HStack spacing={4}>
-              <Checkbox size="lg" value="desktop">
+              <Checkbox size="lg" value="desktop" aria-label="show on desktop">
                 Desktop
               </Checkbox>
-              <Checkbox size="lg" value="mobile">
+              <Checkbox size="lg" value="mobile" aria-label="show on mobile">
                 Mobile
               </Checkbox>
             </HStack>

@@ -47,7 +47,7 @@ const AddChannel = () => {
             <HStack>
               {flow.step > 1 && (
                 <Button p="1" size="sm" variant="ghost" onClick={resetFlow}>
-                  <MdArrowBackIosNew size="1rem" />
+                  <MdArrowBackIosNew size="1rem" aria-label="back button" />
                 </Button>
               )}
               <Text>Create New Channel</Text>

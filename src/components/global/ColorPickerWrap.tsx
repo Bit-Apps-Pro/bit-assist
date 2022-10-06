@@ -12,6 +12,7 @@ const ColorPickerWrap = ({ color, handleChange, handleClose = undefined }) => {
           boxShadow="md"
           transition="none"
           bgColor={color?.str}
+          aria-label="color picker"
           _hover={{ backgroundColor: color?.str }}
           _focus={{ boxShadow: 'outline', backgroundColor: color?.str }}
         />

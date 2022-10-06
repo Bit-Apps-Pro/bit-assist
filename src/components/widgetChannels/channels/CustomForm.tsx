@@ -155,9 +155,9 @@ const CustomForm = () => {
                 <Button onClick={() => handleAddField('date')}>Date</Button>
                 <Button onClick={() => handleAddField('textarea')}>Textarea</Button>
                 <Button onClick={() => handleAddField('GDPR')}>GDPR</Button>
-                {/* <Button onClick={() => handleAddField('select')}>Select</Button> */}
-                {/* <Button onClick={() => handleAddField('file')}>File</Button> */}
-                {/* <Button onClick={() => handleAddField('rating')}>Rating</Button>
+                {/* <Button onClick={() => handleAddField('file')}>File</Button> 
+                <Button onClick={() => handleAddField('select')}>Select</Button>
+                <Button onClick={() => handleAddField('rating')}>Rating</Button>
                 <Button onClick={() => handleAddField('emoji')}>Emoji</Button>
                 <Button onClick={() => handleAddField('feedback')}>Feedback</Button> */}
               </SimpleGrid>

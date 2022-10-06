@@ -50,7 +50,7 @@ const CustomCSS = () => {
         overflow="hidden"
         bg="gray.800"
         color="green.500"
-        value={widget.custom_css ?? '/*write your custom css here*/'}
+        value={widget.custom_css || '/*write your custom css here*/'}
         readOnly
       />
 
@@ -68,7 +68,7 @@ const CustomCSS = () => {
                 onChange={handleChangeCustomCSS}
                 defaultLanguage="css"
                 defaultValue="/*write your custom css here*/"
-                value={widget.custom_css ?? ''}
+                value={widget.custom_css || ''}
               />
             </Box>
           </ModalBody>
@@ -76,7 +76,13 @@ const CustomCSS = () => {
             <Button mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSaveCustomCSS} isLoading={isWidgetUpdating} loadingText="Updating..." colorScheme="purple" shadow={'md'}>
+            <Button
+              onClick={handleSaveCustomCSS}
+              isLoading={isWidgetUpdating}
+              loadingText="Updating..."
+              colorScheme="purple"
+              shadow={'md'}
+            >
               update
             </Button>
           </ModalFooter>
