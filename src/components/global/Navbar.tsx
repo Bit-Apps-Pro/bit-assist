@@ -1,5 +1,17 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Box, Button, ButtonGroup, Container, Heading, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Heading,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Stack,
+} from '@chakra-ui/react'
 import { userState } from '@globalStates/atoms'
 import { deleteCookie } from '@utils/cookies'
 import { useAtom } from 'jotai'
@@ -10,13 +22,16 @@ import { DarkModeSwitch } from './DarkModeSwitch'
 const Navbar = () => {
   const [user, setUser] = useAtom(userState)
   const router = useRouter()
+
   const signInUrl = encodeURI(
-    `${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login?product=assist&redirect=${process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath}`
+    `${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login?product=assist&redirect=${
+      process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath
+    }`,
   )
   const signUpUrl = encodeURI(
     `${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/login/bit-assist/?product=assist&redirect=${
       process.env.NEXT_PUBLIC_APP_DOMAIN + router.asPath
-    }`
+    }`,
   )
 
   const signOut = () => () => {
@@ -28,7 +43,12 @@ const Navbar = () => {
 
   return (
     <Container maxW={'container.lg'}>
-      <Stack py="4" direction={['column', 'row']} alignItems={['center', 'initial']} justifyContent={['initial', 'space-between']}>
+      <Stack
+        py="4"
+        direction={['column', 'row']}
+        alignItems={['center', 'initial']}
+        justifyContent={['initial', 'space-between']}
+      >
         <Box py="2">
           <Heading size="md">
             <Link href={'/'}>Bit Assist</Link>
@@ -62,7 +82,11 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList boxShadow="md" zIndex={3}>
                   <Link href={`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/Profile`}>
-                    <a target="_blank" href={`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/Profile`} rel="noopener noreferrer">
+                    <a
+                      target="_blank"
+                      href={`${process.env.NEXT_PUBLIC_SUBSCRIPTION_CLIENT_URL}/Profile`}
+                      rel="noopener noreferrer"
+                    >
                       <MenuItem>Profile</MenuItem>
                     </a>
                   </Link>
